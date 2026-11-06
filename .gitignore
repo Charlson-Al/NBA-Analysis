@@ -1,0 +1,11 @@
+__pycache__/
+*.py[cod]
+.venv/
+.env
+.env.*
+# Research artifacts belong outside the checkout, including their metadata.
+private-data/
+snapshots/
+derived/
+acquisition-events/
+*.private.json

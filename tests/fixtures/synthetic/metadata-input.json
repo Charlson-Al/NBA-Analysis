@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0",
+  "snapshot_id": "synthetic-demo-1",
+  "provider": "synthetic-provider",
+  "data_category": "observed_statistics",
+  "synthetic": true,
+  "rights": "synthetic-public",
+  "acquisition": {
+    "method": "manual_upload",
+    "source_reference": "urn:synthetic:fixture",
+    "parameters": {},
+    "collected_at": null,
+    "imported_at": "2026-01-02T12:00:00Z",
+    "provider_updated_at": null
+  },
+  "scope": {
+    "season": "synthetic-season",
+    "season_type": "synthetic",
+    "filters": {},
+    "expected_team_ids": [
+      "SYN_A",
+      "SYN_B"
+    ]
+  },
+  "cutoff": {
+    "requested_through": "2026-01-01",
+    "verification_status": "unverified",
+    "reason": "Synthetic fixture; no independent inventory supplied",
+    "inventory_sha256": null
+  },
+  "metrics": [
+    {
+      "id": "synthetic_points",
+      "definition": "Invented test points, not NBA data",
+      "unit": "points",
+      "denominator": "team_game",
+      "aggregation": "game_total",
+      "definition_reference": "urn:synthetic:metric-definition"
+    }
+  ]
+}
