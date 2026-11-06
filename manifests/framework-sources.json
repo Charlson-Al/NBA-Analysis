@@ -1,0 +1,37 @@
+{
+  "framework": "NBA Player Props Framework",
+  "version": "V2.2",
+  "governing_revision_date": "2026-11-03",
+  "approval_record": "docs/governance/decisions.md#decision-2026-11-06-baseline",
+  "sources": [
+    {
+      "path": "docs/framework/source/nba-player-props-v2.2-2026-11-03.txt",
+      "original_filename": "Pasted text(2).txt",
+      "description": "November 3 consolidated rewrite",
+      "status": "governing",
+      "sha256": "7eea2f0bd83bcba4f930ca96764e971a077f3d5aad37f70f72216be16849395a",
+      "size_bytes": 50561
+    },
+    {
+      "path": "docs/framework/source/nba-player-props-v2.2-2026-11-02.docx",
+      "original_filename": "NBA_Player_Props_Framework_V2.2.docx",
+      "description": "November 2 audit-amendment V2.2",
+      "status": "historical; conflicting provisions superseded",
+      "sha256": "7cd25d613e903ae6ad6b3a1e7e74d465c2321a38ecedd5e32648925475848064",
+      "size_bytes": 43019
+    },
+    {
+      "path": "docs/framework/source/nba-player-props-v2.1-2026-11-02.txt",
+      "original_filename": "Pasted text(1) (1).txt",
+      "description": "V2.1 supporting historical source",
+      "status": "historical; superseded by V2.2",
+      "sha256": "081ec6a15d934381716680dc1ce0d9ad4629fea20da1f03ceb2f37651808984b",
+      "size_bytes": 45088
+    }
+  ],
+  "notes": [
+    "Checksums identify imported bytes, not original authorship or historical approval evidence.",
+    "Sources copied byte-for-byte, including original line endings.",
+    "No framework version beyond V2.2 is introduced."
+  ]
+}

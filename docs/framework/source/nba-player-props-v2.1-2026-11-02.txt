@@ -1,0 +1,1238 @@
+# NBA Player Props Framework — V2.1
+
+**Consolidated Governing Reference | 2026–27 NBA Season**
+
+**Effective:** November 2, 2026  
+**Status:** Governing framework  
+**Supersedes:** V2.0 and earlier versions
+
+---
+
+# I. OBJECTIVE AND FOUNDATIONAL PRINCIPLES
+
+Identify and rank NBA player props supported by realistic statistical opportunities, sustainable player production, game-specific context and favorable market thresholds.
+
+**Foundational principle: External models project. We independently validate, evaluate and rank.**
+
+The framework must:
+
+1. Evaluate both offenses and defenses before identifying player-specific selections.
+2. Establish how the game environment creates and distributes statistical opportunities.
+3. Distinguish opportunity volume, opportunity quality and conversion efficiency.
+4. Reconstruct playing time and statistical responsibilities using current personnel evidence.
+5. Screen every credible rotation player across all eight eligible statistical markets.
+6. Preserve external projections rather than silently modifying or replacing them.
+7. Separate model disagreements from independent sustainability assessments.
+8. Validate individual statistical pathways using consistent evidence standards.
+9. Establish independent statistical outlooks before evaluating market thresholds.
+10. Evaluate Higher and Lower directions without predetermined bias.
+11. Select the strongest supported market for each player.
+12. Rank candidates using both basketball evidence and exact market terms.
+13. Challenge finalist selections against excluded alternatives.
+14. Preserve original pregame records for postgame evaluation.
+15. Prioritize material evidence over unnecessary research complexity.
+
+A favorable external projection identifies a candidate for investigation. It does not independently establish a validated selection.
+
+Do not impose arbitrary projection margins, manufacture probabilities, introduce automatic exclusion rules or force selections to complete an entry.
+
+---
+
+# II. RESEARCH SOURCES AND DATA INTEGRITY
+
+## 2.1 Primary sources and responsibilities
+
+### Drop Coverage
+
+- Game-specific player projections.
+- Projected playing time.
+- Available uncertainty estimates and projected ranges.
+- Screening across all eight eligible markets.
+- Personnel and matchup assumptions already incorporated into forecasts, where identifiable.
+
+**Responsibility:** External game-specific projection baseline.
+
+### DARKO
+
+- Sustainable player production benchmarks.
+- Per-minute and per-100 production expectations.
+- Expected playing time and longer-term performance indicators.
+- Evaluation of sustainable opportunity and conversion rates.
+- Context for identifying unusually high or low recent production.
+
+**Responsibility:** Sustainable production benchmarking, not automatic replacement of game-specific forecasts.
+
+### NBA.com / Official NBA
+
+- Official injury reports and player availability.
+- Box scores, game logs and recent minutes.
+- Field-goal attempts, free throws, three-point attempts and player statistics.
+- Starting lineups and relevant team statistics.
+- Available shot-location, shot-quality and playtype information.
+
+**Responsibility:** Verified personnel, recent production and underlying basketball opportunities.
+
+### Hoops Junkie
+
+- Potential assists and passing opportunities.
+- Rebound chances and collection rates.
+- Available shot-attempt and three-point opportunity data.
+- Relevant play-context information.
+
+**Responsibility:** Independent opportunity validation.
+
+### Databallr
+
+- Offensive and defensive efficiency.
+- Team Six Factors and possession characteristics.
+- Shot distribution and scoring opportunities.
+- Pace, rebounding, turnovers and matchup resistance.
+- Supplementary zTS, historical Six-Factor RAPM and contextual metrics when useful.
+
+**Responsibility:** Team environment and matchup analysis.
+
+### Hashtag Basketball / RotoWire
+
+- Projected and confirmed rotations.
+- Expected and confirmed starters.
+- Recent playing-time patterns.
+- Personnel-dependent roles and lineup information.
+- Available on/off and rotation-specific evidence.
+
+**Responsibility:** Playing-time and personnel validation.
+
+### NBA Team Profiles
+
+- Established offensive and defensive tendencies.
+- Statistical scouting context.
+- Structural personnel changes.
+- Historical matchup characteristics.
+
+**Responsibility:** Supporting context, not a replacement for current statistics or game-day verification.
+
+### KEEL / Other Verified Providers
+
+- Current and historical game logs.
+- Player statistics and production.
+- Contextual evidence and corroborating data.
+- Postgame statistical verification.
+
+**Responsibility:** Historical production, independent corroboration and outcome review.
+
+### Markets
+
+- Actual PrizePicks lines.
+- Verified sportsbook thresholds and prices.
+- Applicable alternative lines.
+- Goblin/Demon tiers and payout modifiers where relevant.
+
+**Responsibility:** Exact market evaluation.
+
+## 2.2 Source discipline
+
+1. Use the newest relevant and compatible information.
+2. Preserve source dates, denominators, sample sizes and statistical definitions.
+3. Identify when evidence comes from different reporting windows.
+4. Never treat overlapping games, related model outputs or on/off samples as independent confirmation.
+5. Distinguish directly verified statistics from analytical inference.
+6. Do not invent unavailable statistics, player assignments, opportunities or market thresholds.
+7. Use verified alternative sources when primary information is inaccessible.
+8. Investigate missing evidence when it can materially change an evaluation.
+9. Recognize that historical data may not represent current personnel or roles.
+10. Preserve external model projections exactly as published.
+
+**Excluded sources:** PBP Stats and the BoxScore Lab CSV must not be used for player-prop research.
+
+---
+
+# III. SHARED ANALYTICAL MODEL
+
+## 3.1 Volume — Quality — Conversion
+
+Player production should be evaluated through three connected analytical channels.
+
+### A. Opportunity volume
+
+How many statistical opportunities should the player receive?
+
+Evaluate playing time, responsibilities, possessions, attempts, chances and relevant opportunity ownership.
+
+### B. Opportunity quality
+
+How favorable are those opportunities?
+
+Evaluate shot difficulty, creation context, teammate finishing opportunities, rebound positioning and matchup-specific resistance.
+
+### C. Conversion efficiency
+
+How sustainably does the player turn opportunities into statistical production?
+
+Evaluate shooting accuracy, potential-assist conversion, rebound collection and other relevant outcomes relative to appropriate player-specific benchmarks.
+
+**These channels are analytically distinct but not necessarily statistically independent.**
+
+Improved opportunity quality may explain improved conversion. Do not apply separate numerical boosts or penalties for the same underlying change.
+
+## 3.2 Market-specific application
+
+### Points (PTS)
+
+**Volume**
+- FGA and FTA.
+- Minutes and usage.
+- Shot ownership.
+- Offensive possessions and teammate competition.
+
+**Quality**
+- Shot locations.
+- Assisted versus self-created attempts.
+- Playtype and shot difficulty.
+- Defensive coverage and resistance.
+- Available shot-quality evidence.
+
+**Conversion**
+- Sustainable two-point and three-point efficiency.
+- Free-throw conversion.
+- Historical player-specific shooting benchmarks.
+- Recent efficiency relative to shot mix.
+
+### Three-pointers made (3PM)
+
+**Volume**
+- Three-point attempts.
+- Attempts per minute.
+- Playing time.
+- Perimeter shot ownership.
+
+**Quality**
+- Catch-and-shoot versus off-dribble opportunities.
+- Shot creation and available open-shot evidence.
+- Defensive coverage.
+- Teammate creation responsibilities.
+
+**Conversion**
+- Sustainable three-point accuracy.
+- Historical shot-type efficiency when available.
+- Recent accuracy relative to established ability and shot quality.
+
+### Assists (AST)
+
+**Volume**
+- Potential assists.
+- Passing responsibilities.
+- Creation opportunities.
+- Minutes and teammate shot opportunities.
+
+**Quality**
+- Recipient shot locations and shot quality.
+- Defensive resistance.
+- Offensive structure and teammate shot selection.
+
+**Conversion**
+- Teammate finishing relative to sustainable expectations.
+- Potential-assist-to-assist conversion.
+- Changes in teammate personnel or scoring ability.
+
+### Rebounds (REB)
+
+**Volume**
+- Offensive and defensive rebound chances.
+- Available missed shots.
+- Minutes and rebounding responsibilities.
+- Team and opponent shot volume.
+
+**Quality**
+- Shot locations and expected rebound positioning.
+- Rebound distance and location where available.
+- Teammate competition.
+- Opponent personnel and rebounding structure.
+
+**Conversion**
+- Individual rebound-chance collection.
+- Sustainable collection rates.
+- Personnel-dependent collection changes.
+
+### Combined markets
+
+Eligible combinations:
+
+- Points + rebounds (PR).
+- Points + assists (PA).
+- Rebounds + assists (RA).
+- Points + rebounds + assists (PRA).
+
+Evaluate each material component through its own volume, quality and conversion pathway.
+
+Account for relationships between components.
+
+Do not assume component outcomes are independent, double-count the same possession or automatically add separate benefits from one personnel change.
+
+## 3.3 Sustainable capability versus game-specific allocation
+
+Distinguish:
+
+**Sustainable capability:** What the player can reasonably produce given an established role, opportunity rate and conversion environment.
+
+**Game-specific allocation:** How many minutes, attempts, chances and responsibilities the player should receive in the current matchup.
+
+A replacement player does not automatically inherit an absent teammate's usage, passing responsibilities or rebounding production.
+
+A player may receive more minutes without receiving a proportional increase in every statistical opportunity.
+
+---
+
+# STAGE 1 — GAME ENVIRONMENT AND PERSONNEL
+
+## Objective
+
+Establish how both teams generate, prevent and distribute statistical opportunities under the expected personnel and game conditions.
+
+## 1.1 Evaluate both offenses and defenses
+
+Review relevant current evidence for:
+
+- Offensive and defensive efficiency.
+- Pace and expected possessions.
+- Shot volume and distribution.
+- Rim, midrange and three-point opportunities.
+- Shot quality and sustainable finishing.
+- Offensive and defensive Six Factors.
+- Rebounding and missed-shot opportunities.
+- Passing and assist creation.
+- Free-throw generation and defensive fouling.
+- Turnovers and possession sustainability.
+- Transition and half-court characteristics.
+- Meaningful recent scheme or performance changes.
+
+Evaluate each offense against its opposing defense.
+
+Do not infer that a fast game necessarily creates efficient scoring or that a favorable defensive statistic automatically benefits every opposing player.
+
+## 1.2 Identify statistical opportunities and defensive resistance
+
+Use three connected questions.
+
+### Access
+
+Can the offense realistically create the relevant statistical opportunities against this defense?
+
+Consider attempt frequency, possession channels, available misses, passing opportunities, playing style and defensive scheme.
+
+### Resistance
+
+Does the defense materially change opportunity volume, opportunity quality or conversion expectations?
+
+Review relevant:
+
+- Shot-location frequencies.
+- Defensive shot suppression.
+- Playtype distributions.
+- Defensive coverage.
+- Turnover pressure.
+- Rebounding resistance.
+- Shot-clock tendencies.
+- Current personnel.
+
+### Ownership
+
+Which players are positioned to receive and exploit those opportunities?
+
+Evaluate individual offensive roles, shot ownership, creation responsibilities, rebounding assignments and teammate competition.
+
+Distinguish:
+
+**Defensive tendency:** A statistical opportunity or possession type commonly allowed.
+
+**Exploitable vulnerability:** A demonstrated weakness that the opposing offense and relevant player can realistically exploit.
+
+For scoring markets, distinguish shot access from shot quality and conversion efficiency.
+
+When matchup uncertainty is material, investigate whether the defense actually disrupts the player's established scoring opportunities rather than relying solely on opponent shooting percentages.
+
+High shot volume allowed does not necessarily establish favorable shot quality.
+
+Poor opponent shooting percentages do not automatically demonstrate sustainable defensive resistance.
+
+Positional allowances and aggregate team statistics are supporting context, not standalone proof of individual opportunity.
+
+## 1.3 Personnel, rotations and responsibility redistribution
+
+Verify:
+
+- Official active/inactive designations.
+- Expected and confirmed starters.
+- Recent minutes and rotation patterns.
+- Returning and replacement players.
+- Playing-time restrictions.
+- Foul and conditioning considerations.
+- Teammate competition.
+- Relevant personnel-specific statistics.
+- Material scheme or role changes.
+
+When personnel materially differs from the expected rotation:
+
+1. Identify the actual personnel change.
+2. Reconstruct plausible playing time from recent games and relevant personnel-specific evidence.
+3. Determine how shots, passing responsibilities, rebound chances and other opportunities may be redistributed.
+4. Distinguish genuine opportunity gains from superficial lineup changes.
+5. Evaluate whether the change affects opportunity volume, quality or conversion.
+6. Reassess the matchup and relevant game-script assumptions.
+7. Identify whether the new evidence materially changes the independent outlook or confidence.
+
+Prefer personnel-specific evidence when it provides meaningful information beyond broad team averages.
+
+Use WOWY and lineup data with appropriate sample-size and overlapping-sample caution.
+
+### Historical Six-Factor RAPM
+
+When personnel changes materially affect the matchup, use historical Six-Factor RAPM where available and useful to identify whether a missing or returning player's influence primarily involves:
+
+- Shooting efficiency.
+- Turnover control or creation.
+- Offensive or defensive rebounding.
+
+Validate implications against current rotations and team statistics before modifying independent expectations.
+
+Six-Factor RAPM estimates team-impact channels. It does not directly determine another player's box-score production.
+
+Do not convert impact estimates into arbitrary prop adjustments.
+
+Do not automatically modify Drop Coverage projections because personnel changes have occurred; the model may already incorporate those changes.
+
+## 1.4 Establish realistic game scripts
+
+Evaluate credible scenarios involving:
+
+- Competitive normal rotations.
+- Faster or slower possession environments.
+- Changes in offensive efficiency.
+- Matchup-driven opportunities.
+- Foul trouble or playing-time restrictions.
+- Potential noncompetitive fourth-quarter minutes.
+- Material personnel-dependent adjustments.
+
+Do not impose automatic blowout penalties, unsupported pace changes or speculative playing-time deductions.
+
+**Stage 1 output:** Verified personnel, plausible rotations, both teams' environments, primary statistical opportunities, defensive resistance, opportunity ownership and material uncertainties.
+
+---
+
+# STAGE 2 — PROJECTIONS AND SUSTAINABILITY
+
+## Objective
+
+Screen the entire credible player pool, preserve external forecasts, diagnose disagreements and investigate sustainable production.
+
+Research depth should increase as candidates become more credible.
+
+## 2.1 Broad player and market screening
+
+For every player with a credible rotation role, screen:
+
+1. PTS.
+2. REB.
+3. AST.
+4. 3PM.
+5. PR.
+6. PA.
+7. RA.
+8. PRA.
+
+Exclude steals, blocks and stocks.
+
+Consider Higher and Lower possibilities.
+
+Do not prematurely exclude:
+
+- Bench players with credible opportunities.
+- Players experiencing sustainable role changes.
+- Lower candidates.
+- Combined markets.
+- Alternative statistical lanes.
+- Candidates with modest projection differences but meaningful independent opportunity evidence.
+
+The broad screen identifies candidates for further investigation. It does not require exhaustive individual research on every rotation player.
+
+## 2.2 Record external projections
+
+Preserve where available:
+
+**Drop Coverage**
+- Projected minutes.
+- Projected statistics across eligible markets.
+- Uncertainty and expected ranges.
+- Relevant identifiable assumptions.
+
+**DARKO**
+- Expected minutes.
+- Sustainable individual production benchmarks.
+- Per-minute or per-100 rates.
+- Relevant long-term efficiency indicators.
+
+**Markets**
+- Actual verified thresholds when available.
+
+Do not modify or silently replace published external forecasts.
+
+## 2.3 Diagnose model disagreements
+
+Model disagreement and production sustainability are separate questions.
+
+Investigate four possible sources of disagreement:
+
+### A. Minutes disagreement
+
+Different expected playing time.
+
+### B. Opportunity-volume disagreement
+
+Different expectations for attempts, chances, possessions or responsibilities per minute.
+
+### C. Opportunity-quality disagreement
+
+Different assumptions about shot difficulty, recipient shot quality, rebound positioning or matchup conditions.
+
+### D. Conversion disagreement
+
+Different expectations for shooting, teammate finishing, rebound collection or other success rates.
+
+**Important:** External models may not disclose the internal assumptions required to identify every disagreement.
+
+Do not infer hidden model assumptions from differing projected totals alone.
+
+Label the cause unresolved when independent evidence cannot establish it.
+
+### Rate normalization
+
+When appropriate, normalize DARKO's production rate to Drop's projected minutes as a diagnostic comparison.
+
+Clearly label the result:
+
+**Rate-normalized DARKO benchmark — not an official DARKO projection.**
+
+Do not assume all production scales perfectly with playing time.
+
+Changes in role, fatigue, usage and personnel can alter production rates.
+
+## 2.4 Evaluate sustainability independently
+
+Determine whether observed production reflects:
+
+- Sustainable player ability.
+- Structural opportunity changes.
+- Personnel-driven responsibility changes.
+- Changes in opportunity quality.
+- Unusually favorable or unfavorable conversion.
+- Small-sample variation.
+- Matchup-dependent conditions.
+
+Use historical stability, sample size, role continuity and player-specific benchmarks to assess evidence.
+
+Do not automatically regress established players toward league average when better individual baselines exist.
+
+### Three regression channels
+
+**Opportunity-volume regression**
+
+Investigate whether attempts, chances, touches, minutes or statistical responsibilities are likely to increase, remain stable or decrease.
+
+**Opportunity-quality regression**
+
+Investigate whether recent shot quality, teammate finishing opportunities or rebound positioning are likely to persist under the expected rotation and matchup.
+
+**Conversion-efficiency regression**
+
+Investigate whether actual statistical conversion is sustainable relative to player-specific ability and opportunity quality.
+
+Identify causal overlap before assigning separate effects.
+
+Do not double-count closely related explanations.
+
+Recent overperformance is a reason to investigate sustainability, not automatically downgrade a player.
+
+## 2.5 Focus the candidate pool
+
+After the broad screen, prioritize candidates with credible statistical pathways or meaningful questions that can be resolved through independent evidence.
+
+Candidates advance because their opportunities warrant investigation, not solely because models agree or recent hit rates are favorable.
+
+**Stage 2 output:** Broad eight-market screen, serious candidate pool, preserved external forecasts, diagnosed or unresolved disagreements, and independent sustainability findings.
+
+---
+
+# STAGE 3 — INDEPENDENT BASKETBALL VALIDATION
+
+## Objective
+
+Determine whether each serious candidate has a credible basketball pathway independent of external model agreement.
+
+Apply the established four-factor, eight-point rubric consistently.
+
+## Factor 1 — Minutes and role (0–2)
+
+**2 points:** Playing time and statistical responsibilities are independently established or strongly supported by relevant recent and personnel-specific evidence.
+
+**1 point:** A credible role exists, but minutes or responsibility ownership remain materially uncertain.
+
+**0 points:** The proposed workload or role lacks sufficient independent support.
+
+Consider:
+
+- Actual recent minutes.
+- Rotation competition.
+- Personnel-specific changes.
+- Expected game scripts.
+- Established responsibilities.
+- Returning or replacement players.
+
+## Factor 2 — Statistical opportunities (0–2)
+
+**2 points:** Independently verified opportunity volume and relevant opportunity quality sufficiently support the candidate's proposed direction.
+
+**1 point:** Some independent evidence supports the direction, but a material question remains about volume, ownership, quality or conversion.
+
+**0 points:** The proposed statistical pathway is unsupported or meaningfully contradicted.
+
+### Evidence standard
+
+Full opportunity credit cannot be earned through:
+
+- Model agreement alone.
+- Recent box-score averages alone.
+- Historical hit rates alone.
+- Overlapping samples presented as independent confirmation.
+
+Validate the actual statistical channel.
+
+**PTS:** FGA, FTA, scoring locations, shot ownership, quality, teammate competition and expected minutes.
+
+**AST:** Potential assists, creation responsibilities, passing activity, recipient opportunities and competing facilitators.
+
+**REB:** Rebound chances, available misses, collection rates, positioning, teammate competition and frontcourt rotation.
+
+**3PM:** Three-point attempts, attempts per minute, shot type, quality, role and sustainable conversion.
+
+**Combined markets:** Independently validate material components and account for shared opportunities.
+
+## Factor 3 — Matchup (0–2)
+
+**2 points:** Independently verified matchup-specific opportunity or resistance evidence strongly supports the direction.
+
+**1 point:** Relevant matchup evidence exists, but the individual effect remains materially uncertain.
+
+**0 points:** The claimed matchup advantage lacks support or matchup evidence materially opposes the direction.
+
+Evaluate:
+
+1. The offense's ability to create the relevant opportunities.
+2. The defense's actual resistance.
+3. The player's ownership of the exploitable statistical channel.
+
+For scoring, distinguish access, quality and conversion.
+
+For assists, evaluate creation opportunities and recipient finishing conditions.
+
+For rebounds, evaluate available misses, positioning and rebounding competition.
+
+For three-pointers, evaluate attempt opportunities, defensive coverage and shot quality.
+
+Do not assume a defense's general tendency establishes an exploitable individual vulnerability.
+
+### Prevent rubric double-counting
+
+Opportunity quality may inform both statistical-opportunity validation and matchup evaluation, but the justification for each score must be distinct.
+
+Statistical opportunities evaluate whether the player's underlying pathway is supported.
+
+Matchup evaluates how the opponent affects that pathway.
+
+Do not award extra credit merely because one observation appears in several related datasets.
+
+## Factor 4 — Sustainability and regression (0–2)
+
+**2 points:** The statistical pathway is sustainably supported, with meaningful volume, quality and conversion regression evaluated and relevant failure risks addressed.
+
+**1 point:** The direction is plausible, but sustainable production or a material regression channel remains uncertain.
+
+**0 points:** The case depends heavily on unsupported production, unusual conversion or an implausible opportunity assumption.
+
+Evaluate:
+
+- Player-specific historical baselines.
+- Sample reliability.
+- Role continuity.
+- Personnel-specific conditions.
+- Volume regression.
+- Quality regression.
+- Conversion regression.
+- Relevant matchup sustainability.
+
+Do not apply arbitrary stabilization thresholds or automatic penalties for recent overperformance.
+
+## 3.1 Evidence score interpretation
+
+| Score | Interpretation |
+|---|---|
+| 7–8 | Strong independent validation |
+| 5–6 | Credible but incomplete validation |
+| 3–4 | Material uncertainty |
+| 0–2 | Insufficient validation |
+
+**Critical distinction:** Evidence scores measure the quality of independent support. They do not automatically determine A–D market grades.
+
+A 7/8 score does not automatically justify A-range confidence.
+
+A 5/8 score does not automatically require rejection.
+
+Actual thresholds, outcome variability and failure scenarios remain decisive.
+
+## 3.2 Focused versus intensive validation
+
+Use proportional research depth:
+
+**Broad screen:** Identify credible players and lanes using external projections and rotation context.
+
+**Focused validation:** Investigate serious candidates using independent opportunity, matchup and sustainability evidence.
+
+**Finalist validation:** Apply the complete rubric, establish independent outlooks and evaluate exact thresholds.
+
+All serious candidates must receive consistent four-factor evaluation.
+
+Do not expend equivalent research effort on players who lack credible rotation roles or statistical pathways.
+
+**Stage 3 output:** Independently validated opportunities, four-factor scores, matchup assessments, sustainability findings and unresolved material evidence gaps.
+
+---
+
+# STAGE 4 — INDEPENDENT STATISTICAL OUTLOOK
+
+## Objective
+
+Establish realistic statistical expectations before deciding whether a market threshold is attractive.
+
+## 4.1 Construct an independent outlook
+
+Use:
+
+- Verified playing time and role.
+- Independently supported statistical opportunities.
+- Opportunity volume.
+- Opportunity quality.
+- Sustainable conversion efficiency.
+- Relevant teammate competition.
+- Personnel-specific evidence.
+- Defensive resistance.
+- Plausible game scripts.
+- Appropriate regression considerations.
+
+Determine:
+
+1. Expected statistical neighborhood.
+2. Plausible normal production range.
+3. Preferred Higher or Lower direction, if supported.
+4. Material uncertainty.
+5. Realistic failure scenarios.
+
+Do not modify Drop or DARKO projections to manufacture agreement with the independent outlook.
+
+Do not invent precise statistical expectations when the available evidence supports only a broader range.
+
+## 4.2 Separate three forms of uncertainty
+
+### Evidence uncertainty
+
+Uncertainty caused by unavailable, conflicting or insufficient information.
+
+Examples:
+- Missing rebound-chance data.
+- Unresolved opponent defensive assignments.
+- Conflicting rotation information.
+
+Seek additional evidence when resolution could materially change the decision.
+
+Otherwise document the limitation.
+
+### Rotation uncertainty
+
+Uncertainty about expected playing time or statistical responsibilities.
+
+Examples:
+- Uncertain starter minutes.
+- Returning player restrictions.
+- Unclear frontcourt allocation.
+
+Evaluate plausible personnel and rotation scenarios.
+
+Do not invent replacement model projections.
+
+### Outcome variability
+
+Normal game-to-game statistical variation even when role and opportunities are reasonably established.
+
+Examples:
+- Three-point shooting variation.
+- Teammate finishing variation.
+- Rebound availability and collection.
+- Foul trouble.
+
+Recognize that strong evidence does not eliminate statistical variability.
+
+Likewise, a relatively stable statistical market can still have weak supporting evidence.
+
+## 4.3 Evaluate Higher and Lower independently
+
+Do not assume Higher solely because:
+
+- A model projection exceeds the market.
+- Recent averages exceed the threshold.
+- A player has a favorable historical hit rate.
+
+Do not assume Lower solely because:
+
+- Recent production is poor.
+- Shooting efficiency appears unsustainable.
+- The opponent has a strong aggregate defensive ranking.
+
+Evaluate whether expected opportunities and sustainable conversion support each direction.
+
+## 4.4 Establish realistic failure scenarios
+
+Every serious finalist requires at least one basketball-grounded failure scenario.
+
+Examples:
+
+- A scorer maintains attempts but faces lower-quality shots.
+- A shooter receives the expected three-point volume but converts below expectation.
+- A passer creates opportunities but recipients fail to convert.
+- A rebounder plays expected minutes but receives fewer collectable chances.
+- A returning teammate changes opportunity ownership.
+- The expected frontcourt rotation differs from the projected allocation.
+
+Failure scenarios inform uncertainty, market grading and ranking.
+
+They do not automatically invalidate otherwise supported candidates.
+
+## 4.5 Preserve independence from the market
+
+Establish the statistical outlook before deciding whether a specific threshold is favorable.
+
+Market lines may be recorded during screening but must not be used to reverse-engineer a preferred projection.
+
+**Stage 4 output:** Independent expectations, plausible ranges, supported directions, uncertainty classifications and realistic failure scenarios.
+
+---
+
+# STAGE 5 — MARKET EVALUATION AND RANKING
+
+## Objective
+
+Determine which independently validated statistical pathways offer the strongest value at actual market thresholds.
+
+## 5.1 Verify exact market terms
+
+Record:
+
+- Player.
+- Statistical category.
+- Higher or Lower direction.
+- Exact threshold.
+- Market provider.
+- Verification timing.
+- Applicable sportsbook price.
+- PrizePicks payout tier where relevant.
+- Available alternative thresholds.
+
+Do not assume lines are interchangeable across providers.
+
+A 6.0 threshold is not equivalent to 5.5.
+
+Account for pushes where applicable under the provider's rules.
+
+Consider Goblin/Demon modifiers and payout implications when available.
+
+## 5.2 Evaluate the exact threshold
+
+Compare:
+
+1. Independent statistical outlook.
+2. Drop Coverage projection.
+3. DARKO sustainability benchmark.
+4. Verified market threshold.
+5. Expected statistical variability.
+6. Relevant push rules.
+7. Applicable price or payout structure.
+8. Material failure scenarios.
+
+A projection-to-line difference identifies possible value; it does not establish validated value.
+
+Investigate material model disagreement rather than automatically selecting or rejecting a candidate.
+
+Do not impose arbitrary minimum projection margins.
+
+Do not manufacture win probabilities.
+
+## 5.3 Select the strongest lane per player
+
+Compare individual and combined markets.
+
+Prioritize the lane with the strongest combination of:
+
+- Independently verified statistical opportunities.
+- Sustainable production.
+- Relevant matchup fit.
+- Favorable exact threshold.
+- Manageable uncertainty.
+- Realistic failure scenarios.
+- Applicable market terms.
+
+Do not select several correlated markets for the same player solely because external projections favor all of them.
+
+Compare component markets and combinations without treating their production as independent.
+
+## 5.4 Assign A–D market confidence
+
+### A range — Exceptional
+
+Strong independent validation, reliable playing time, sustainable opportunities, favorable matchup-specific evidence and a distinctly attractive exact threshold.
+
+Material failure scenarios are understood and comparatively limited.
+
+### B range — Credible
+
+A supported statistical pathway and reasonable market threshold, with some meaningful uncertainty.
+
+### C range — Speculative
+
+A plausible direction but incomplete opportunity evidence, substantial variability, role uncertainty or limited threshold advantage.
+
+### D — Pass
+
+Insufficient support, unresolved material contradictions or an unattractive available threshold.
+
+**Evidence score and market grade remain separate evaluations.**
+
+A candidate's grade must reflect both the independent basketball evidence and the specific market.
+
+## 5.5 Rank candidates across the slate
+
+Rank serious candidates using:
+
+1. Independently verified statistical opportunity.
+2. Minutes and responsibility confidence.
+3. Sustainable production.
+4. Matchup-specific opportunity and resistance.
+5. Exact threshold and market terms.
+6. Outcome variability.
+7. Material failure scenarios.
+
+Do not require arbitrary statistical margins or fixed numbers of selections.
+
+Do not invent differences between candidates when the available evidence cannot distinguish them reliably.
+
+## 5.6 Binding finalist-versus-exclusion challenge
+
+Integrate the exclusion challenge directly into final ranking.
+
+Before locking, compare the weakest finalist against the strongest excluded alternative.
+
+Evaluate both using the same standards:
+
+- Statistical opportunity volume.
+- Opportunity quality.
+- Role security.
+- Matchup resistance.
+- Sustainability and conversion.
+- Actual market thresholds.
+- Expected variability.
+- Realistic failure scenarios.
+- Correlation and game-script compatibility.
+
+**Binding rule:** If the excluded candidate has a stronger independently supported case at its actual threshold, replace the weaker finalist.
+
+If the evidence does not establish a meaningful difference, document the uncertainty rather than inventing ranking precision.
+
+## 5.7 Evaluate correlation and compatibility
+
+Distinguish:
+
+**Compatible pathways:** Two props can succeed within the same plausible game environment.
+
+**Positive correlation:** Outcomes benefit from shared team production or statistical events.
+
+**Negative correlation:** One outcome may reduce another player's opportunities.
+
+**Direct contradiction:** Selections materially require incompatible assumptions about the same opportunity allocation or game script.
+
+Positive correlation does not automatically justify exclusion.
+
+Evaluate entry concentration risk without forcing artificial diversification.
+
+Also distinguish:
+
+**Teammate opportunity competition:** A projection-level question about who receives attempts, chances or responsibilities.
+
+**Entry correlation:** A market-level question about how selected outcomes may move together.
+
+Do not conflate the two.
+
+## 5.8 Final pregame recheck
+
+Before locking:
+
+1. Reconfirm material injuries and availability.
+2. Verify confirmed starting personnel.
+3. Check meaningful rotation changes.
+4. Reconcile opportunity ownership.
+5. Review material new matchup information.
+6. Reconfirm exact market thresholds and terms.
+7. Verify the strongest lane for each player.
+8. Complete the binding exclusion challenge.
+9. Review correlation and contradictory assumptions.
+10. Preserve the pregame record.
+
+**Stage 5 output:** Ranked selections, exact thresholds, confidence grades, evidence scores, documented risks and strongest excluded alternatives.
+
+---
+
+# IV. RESEARCH EFFICIENCY AND MATERIALITY
+
+Research should be proportional to the decision.
+
+## 4.1 Three levels of investigation
+
+**Broad screening**
+
+Identify credible rotation players and potential lanes without conducting exhaustive research on every option.
+
+**Focused validation**
+
+Investigate independent opportunity evidence, matchup support and sustainability for serious candidates.
+
+**Finalist audit**
+
+Apply full validation, independent statistical outlooks, exact-market evaluation and binding ranking comparisons.
+
+These are research-depth levels within the existing framework, not additional formal stages.
+
+## 4.2 Conditional diagnostics
+
+Use advanced or supplementary information when it can materially resolve uncertainty, including:
+
+- zTS.
+- Historical Six-Factor RAPM.
+- Shot-clock distribution.
+- Detailed playtype efficiency.
+- Shot-quality information.
+- WOWY statistics.
+- Relevant personnel-specific splits.
+
+These metrics are conditional diagnostic tools, not mandatory requirements for every game or player.
+
+Do not assume additional metrics improve forecasting accuracy without demonstrated incremental value.
+
+## 4.3 Materiality-based research stopping rule
+
+Additional research is justified when it could:
+
+1. Change the independent statistical outlook.
+2. Resolve a material disagreement.
+3. Identify a meaningful failure scenario.
+4. Clarify role or opportunity ownership.
+5. Change the preferred Higher/Lower direction.
+6. Change confidence or ranking.
+7. Distinguish competing finalists.
+
+Conclude supplemental research when additional evidence is unlikely to materially change the decision.
+
+Document unresolved material uncertainty rather than conducting research without a defined analytical purpose.
+
+Do not confuse incomplete information with inadequate analysis.
+
+A research stopping rule does not override mandatory personnel verification, serious-candidate validation or final market rechecks.
+
+---
+
+# V. POSTGAME REVIEW
+
+## Objective
+
+Evaluate original decisions using evidence that was available before the game, distinguish avoidable analytical errors from normal statistical variance and improve the framework through recurring findings.
+
+## 5.1 Preserve the original pregame record
+
+Never retroactively modify:
+
+- Drop projections.
+- DARKO benchmarks.
+- Independent statistical outlooks.
+- Market thresholds.
+- Market prices or tiers.
+- Evidence scores.
+- Pregame confidence grades.
+- Original personnel assumptions.
+- Locked selections.
+- Documented failure scenarios.
+
+## 5.2 Compare expectations with actual outcomes
+
+For each selection, review:
+
+1. Projected versus actual minutes.
+2. Projected versus actual production.
+3. Expected versus actual opportunity volume.
+4. Expected versus actual opportunity quality, where measurable.
+5. Expected versus actual conversion.
+6. Personnel and rotation assumptions.
+7. Matchup expectations.
+8. Whether the documented failure scenario occurred.
+9. Whether relevant pregame evidence was overlooked.
+
+## 5.3 Classify analytical outcomes
+
+### Successful process
+
+The selection was reasonably supported and its statistical pathway was appropriately evaluated, regardless of whether ordinary variance produced a win or loss.
+
+### Opportunity-volume error
+
+The analysis incorrectly estimated attempts, chances, touches or statistical responsibilities.
+
+### Opportunity-quality error
+
+The analysis misunderstood shot difficulty, recipient finishing opportunities, rebound positioning or defensive resistance.
+
+### Conversion-assumption error
+
+Sustainable finishing, shooting, assist conversion or rebound collection was materially misestimated.
+
+### Minutes/rotation error
+
+Playing-time or role assumptions were materially incorrect.
+
+### Matchup error
+
+The offense's ability to generate opportunities or the defense's ability to disrupt them was incorrectly evaluated.
+
+### Lane-selection error
+
+Another market for the same player was more strongly supported using available pregame evidence.
+
+### Finalist-ranking error
+
+A stronger independently validated candidate was excluded.
+
+### Ordinary statistical variance
+
+The anticipated opportunities and reasonable assumptions occurred, but the realized outcome varied within plausible game-to-game uncertainty.
+
+Multiple factors may contribute to the same result.
+
+Do not assign precise causes when detailed opportunity evidence is unavailable.
+
+## 5.4 Review excluded alternatives
+
+Evaluate the strongest excluded candidates using their original pregame evidence.
+
+Distinguish:
+
+- Genuinely avoidable selection mistakes.
+- Winning alternatives that were not clearly superior beforehand.
+- Ordinary outcome variance.
+- Later information unavailable before tipoff.
+
+Do not use hindsight-only outcomes to manufacture superior pregame rankings.
+
+## 5.5 Framework maintenance
+
+Track recurring patterns across multiple slates.
+
+Investigate whether:
+
+- Minutes expectations are systematically inaccurate.
+- Opportunity ownership is misallocated.
+- Matchup resistance is overestimated or underestimated.
+- Opportunity quality is being misinterpreted.
+- Conversion expectations show persistent bias.
+- Market selection or finalist ranking consistently favors weaker candidates.
+- Additional diagnostics demonstrate useful predictive value.
+
+Change the framework when recurring evidence supports improvement, not because of isolated losses.
+
+---
+
+# VI. EXECUTION STANDARDS
+
+1. Follow the existing five stages in order.
+2. Evaluate both offenses and defenses.
+3. Verify personnel and reconstruct relevant rotations.
+4. Distinguish shot access, defensive resistance and individual opportunity ownership.
+5. Screen the credible player pool across all eight eligible markets.
+6. Preserve Drop and DARKO projections without modification.
+7. Separate model disagreement from sustainability assessment.
+8. Diagnose volume, quality and conversion using independent evidence.
+9. Avoid counting related or overlapping evidence as independent confirmation.
+10. Use personnel-specific information when materially relevant.
+11. Apply the four-factor, eight-point rubric to serious candidates.
+12. Do not award full opportunity credit solely from projections, averages or hit rates.
+13. Establish independent expectations before market evaluation.
+14. Preserve evidence, rotation and outcome uncertainty as distinct concepts.
+15. Evaluate Higher and Lower directions independently.
+16. Verify exact market thresholds, prices, tiers and push implications.
+17. Identify the strongest lane for each player.
+18. Rank across games without forced selections or invented probabilities.
+19. Complete the binding finalist-versus-exclusion challenge.
+20. Evaluate teammate competition and entry correlation separately.
+21. Recheck material news, rotations and lines before locking.
+22. Preserve the original pregame record for postgame review.
+23. Apply materiality-based research depth and stopping rules.
+24. Avoid unsupported numerical adjustments and unnecessary methodological complexity.
+
+---
+
+# VII. OPERATING SEQUENCE
+
+**Stage 1 — Environment and Personnel**
+
+Verify personnel → Evaluate both offenses and defenses → Reconstruct rotations → Identify access, resistance and ownership → Establish game scripts.
+
+**Stage 2 — Projections and Sustainability**
+
+Screen all eight markets → Record Drop → Benchmark DARKO → Diagnose model disagreements → Evaluate sustainable volume, quality and conversion → Prioritize candidates.
+
+**Stage 3 — Independent Validation**
+
+Verify minutes and role → Validate statistical opportunities → Evaluate matchup-specific resistance → Assess sustainability and regression → Apply eight-point rubric.
+
+**Stage 4 — Independent Outlook**
+
+Establish expected production → Determine realistic ranges → Evaluate Higher/Lower directions → Classify uncertainties → Identify failure scenarios.
+
+**Stage 5 — Markets and Ranking**
+
+Verify exact thresholds → Compare projections and independent outlook → Identify strongest lanes → Assign A–D grades → Rank candidates → Challenge exclusions → Audit correlation → Recheck and lock.
+
+**Postgame**
+
+Preserve original record → Verify actual opportunities and outcomes → Identify process errors versus variance → Review exclusions → Track recurring findings → Refine only when justified.
+
+---
+
+# FINAL GOVERNING PRINCIPLE
+
+**External projections identify possibilities.**
+
+**Opportunity volume establishes how much statistical production is available.**
+
+**Opportunity quality establishes how favorable those opportunities are.**
+
+**Sustainable conversion determines how realistically those opportunities become production.**
+
+**Independent validation establishes credibility.**
+
+**Actual market thresholds determine selection quality.**
+
+**Disciplined ranking determines what gets selected.**
+
+Confidence must be earned through verified basketball evidence and favorable market conditions—not model agreement, recent hit rates, excessive research or the desire to complete an entry.
+
+**NBA Player Props Framework V2.1 remains the governing framework for the 2026–27 season, effective November 2, 2026.**

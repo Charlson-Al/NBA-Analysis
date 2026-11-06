@@ -1,0 +1,1234 @@
+# NBA Player Props Framework — V2.2
+
+2026–27 Season | Consolidated Framework Rewrite | November 3, 2026
+
+Status: Governing framework. Incorporates the approved grading system, DARKO minutes normalization, and execution improvements supported by the five-slate historical audit.
+
+Core principle: Drop Coverage projects. DARKO benchmarks sustainable production. Our independent eight-point analysis validates the basketball. The actual market determines selection value.
+
+# NBA PLAYER PROPS FRAMEWORK — VERSION 2.2
+
+**NBA Analysis Hub | 2026–27 Season**
+
+**Status:** Official governing framework\
+**Revision:** November 3, 2026 — Five-Slate Historical Audit Integration\
+**Version control:** Remains V2.2. No additional stages, projection models, or scoring factors.
+
+---
+
+# I. OBJECTIVE AND OPERATING PHILOSOPHY
+
+Identify the strongest NBA player-prop Higher and Lower selections by combining game-specific projections, sustainable production benchmarks, and independent basketball validation.
+
+The framework contains three analytical components:
+
+| Component                       | Responsibility                                                                                   |
+| ------------------------------- | ------------------------------------------------------------------------------------------------ |
+| Drop Coverage (DC)              | Game-specific player projections, projected minutes, and uncertainty                             |
+| DARKO                           | Forward-looking sustainable statistical production benchmarks and regression                     |
+| Independent basketball analysis | Direction-specific eight-point assessment of minutes, opportunities, matchup, and sustainability |
+
+The market is evaluated after the statistical outlook to determine whether a supported direction offers meaningful value at the actual threshold.
+
+**External models project. We independently verify, investigate disagreements, evaluate the basketball, and rank selections.**
+
+We do not create a third full projection model to duplicate Drop Coverage or DARKO.
+
+We also do not select props purely because a model projects production above or below a line.
+
+## Governing principles
+
+1. **Drop Coverage is the primary game-specific projection source.** Preserve its original forecasts and expected minutes.
+2. **DARKO is the sustainability benchmark.** Its statistical projections help identify repeatable production and potential regression. DARKO DPM itself measures player impact; it is not a direct points, rebounds, or assists forecast.
+3. **Normalize DARKO statistical production to DC projected minutes.** All compatible player-stat comparisons must use the same minutes assumption.
+4. **Our independent eight-point rubric is the third analysis.** It determines how strongly the underlying basketball evidence supports a statistical direction and helps explain model disagreement.
+5. **Model agreement increases confidence.** Agreement does not automatically create an A-grade selection.
+6. **Model disagreement requires investigation.** Strong independent evidence may justify following one model, but under the approved grading system disagreement caps final confidence at B+.
+7. **Statistical opportunity ownership must be verified independently.** Expected minutes or favorable model outputs do not establish that a player will receive the required attempts or chances.
+8. **Distinguish opportunity volume, opportunity quality, and conversion.** These are separate mechanisms and must not be confused or double-counted.
+9. **Preserve analytical continuity.** Material concerns identified during earlier stages must remain visible until resolved or incorporated into confidence.
+10. **Compare alternatives.** Final selections must survive a genuine comparison against credible excluded candidates.
+11. **Do not manufacture precision.** Avoid invented probabilities, unsupported statistical projections, arbitrary universal margins, or forced selection counts.
+12. **Preserve original records.** Postgame analysis may reassess the quality of an original decision but must not rewrite its pregame forecast, threshold, grade, or assumptions.
+
+---
+
+# II. FIVE-STAGE ANALYTICAL FRAMEWORK
+
+## STAGE 1 — GAME ENVIRONMENT, PERSONNEL AND ROTATIONS
+
+**Objective:** Understand the statistical conditions of each matchup, identify relevant defensive resistance, and establish realistic player roles and playing time.
+
+### 1A. Independently assess both teams
+
+Evaluate the offense and defense of each team, not merely the defense facing a preferred player.
+
+**Game environment**
+
+- Pace and expected possessions.
+- Possession length and transition frequency.
+- Opponent-adjusted offensive and defensive efficiency.
+- Scoring opportunities and realistic game scripts.
+- Competitive environment and blowout scenarios.
+- Rest, travel, and scheduling effects when material.
+
+**Four Factors and opportunity creation**
+
+- Effective field-goal percentage.
+- Turnover rate.
+- Offensive rebounding percentage.
+- Free-throw rate.
+- Possession and shot-generation differences.
+
+**Offensive profiles**
+
+- Rim, midrange, and three-point attempt distribution.
+- Shot-creation responsibilities.
+- Assisted and unassisted shot opportunities.
+- Ball-handling and potential-assist channels.
+- Offensive rebounding and second-chance creation.
+
+**Defensive profiles**
+
+- Shot access allowed.
+- Shot quality and conversion resistance.
+- Turnover and pressure tendencies.
+- Defensive rebounding and missed-shot recovery.
+- Relevant scheme and personnel.
+- Statistical channels the opposing offense can realistically exploit.
+
+Use consistent source definitions, dates, denominators, and sample windows.
+
+Do not interpret a per-100-play statistic as a per-100-possession statistic without valid normalization.
+
+### 1B. Distinguish defensive tendencies from vulnerabilities
+
+A defense permitting high shot frequency in a particular location does not necessarily allow efficient production there.
+
+Determine:
+
+1. Which opportunities the opponent permits.
+2. Whether those opportunities are productive.
+3. Whether the opposing offense is equipped to generate them.
+4. Which individual players own the relevant opportunities.
+
+A matchup is favorable only when the team-level conditions translate into a credible player-specific statistical advantage.
+
+Do not automatically upgrade every opposing scorer, shooter, passer, or rebounder against a weak defense.
+
+### 1C. Verify personnel and role changes
+
+Use official injury information, current lineup reports, rotation data, and recent games.
+
+Check:
+
+- Expected active players.
+- Starting lineup.
+- Important injuries and absences.
+- Relevant minute restrictions.
+- Bench rotations and closing responsibilities.
+- Recent changes in coaching or playing patterns.
+- Material personnel combinations.
+
+Determine how those factors affect:
+
+- Minutes.
+- Usage.
+- Shot ownership.
+- Creation and potential assists.
+- Rebounding responsibility.
+- Teammate competition.
+- Defensive resistance.
+- Game script.
+
+An absent teammate may redistribute opportunities, but the redistribution must be supported by relevant evidence rather than assumed.
+
+### 1D. Reconstruct playing time
+
+Review recent minutes and personnel-specific game samples to determine whether DC's minutes assumption is credible.
+
+Consider starting roles, closing patterns, foul-related volatility, rotation changes, and realistic game scripts.
+
+**DC projected minutes remain the primary game-specific playing-time assumption.**
+
+Independent minutes research validates the assumption and identifies uncertainty.
+
+Do not automatically replace DC minutes with a new forecast. Do not add injury-created minutes twice if Drop already accounts for an absence.
+
+When meaningful discrepancies arise, record them and carry the uncertainty forward.
+
+### 1E. Required Stage 1 record
+
+Preserve:
+
+- Relevant game-environment findings.
+- Material opponent advantages and resistance.
+- Confirmed personnel.
+- Expected player roles.
+- DC minutes credibility.
+- Relevant opportunity competition.
+- Unresolved lineup, role, or game-script concerns.
+
+**Stage 1 completion requirement:** Every serious candidate must have a credible explanation of their expected role and the relevant statistical environment.
+
+---
+
+## STAGE 2 — DROP COVERAGE SCREENING AND DARKO BENCHMARKING
+
+**Objective:** Screen the full credible player pool, establish game-specific forecasts, and compare those forecasts with sustainable production on an equal-minutes basis.
+
+### 2A. Screen all credible rotation players
+
+Evaluate these eight approved markets:
+
+| Market | Statistic                   |
+| ------ | --------------------------- |
+| PTS    | Points                      |
+| REB    | Rebounds                    |
+| AST    | Assists                     |
+| 3PM    | Three-pointers made         |
+| PR     | Points + rebounds           |
+| PA     | Points + assists            |
+| RA     | Rebounds + assists          |
+| PRA    | Points + rebounds + assists |
+
+**Excluded:** Steals, blocks, and stocks.
+
+Screen both Higher and Lower opportunities.
+
+Preserve the original Drop forecasts, projected minutes, and available uncertainty.
+
+Broad screening identifies candidates; it does not automatically establish market value or a final grade.
+
+### 2B. DARKO's analytical responsibility
+
+Use DARKO's statistical forecasts and rates to benchmark sustainable production.
+
+Investigate:
+
+- Sustainable scoring.
+- Sustainable rebounding.
+- Sustainable assists.
+- Sustainable three-point production.
+- Role- and opportunity-related regression.
+- Conversion-efficiency regression.
+- Differences between recent production and longer-term expectations.
+
+DARKO DPM may provide broader impact context, but DPM is not converted into direct box-score totals.
+
+Do not assume that DARKO is automatically correct when it differs from a game-specific model.
+
+### 2C. Mandatory DARKO minutes normalization
+
+**Every mathematically compatible DARKO statistical projection must be normalized to Drop Coverage's projected minutes before model comparison.**
+
+For per-game DARKO production:
+
+**Normalized DARKO = Original DARKO statistic × (DC projected minutes ÷ DARKO projected minutes)**
+
+For compatible per-minute output:
+
+**Normalized DARKO = DARKO per-minute statistic × DC projected minutes**
+
+Example:
+
+| Measure | Drop Coverage | DARKO original | DARKO normalized |
+| ------- | ------------- | -------------- | ---------------- |
+| Minutes | 34            | 30             | 34               |
+| Assists | 7.8           | 6.6            | 7.48             |
+
+The normalized DARKO value becomes the common-minutes sustainability comparison.
+
+**Normalization safeguards**
+
+- Preserve original DARKO minutes and statistical values.
+- Preserve DC's original forecasts and minutes.
+- Normalize individual components before adding combined markets.
+- Do not apply minutes normalization twice.
+- Do not use DPM as a box-score rate.
+- Do not calculate a normalized value when source definitions or required inputs are incompatible.
+- Recognize that linear normalization assumes comparable per-minute production and may not capture nonlinear role or usage changes.
+
+The normalized benchmark is a diagnostic comparison, not a replacement official DARKO forecast.
+
+### 2D. Determine model relationship
+
+Compare DC and normalized DARKO against the same exact market threshold.
+
+Classify:
+
+- **Agree Higher:** Both forecasts support Higher.
+- **Agree Lower:** Both forecasts support Lower.
+- **Disagree:** Forecasts favor opposing directions.
+- **Unresolved:** Missing, incompatible, or insufficient model information prevents a dependable comparison.
+
+A forecast exactly on a whole-number line is neutral rather than supporting Higher or Lower.
+
+Evaluate each combined market on its actual combined threshold. Component-level differences may matter to sustainability without automatically eliminating agreement in the combined market.
+
+### 2E. Investigate disagreement
+
+With DARKO standardized to DC minutes, evaluate remaining differences through:
+
+- Expected statistical opportunities.
+- Player role and usage.
+- Teammate competition.
+- Matchup-specific opportunity access.
+- Opportunity quality.
+- Sustainable conversion.
+- Sample timing and model updating.
+- Nonlinear playing-time effects.
+
+Distinguish a minor threshold disagreement from a major difference in statistical expectations.
+
+Do not average model projections automatically.
+
+Do not modify either model to force agreement.
+
+### 2F. Required Stage 2 record
+
+Preserve for each serious candidate:
+
+- DC minutes.
+- DC statistical projection.
+- Original DARKO minutes.
+- Original DARKO statistic.
+- Normalized DARKO statistic.
+- Exact threshold used for comparison.
+- Model agreement status.
+- Material source disagreement and possible explanation.
+- Missing or incompatible inputs.
+
+**Stage 2 completion requirement:** Every serious candidate has a clearly documented model comparison or is explicitly marked unresolved.
+
+---
+
+## STAGE 3 — INDEPENDENT BASKETBALL VALIDATION
+
+**Objective:** Conduct a genuine third analysis of whether the player's expected production and selected direction are supported by independent basketball evidence.
+
+### 3A. The eight-point rubric
+
+Four factors, scored 0–2 each.
+
+| Factor                        | Maximum | Analytical responsibility                                   |
+| ----------------------------- | ------- | ----------------------------------------------------------- |
+| Minutes and role              | 2       | Reliability of playing time and assigned responsibilities   |
+| Statistical opportunities     | 2       | Quantity, quality, and player ownership of relevant chances |
+| Matchup                       | 2       | Opponent-specific access and resistance                     |
+| Sustainability and regression | 2       | Durability of opportunity and conversion assumptions        |
+| **Total**                     | **8**   | **Strength of basketball support**                          |
+
+**Scoring definitions**
+
+- **0:** Weak, unsupported, or materially unfavorable evidence.
+- **1:** Mixed, neutral, partially supported, or meaningfully uncertain.
+- **2:** Strong, relevant, independently verified support.
+
+The rubric is direction-specific.
+
+A strong Lower can receive 8/8 when independently supported evidence indicates that the player is unlikely to generate enough production to clear the threshold.
+
+Do not award points solely because a player is talented or because the matchup appears broadly favorable.
+
+### FACTOR 1 — MINUTES AND ROLE (0–2)
+
+Assess:
+
+- Expected minutes credibility.
+- Starting or reserve role.
+- Rotation consistency.
+- Closing role and substitution patterns.
+- Material lineup changes.
+- Whether assigned responsibilities are stable.
+- Realistic minutes downside.
+
+**2 points:** Strong evidence supports the relevant playing-time and role assumptions.
+
+**1 point:** Role or playing time is reasonably credible but contains meaningful uncertainty.
+
+**0 points:** Weak, contradictory, or unfavorable evidence materially undermines the assumed role or minutes.
+
+Do not double-count statistical volume here. Role establishes the player's responsibilities; Factor 2 verifies the number and quality of chances those responsibilities produce.
+
+### FACTOR 2 — STATISTICAL OPPORTUNITIES (0–2)
+
+This factor receives special enforcement following the five-slate historical audit.
+
+**Full opportunity credit requires independently verified evidence of the relevant statistical channel.**
+
+Use three separate concepts:
+
+**Opportunity volume:** How many attempts or chances is the player likely to receive?
+
+**Opportunity quality:** How productive are those opportunities likely to be?
+
+**Player ownership:** Why should this player, rather than competing teammates, receive them?
+
+Evaluate conversion sustainability separately in Factor 4.
+
+#### Points
+
+Assess:
+
+- Field-goal attempts.
+- Free-throw attempts.
+- Shot ownership and offensive hierarchy.
+- Usage context.
+- Shot locations and quality.
+- Relevant teammate competition.
+
+A scoring Higher cannot earn full opportunity credit merely because the player has a favorable projected points average.
+
+#### Assists
+
+Assess:
+
+- Potential assists.
+- Ball-handling and creation responsibilities.
+- Touches and passing channels.
+- Teammate shot opportunities.
+- Relevant competition for playmaking duties.
+
+High actual assists from one recent game do not independently establish a sustainable creation baseline.
+
+#### Rebounds
+
+Assess:
+
+- Rebound chances.
+- Offensive and defensive rebounding position.
+- Collection rates.
+- Expected missed shots.
+- Teammate rebound competition.
+- Lineup and opponent shot-profile effects.
+
+A strong rebounds Higher needs credible chances, not merely a favorable recent rebounding average.
+
+#### Three-pointers
+
+Assess:
+
+- Three-point attempts.
+- Perimeter shot ownership.
+- Catch-and-shoot opportunities.
+- Self-created attempts.
+- Shot-quality characteristics.
+
+Separate reliable attempt volume from unusually high shooting percentage.
+
+#### Combined markets
+
+Validate each underlying component.
+
+A combined Higher may be driven primarily by one strong component, but the full expectation must be compatible with realistic roles and game scripts.
+
+Do not assume that points, rebounds, and assists all reach their high-end outcomes simultaneously.
+
+#### Full-credit restriction
+
+Do not award 2/2 opportunities based only on:
+
+- Drop and DARKO agreement.
+- Recent box-score averages.
+- Historical prop hit rates.
+- Generic defensive rankings.
+- Expected playing time.
+- Multiple overlapping statistics without independent opportunity evidence.
+
+If a relevant opportunity source is unavailable, record the limitation. Missing data is not negative basketball evidence, but unsupported assumptions cannot receive full credit.
+
+### FACTOR 3 — MATCHUP (0–2)
+
+Assess the opponent's actual resistance to the statistical opportunities relevant to the player.
+
+Use:
+
+**Access → Resistance → Ownership**
+
+**Access:** Does the opponent's scheme allow the relevant opportunity?
+
+**Resistance:** Does the opponent suppress its quality, frequency, or conversion?
+
+**Ownership:** Can this specific player exploit that defensive channel based on their existing role?
+
+Player ownership is established through Factor 2; Factor 3 evaluates how the defensive matchup affects that established channel.
+
+For scoring and 3PM, study shot locations, contest environment, attempt distribution, and defensive personnel.
+
+For assists, study passing channels, turnover pressure, shot opportunities created, and defensive impact on teammate finishing.
+
+For rebounds, study expected misses, rebounding resistance, position, and personnel.
+
+**2 points:** Verified player-specific matchup advantage.
+
+**1 point:** Neutral, mixed, or uncertain matchup.
+
+**0 points:** Meaningfully unfavorable matchup or strongly contradictory evidence.
+
+Do not label an opponent exploitable merely because it allows a large number of shots or plays at the team level.
+
+### FACTOR 4 — SUSTAINABILITY AND REGRESSION (0–2)
+
+Assess whether the production assumptions underlying the chosen direction are likely to remain valid.
+
+Distinguish three channels:
+
+**1. Opportunity-volume regression**
+
+- Shot attempts.
+- Potential assists.
+- Rebound chances.
+- Three-point attempts.
+- Role and teammate allocation.
+- Changes in usage or playing time.
+
+**2. Opportunity-quality regression**
+
+- Shot difficulty.
+- Defensive contests.
+- Teammate finishing opportunities.
+- Rebound positioning.
+- Changes in the quality of statistical chances.
+
+**3. Conversion-efficiency regression**
+
+- Field-goal percentage.
+- Three-point percentage.
+- Free-throw performance.
+- Assist conversion.
+- Rebound-chance collection.
+
+Use DARKO's statistical sustainability benchmarks alongside independent evidence.
+
+Do not automatically assume recent exceptional production must decline. Identify the specific source of regression risk.
+
+Do not penalize the same issue repeatedly under opportunities, matchup, and sustainability.
+
+#### Independence safeguard
+
+Each factor must reward a distinct conclusion.
+
+For example, identifying a player as the primary creator can support the role assessment. Independently measured potential assists establish actual creation opportunities. Opponent passing resistance belongs to matchup analysis. Whether assist conversion is sustainable belongs to regression.
+
+Related model outputs and overlapping statistical samples are not independent confirmation.
+
+### 3B. Resolve model disagreement
+
+When Drop and normalized DARKO disagree:
+
+1. Identify the source of the discrepancy.
+2. Evaluate each rubric factor independently.
+3. Determine which statistical expectation is better supported.
+4. Establish the most defensible direction.
+5. Preserve any unresolved conflict.
+
+Strong independent support can justify following one model.
+
+**Under the approved grading system, the maximum final grade when models favor opposing directions is B+.**
+
+If disagreement remains materially unresolved, downgrade or Pass.
+
+### 3C. Required Stage 3 record
+
+For each serious candidate, document:
+
+| Factor           | Score | Evidence                                      |
+| ---------------- | ----- | --------------------------------------------- |
+| Minutes and role | 0–2   | Specific verified support                     |
+| Opportunities    | 0–2   | Player-specific volume, quality and ownership |
+| Matchup          | 0–2   | Defensive access and resistance               |
+| Sustainability   | 0–2   | Regression and sustainable production         |
+| Total            | 0–8   | Independent basketball assessment             |
+
+Also preserve which concerns remain unresolved.
+
+**Stage 3 completion requirement:** An eight-point assessment with clearly identified supporting evidence and no duplicate credit.
+
+---
+
+## STAGE 4 — INDEPENDENT STATISTICAL OUTLOOK
+
+**Objective:** Determine which statistical direction is best supported by the models and basketball evidence before judging the value of a market threshold.
+
+This stage is not a third forecasting model.
+
+### 4A. Establish the basketball-supported expectation
+
+Integrate:
+
+- DC's game-specific projection.
+- Normalized DARKO sustainability benchmark.
+- Independent eight-point rubric.
+- Expected minutes and role.
+- Opportunity ownership and credible volume.
+- Matchup resistance.
+- Sustainable opportunity quality and conversion.
+- Material uncertainty.
+
+When evidence permits, describe a plausible production neighborhood or low/central/high outcome range.
+
+Do not manufacture exact estimates or construct ranges merely to create a favorable market margin.
+
+### 4B. Determine the supported direction
+
+Classify:
+
+- Higher.
+- Lower.
+- Pass.
+
+When models agree, determine whether independent basketball evidence supports that agreement.
+
+When models disagree, determine which model is more credible for the particular game and statistical channel.
+
+When neither expectation is sufficiently supported, Pass.
+
+### 4C. Mandatory unresolved-risk continuity
+
+This is a central five-slate audit improvement.
+
+Any meaningful issue identified in Stages 1–3 must remain attached to the candidate until one of three outcomes occurs:
+
+1. **Resolved:** New evidence satisfactorily addresses it.
+2. **Carried:** It remains relevant and reduces confidence or changes the outlook.
+3. **Disqualifying:** It makes the selection insufficiently supportable, producing a Pass.
+
+Examples:
+
+- An uncertain closing rotation.
+- Missing verification of shot ownership.
+- An unresolved DARKO/DC disagreement.
+- A teammate reclaiming usage.
+- An unusually narrow role or minutes assumption.
+- A realistic game script that materially changes opportunity distribution.
+
+**A favorable model margin does not erase an unresolved basketball concern.**
+
+### 4D. Evaluate realistic failure scenarios
+
+Determine the most meaningful plausible reasons for the selection to fail.
+
+Distinguish:
+
+- Minutes failure.
+- Opportunity-volume failure.
+- Opportunity-quality failure.
+- Conversion failure.
+- Matchup misinterpretation.
+- Teammate competition.
+- Unfavorable game script.
+- Ordinary statistical variance.
+
+Do not automatically exclude candidates for having a failure scenario. Every player prop carries risk.
+
+Determine whether the scenario is sufficiently likely or consequential to change the outlook or eventual grade.
+
+### 4E. Required Stage 4 record
+
+Record:
+
+- Supported direction.
+- Model relationship.
+- Eight-point score.
+- Realistic statistical outlook.
+- Relevant minutes uncertainty.
+- Verified opportunity ownership.
+- Material regression concerns.
+- Principal failure scenario.
+- Unresolved questions requiring final market consideration.
+
+**Stage 4 completion requirement:** A defensible statistical outlook that preserves relevant uncertainty and does not depend on a fabricated third projection.
+
+---
+
+## STAGE 5 — MARKET EVALUATION, GRADING AND RANKING
+
+**Objective:** Determine which supported outcomes offer the strongest selections at their actual available lines.
+
+### 5A. Verify actual market thresholds
+
+Use confirmed PrizePicks lines or the specifically requested sportsbook markets.
+
+Evaluate:
+
+- Standard Higher/Lower.
+- Whole-number lines and pushes.
+- Goblin and Demon alternatives.
+- Reduced or enhanced payouts.
+- Market availability.
+- Relevant sportsbook prices.
+- Meaningful line movement.
+
+Separate reference sportsbook numbers from actual PrizePicks thresholds.
+
+Never assume that a market or payout tier is available because it appeared on another platform.
+
+### 5B. Compare both models against the exact threshold
+
+Determine:
+
+- DC's position relative to the line.
+- Normalized DARKO's position relative to the line.
+- Whether they agree or disagree.
+- How large the meaningful market advantage is.
+- Whether the independent basketball evidence supports that margin.
+
+A market line can change a selection's direction, model agreement classification, and grade.
+
+Model agreement must be recalculated when evaluating a different threshold.
+
+### 5C. Assess meaningful market advantage
+
+Do not rely solely on the raw numerical difference between a projection and a line.
+
+Evaluate the difference relative to:
+
+- Statistical category variability.
+- Playing-time uncertainty.
+- Opportunity-volume variability.
+- Opportunity-quality variability.
+- Conversion volatility.
+- Game-specific risks.
+
+There is no universal required projection margin.
+
+A two-point scoring advantage and a two-assist advantage do not represent interchangeable levels of value.
+
+Do not invent success probabilities merely to justify a grade.
+
+### 5D. Final confidence grading
+
+**The eight-point rubric measures independent basketball support. The final grade measures confidence in the actual selection at its exact threshold.**
+
+Use the agreed grading philosophy:
+
+| Model relationship | Independent rubric | Grade eligibility                         |
+| ------------------ | ------------------ | ----------------------------------------- |
+| Agree              | 7–8/8              | A-range if market advantage is meaningful |
+| Agree              | 5–6/8              | B-range                                   |
+| Agree              | 3–4/8              | C-range                                   |
+| Agree              | 0–2/8              | D / Pass                                  |
+| Disagree           | 7–8/8              | B+ maximum                                |
+| Disagree           | 5–6/8              | B or lower                                |
+| Disagree           | 0–4/8              | C or lower / Pass                         |
+| Unresolved         | Any                | No automatic A-range eligibility          |
+
+These are eligibility bands, not automatic final grades.
+
+#### A-range requirements
+
+To receive an A-range grade:
+
+1. DC and normalized DARKO must support the same direction at the selected line.
+2. Independent validation must score at least 7/8.
+3. Minutes and role must be credibly established.
+4. Statistical opportunity ownership must have strong independent support.
+5. The exact line must offer meaningful advantage relative to uncertainty.
+6. No material unresolved contradiction may undermine the selection.
+7. Relevant game scripts and failure scenarios must have been considered.
+
+An 8/8 does not automatically create an A+.
+
+#### Model-disagreement rule
+
+When the models favor opposing directions, independent evidence must establish why one interpretation is preferable.
+
+If the evidence is strong and the threshold is attractive, the selection may earn B+.
+
+**B+ remains the maximum grade for genuine directional model disagreement.**
+
+If evidence is weak or the market margin is inadequate, downgrade or Pass.
+
+#### Grading discipline
+
+Do not automatically reward favorable outcomes or penalize losing outcomes when reviewing original grades.
+
+Grades must represent what the evidence supported before the game.
+
+### 5E. Select the strongest lane per player
+
+Compare all credible eligible markets for each player.
+
+Evaluate:
+
+- Projection agreement.
+- Independent opportunity support.
+- Relevant matchup channels.
+- Sustainability.
+- Statistical volatility.
+- Exact available threshold.
+
+Combined markets must be assessed through their components without double-counting.
+
+Choose the strongest supported lane per player rather than automatically selecting the market with the largest raw model margin.
+
+### 5F. Rank candidates across the slate
+
+Rank by overall selection quality.
+
+Consider:
+
+1. Model relationship.
+2. Independent eight-point support.
+3. Exact market advantage.
+4. Minutes and role confidence.
+5. Verified statistical opportunities.
+6. Matchup resistance and sustainability.
+7. Remaining uncertainty.
+8. Relevant payout and market conditions.
+
+Do not force a fixed number of selections.
+
+### 5G. Mandatory finalist-versus-excluded-alternative challenge
+
+This comparison must be substantive.
+
+Identify:
+
+- The weakest finalist.
+- The strongest excluded alternative.
+
+Compare their actual available lines using:
+
+- DC forecast.
+- Normalized DARKO.
+- Model agreement.
+- Eight-point rubric.
+- Opportunity ownership.
+- Minutes and failure risks.
+- Market value.
+- Relevant user constraints.
+
+Document why the selected player remains preferable or why the alternative replaces them.
+
+Do not perform the comparison solely as a formality.
+
+Do not retrospectively declare an excluded candidate superior merely because they won.
+
+An unavailable market is not an actionable excluded alternative.
+
+### 5H. Correlation and shared game-script audit
+
+Evaluate:
+
+- Teammate competition.
+- Shared pace or game-script assumptions.
+- Common scoring dependencies.
+- Compatible positive correlation.
+- Concentrated downside risks.
+
+Positive correlation is not automatically a reason to exclude a selection.
+
+The concern is whether multiple selections depend on contradictory or excessively fragile underlying assumptions.
+
+### 5I. Required Stage 5 record
+
+Preserve:
+
+- Player and market.
+- Higher/Lower direction.
+- Actual line and provider.
+- Standard/Goblin/Demon status where confirmed.
+- DC projection.
+- Original and normalized DARKO.
+- Model relationship.
+- Independent score and evidence.
+- Market advantage.
+- Original final grade.
+- Principal remaining risk.
+- Finalist comparison.
+- Final selection status.
+
+**Stage 5 completion requirement:** Every finalist has an independently supported direction, an exact market assessment, and a defensible final grade.
+
+---
+
+# III. FINAL LOCK AUDIT
+
+This is an operational check after the five analytical stages, not an additional stage.
+
+Before selections are finalized, verify:
+
+- Both teams and material defensive/offensive conditions were evaluated.
+- Current injuries, rotations, and expected starters were checked.
+- Every credible player was screened across the eight eligible markets.
+- Original DC projections and projected minutes were preserved.
+- Compatible DARKO statistics were normalized to DC minutes.
+- Original and normalized DARKO values were distinguished.
+- Model agreement was assessed at the selected exact threshold.
+- Each independent rubric factor had distinct supporting evidence.
+- Full opportunities credit was supported by player-specific statistical channels.
+- Volume, quality, and conversion were evaluated separately.
+- Material unresolved risks were carried through all five stages.
+- Market advantage was evaluated relative to variability.
+- Available lines, tiers, and payouts were checked.
+- The weakest finalist was challenged against the strongest exclusion.
+- Correlation and shared game-script concerns were considered.
+- Final grades reflect the original evidence and unresolved uncertainty.
+- Material personnel and market developments were rechecked.
+
+When new information changes a player's minutes, role, or statistical opportunity ownership, update the affected conclusions and downstream decisions.
+
+Do not automatically restart unrelated research.
+
+---
+
+# IV. PREGAME ARCHIVE AND EVIDENCE CONTINUITY
+
+Historical audits identified inconsistent preservation of original reasoning. This must be corrected prospectively.
+
+### A. Maintain a cumulative evidence record
+
+Carry the following information through all five stages:
+
+| Stage | Information carried forward                                              |
+| ----- | ------------------------------------------------------------------------ |
+| 1     | Personnel, environment, minutes, role, matchup, initial risks            |
+| 2     | DC, DARKO, normalization, model agreement, sustainability concerns       |
+| 3     | Independent rubric, opportunity verification, matchup and regression     |
+| 4     | Supported direction, uncertainty, failure scenarios, unresolved concerns |
+| 5     | Exact market, grade, rank, finalist challenge, final status              |
+
+New evidence can resolve or change earlier findings, but the reason for the change must be documented.
+
+Do not silently erase previously identified concerns.
+
+### B. Freeze the original pregame record
+
+Preserve, when available:
+
+- Date, game, and research window.
+- Player and market.
+- Exact direction and threshold.
+- Provider and payout tier.
+- Original DC projection and minutes.
+- Original DARKO production and minutes.
+- Normalized DARKO benchmark.
+- Independent rubric scores.
+- Statistical opportunity evidence and source dates.
+- Matchup findings.
+- Material uncertainties.
+- Original grade.
+- Strongest excluded alternative.
+- Final selection status and confirmation level.
+
+Distinguish:
+
+**Research target:** An evaluated candidate.
+
+**Final research selection:** A candidate retained as a final analytical recommendation.
+
+**Confirmed wager or entry:** A selection explicitly verified as placed or submitted.
+
+Do not mix these categories when calculating historical performance.
+
+### C. Research efficiency
+
+Retain verified findings across stages and research windows.
+
+Revisit prior conclusions only when new evidence materially affects the analysis.
+
+Prioritize high-impact disagreements, missing opportunity evidence, and likely finalists.
+
+Stop researching when the available evidence is sufficient and additional information is unlikely to change the decision, grade, or ranking.
+
+However, this stopping rule cannot substitute for independently verifying the statistical opportunities needed for A-range confidence.
+
+---
+
+# V. POSTGAME REVIEW
+
+**Objective:** Determine whether outcomes reflect predictable analytical mistakes, reasonable uncertainty, or ordinary variance.
+
+Retain all original pregame records unchanged.
+
+### A. Compare expectations with production
+
+| Dimension           | Required investigation                                 |
+| ------------------- | ------------------------------------------------------ |
+| Minutes             | DC expectation versus actual playing time              |
+| Role                | Expected responsibilities versus actual deployment     |
+| Opportunity volume  | Attempts and chances available versus expectations     |
+| Opportunity quality | Difficulty or productivity of those chances            |
+| Conversion          | Actual efficiency relative to sustainable expectations |
+| Matchup             | Expected versus observed defensive resistance          |
+| Game script         | Pace, competitiveness, rotations, and unusual events   |
+| Market              | Actual result against the original threshold           |
+| Confidence          | Whether original evidence justified the assigned grade |
+
+For combined markets, examine individual components.
+
+A PRA miss may result from insufficient rebounding and assist opportunities even when scoring performs normally.
+
+### B. Classify the failure mechanism
+
+Possible classifications:
+
+- Minutes or rotation error.
+- Statistical opportunity ownership error.
+- Opportunity-volume shortfall.
+- Opportunity-quality shortfall.
+- Conversion variance.
+- Matchup misinterpretation.
+- Personnel or game-script error.
+- Market or finalist-ranking error.
+- Ordinary statistical variance.
+- Unusual in-game event.
+- Unresolved due to insufficient historical evidence.
+
+Multiple mechanisms can contribute to one outcome, but do not count one loss repeatedly as multiple independent errors.
+
+Do not infer unavailable rebound chances, potential assists, or shot-quality statistics from a box score alone.
+
+### C. Audit winning selections
+
+Wins require review when they depend on:
+
+- Exceptional shooting efficiency.
+- Unusually favorable assist conversion.
+- Unusually high rebound collection.
+- Significant unanticipated playing time.
+- Fragile outcomes that cleared a line narrowly.
+- Opportunity conditions contradicting the original rationale.
+
+A winner is not automatically evidence of a strong analytical process.
+
+### D. Audit losing selections
+
+Distinguish:
+
+**Predictable analytical mistake:** Information available before the game should reasonably have affected direction, grade, or ranking.
+
+**Ordinary variance:** The original assumptions were credible, but normal statistical variability produced a loss.
+
+**Unusual event:** An uncommon disruption, such as an ejection, materially changed the result.
+
+**Unresolved:** Surviving evidence is insufficient to assign a reliable cause.
+
+Do not classify a loss as preventable solely because the outcome was unfavorable.
+
+### E. Review excluded alternatives
+
+Compare excluded candidates against finalists using original pregame information.
+
+Do not use final box scores to invent earlier reasoning.
+
+A winning excluded alternative is not automatically proof of a bad selection decision.
+
+Actual market availability and user constraints remain relevant.
+
+### F. Confidence calibration
+
+Track outcomes by original grades, model agreement, relevant markets, and supporting evidence.
+
+Do not infer exact win probabilities or profitability from a small sample.
+
+Investigate repeated patterns in unjustified high grades, weak opportunity evidence, or ignored failure risks.
+
+Do not modify the grading system merely because one grade category performs poorly over a limited number of slates.
+
+---
+
+# VI. RESEARCH SOURCES AND RESPONSIBILITIES
+
+| Source                        | Primary responsibility                                                  |
+| ----------------------------- | ----------------------------------------------------------------------- |
+| Drop Coverage                 | Game-specific statistical forecasts, minutes and uncertainty            |
+| DARKO                         | Sustainable box-score production and regression; DPM for impact context |
+| NBA.com / Official NBA        | Injuries, personnel, minutes, rotations, game logs, box scores          |
+| Hoops Junkie                  | Potential assists, rebound chances and other statistical opportunities  |
+| Databallr                     | Six Factors, efficiency, shot opportunities and defensive resistance    |
+| Hashtag Basketball / RotoWire | Current rotations, starting lineups and playing-time trends             |
+| NBA Team Profiles             | Established team tendencies and scouting context                        |
+| KEEL                          | Historical production, statistics, game logs and postgame verification  |
+
+**Excluded sources:** PropSims, PBP Stats and BoxScore Lab CSV.
+
+Use credible alternatives if a preferred source is unavailable, but do not invent missing data.
+
+Ask for source screenshots only when inaccessible information could materially change the assessment.
+
+Preserve:
+
+- Source date.
+- Sample size.
+- Statistical denominator.
+- Relevant minutes or possession filters.
+- Team/personnel changes.
+- Model freshness.
+- Differences between observed rates and forecasts.
+
+Do not treat overlapping samples, model agreement, and related metrics as separate independent confirmations.
+
+Historical team profiles must be revalidated against current personnel.
+
+---
+
+# VII. HISTORICAL AUDIT FINDINGS — EXECUTION REQUIREMENTS
+
+The October 22, 28, 29, 30 and November 2 historical review identified recurring concerns.
+
+These are operational safeguards within V2.2, not additional scoring categories.
+
+### Priority 1 — Independently verify opportunity ownership
+
+The primary recurring weakness was insufficiently established player-specific statistical opportunity volume and ownership.
+
+**Execution requirement:** Before awarding 2/2 opportunities, demonstrate why the player should receive enough relevant chances.
+
+Do not let credible minutes substitute for credible shot, passing, rebounding, or three-point opportunities.
+
+### Priority 2 — Preserve unresolved risks
+
+Concerns about rotations, shot ownership, model disagreement, defensive resistance, and statistical sustainability must remain visible through final grading.
+
+**Execution requirement:** Every material concern must be resolved, incorporated into confidence, or cause a Pass.
+
+### Priority 3 — Improve confidence justification
+
+Several historical high-confidence candidates lacked sufficiently complete independent opportunity documentation.
+
+**Execution requirement:** Require all A-range criteria, including strong independent evidence and meaningful market value, before awarding A-level confidence.
+
+Do not introduce arbitrary extra grading formulas.
+
+### Priority 4 — Make finalist challenges binding
+
+Some historical excluded alternatives did not receive adequately documented head-to-head comparisons.
+
+**Execution requirement:** Compare the weakest finalist against the strongest available exclusion using the original research and actual thresholds.
+
+### Priority 5 — Separate outcomes from process
+
+Historical wins sometimes benefited from exceptional conversion, while losses sometimes came from ordinary variance.
+
+**Execution requirement:** Review wins and losses using the same standards and distinguish minutes, volume, quality, and conversion mechanisms.
+
+### Priority 6 — Improve record preservation
+
+Historical archives occasionally lacked confirmed market tiers, complete rubrics, or proof that retrieved source rows were actually considered before tip-off.
+
+**Execution requirement:** Freeze the pregame record and preserve evidence provenance. Never present a subsequently recovered statistic as contemporaneously reviewed without support.
+
+---
+
+# VIII. FIVE-COMPLETED-SLATE PROSPECTIVE VALIDATION
+
+The historical five-slate audit is retrospective process research.
+
+A separate prospective evaluation tracks execution of V2.2 on five individually completed and archived slates.
+
+**Baseline: November 2, 2026 — Slate 1/5**
+
+- 24 archived research selections.
+- 12 wins and 12 losses.
+- Original grades and forecasts preserved.
+- Final postgame audit completed.
+- Market placement and ROI not independently confirmed.
+
+Four additional qualifying slates are required for the prospective five-slate comparison.
+
+Each qualifying slate must have:
+
+1. Frozen pregame selections, forecasts, thresholds and grades.
+2. Preserved independent opportunity evidence and material risks.
+3. Final verified outcomes.
+4. Postgame classification of minutes, volume, quality, and conversion.
+5. Review of original candidate rankings and exclusions.
+
+At the fifth completed slate, examine whether V2.2 execution has become more consistent.
+
+Do not create V2.3 or alter grading rules merely because the observed results fluctuate.
+
+---
+
+# IX. STANDARD FINAL SELECTION FORMAT
+
+Every ranked recommendation should include:
+
+| Field                 | Required output                                          |
+| --------------------- | -------------------------------------------------------- |
+| Player                | Player name and team                                     |
+| Market                | PTS, REB, AST, 3PM, PR, PA, RA or PRA                    |
+| Direction             | Higher or Lower                                          |
+| Threshold             | Actual line, provider and tier                           |
+| Drop Coverage         | Projection and projected minutes                         |
+| DARKO                 | Original projection/minutes and normalized benchmark     |
+| Model relationship    | Agree Higher, Agree Lower, Disagree or Unresolved        |
+| Independent rubric    | Minutes / Opportunities / Matchup / Sustainability = X/8 |
+| Statistical rationale | Verified volume, quality, ownership and sustainability   |
+| Statistical outlook   | Supported direction and realistic uncertainty            |
+| Main risk             | Most meaningful remaining failure scenario               |
+| Confidence            | A+ through D, or Pass                                    |
+| Ranking               | Position among credible slate candidates                 |
+
+Also document the strongest excluded alternative and the rationale for the final selection boundary.
+
+Do not present unverifiable numbers as facts.
+
+---
+
+# X. FINAL OPERATING SEQUENCE
+
+**Stage 1 — Environment and Personnel**
+
+Verify games and injuries → Assess both offenses and defenses → Identify statistical channels → Reconstruct rotations → Record role and minutes risks.
+
+**Stage 2 — External Models**
+
+Screen Drop across eight markets → Preserve DC projections and minutes → Retrieve DARKO statistical forecasts → Normalize DARKO to DC minutes → Classify model agreement → Record disagreements.
+
+**Stage 3 — Independent Validation**
+
+Verify player-specific opportunities → Evaluate volume and quality → Assess matchup access and resistance → Examine sustainability and regression → Apply the 0–8 rubric → Preserve unresolved concerns.
+
+**Stage 4 — Statistical Outlook**
+
+Determine supported direction → Resolve material model disagreements → Establish realistic statistical expectations and uncertainty → Evaluate failure scenarios → Carry unresolved risks forward.
+
+**Stage 5 — Market and Ranking**
+
+Verify exact lines → Evaluate projection margins and variability → Apply model agreement and rubric-based grading → Select strongest lane per player → Rank candidates → Challenge exclusions → Audit correlation → Finalize.
+
+**After the five stages**
+
+Final Lock Audit → Freeze pregame records → Postgame Review → Preserve original decisions → Compare recurring process failures across completed slates.
+
+---
+
+# XI. FINAL GOVERNING DECISION RULES
+
+### A-range eligibility
+
+**DC and normalized DARKO agree + independent review scores 7–8/8 + independently verified statistical opportunities + meaningful exact-line advantage + no material unresolved contradiction.**
+
+### Model disagreement
+
+**DC and normalized DARKO disagree + strong independent support may justify a selection, but B+ is the maximum grade.**
+
+### Downgrade or Pass
+
+**Weak independent evidence, inadequate market value, unstable opportunity ownership, or material unresolved concerns require lower confidence or a Pass.**
+
+### Research discipline
+
+**Verify → Validate → Explain → Evaluate → Rank.**
+
+### Historical discipline
+
+**Preserve what was known before the game. Judge the process using that evidence. Do not rewrite it using hindsight.**
+
+### Operating principle
+
+**The quality of a player prop is determined not simply by what the models forecast, but by whether the player's role, statistical opportunities, matchup, and sustainable production support that forecast at the actual available market threshold.**
+
+**Framework status: V2.2 — Retained and consolidated.**
+
+## What this rewrite changes
+
+The five analytical stages and the eight-point rubric remain intact. The historical audit findings now appear as explicit operating requirements rather than optional notes. In particular, independent opportunity ownership, cross-stage risk continuity, confidence discipline, and binding finalist comparisons are mandatory.
+
+One deliberate grading choice is preserved from our conversation: when DC and minutes-normalized DARKO disagree on direction, B+ is the ceiling. This supersedes the more permissive disagreement language in the previously saved V2.2 document; it does not change the version number.
+
+The revised text is the consolidated governing reference. The historical slates and their original pregame records remain unchanged.
