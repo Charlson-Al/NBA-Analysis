@@ -1,0 +1,772 @@
+{
+  "source_csv": "NBA_Team_Stats_2026-27_Download.csv",
+  "source_docx": "NBA_Team_Profiles_2026-27_V1.2.docx",
+  "teams": 30,
+  "columns": 61,
+  "checks": 1290,
+  "matched": 1290,
+  "mismatches": [],
+  "errors": [],
+  "warnings": [
+    {
+      "team": "ATL",
+      "field": "new_metrics_exact_game_cutoff_verified",
+      "reason": "exact cutoff unverified"
+    },
+    {
+      "team": "ATL",
+      "field": "def_context_exact_cutoff_verified",
+      "reason": "exact cutoff unverified"
+    },
+    {
+      "team": "ATL",
+      "field": "cutoff_verified",
+      "reason": "source-specific cutoff unverified"
+    },
+    {
+      "team": "ATL",
+      "field": "shot_zone_status",
+      "reason": "Current Databallr screenshots supplied but not validated/transcribed into row-level CSV"
+    },
+    {
+      "team": "ATL",
+      "field": "personnel_status",
+      "reason": "No complete 30-team injury/rotation audit as of cutoff"
+    },
+    {
+      "team": "BKN",
+      "field": "new_metrics_exact_game_cutoff_verified",
+      "reason": "exact cutoff unverified"
+    },
+    {
+      "team": "BKN",
+      "field": "def_context_exact_cutoff_verified",
+      "reason": "exact cutoff unverified"
+    },
+    {
+      "team": "BKN",
+      "field": "cutoff_verified",
+      "reason": "source-specific cutoff unverified"
+    },
+    {
+      "team": "BKN",
+      "field": "shot_zone_status",
+      "reason": "Current Databallr screenshots supplied but not validated/transcribed into row-level CSV"
+    },
+    {
+      "team": "BKN",
+      "field": "personnel_status",
+      "reason": "No complete 30-team injury/rotation audit as of cutoff"
+    },
+    {
+      "team": "BOS",
+      "field": "new_metrics_exact_game_cutoff_verified",
+      "reason": "exact cutoff unverified"
+    },
+    {
+      "team": "BOS",
+      "field": "def_context_exact_cutoff_verified",
+      "reason": "exact cutoff unverified"
+    },
+    {
+      "team": "BOS",
+      "field": "cutoff_verified",
+      "reason": "source-specific cutoff unverified"
+    },
+    {
+      "team": "BOS",
+      "field": "shot_zone_status",
+      "reason": "Current Databallr screenshots supplied but not validated/transcribed into row-level CSV"
+    },
+    {
+      "team": "BOS",
+      "field": "personnel_status",
+      "reason": "No complete 30-team injury/rotation audit as of cutoff"
+    },
+    {
+      "team": "CHA",
+      "field": "new_metrics_exact_game_cutoff_verified",
+      "reason": "exact cutoff unverified"
+    },
+    {
+      "team": "CHA",
+      "field": "def_context_exact_cutoff_verified",
+      "reason": "exact cutoff unverified"
+    },
+    {
+      "team": "CHA",
+      "field": "cutoff_verified",
+      "reason": "source-specific cutoff unverified"
+    },
+    {
+      "team": "CHA",
+      "field": "shot_zone_status",
+      "reason": "Current Databallr screenshots supplied but not validated/transcribed into row-level CSV"
+    },
+    {
+      "team": "CHA",
+      "field": "personnel_status",
+      "reason": "No complete 30-team injury/rotation audit as of cutoff"
+    },
+    {
+      "team": "CHI",
+      "field": "new_metrics_exact_game_cutoff_verified",
+      "reason": "exact cutoff unverified"
+    },
+    {
+      "team": "CHI",
+      "field": "def_context_exact_cutoff_verified",
+      "reason": "exact cutoff unverified"
+    },
+    {
+      "team": "CHI",
+      "field": "cutoff_verified",
+      "reason": "source-specific cutoff unverified"
+    },
+    {
+      "team": "CHI",
+      "field": "shot_zone_status",
+      "reason": "Current Databallr screenshots supplied but not validated/transcribed into row-level CSV"
+    },
+    {
+      "team": "CHI",
+      "field": "personnel_status",
+      "reason": "No complete 30-team injury/rotation audit as of cutoff"
+    },
+    {
+      "team": "CLE",
+      "field": "new_metrics_exact_game_cutoff_verified",
+      "reason": "exact cutoff unverified"
+    },
+    {
+      "team": "CLE",
+      "field": "def_context_exact_cutoff_verified",
+      "reason": "exact cutoff unverified"
+    },
+    {
+      "team": "CLE",
+      "field": "cutoff_verified",
+      "reason": "source-specific cutoff unverified"
+    },
+    {
+      "team": "CLE",
+      "field": "shot_zone_status",
+      "reason": "Current Databallr screenshots supplied but not validated/transcribed into row-level CSV"
+    },
+    {
+      "team": "CLE",
+      "field": "personnel_status",
+      "reason": "No complete 30-team injury/rotation audit as of cutoff"
+    },
+    {
+      "team": "DAL",
+      "field": "new_metrics_exact_game_cutoff_verified",
+      "reason": "exact cutoff unverified"
+    },
+    {
+      "team": "DAL",
+      "field": "def_context_exact_cutoff_verified",
+      "reason": "exact cutoff unverified"
+    },
+    {
+      "team": "DAL",
+      "field": "cutoff_verified",
+      "reason": "source-specific cutoff unverified"
+    },
+    {
+      "team": "DAL",
+      "field": "shot_zone_status",
+      "reason": "Current Databallr screenshots supplied but not validated/transcribed into row-level CSV"
+    },
+    {
+      "team": "DAL",
+      "field": "personnel_status",
+      "reason": "No complete 30-team injury/rotation audit as of cutoff"
+    },
+    {
+      "team": "DEN",
+      "field": "new_metrics_exact_game_cutoff_verified",
+      "reason": "exact cutoff unverified"
+    },
+    {
+      "team": "DEN",
+      "field": "def_context_exact_cutoff_verified",
+      "reason": "exact cutoff unverified"
+    },
+    {
+      "team": "DEN",
+      "field": "cutoff_verified",
+      "reason": "source-specific cutoff unverified"
+    },
+    {
+      "team": "DEN",
+      "field": "shot_zone_status",
+      "reason": "Current Databallr screenshots supplied but not validated/transcribed into row-level CSV"
+    },
+    {
+      "team": "DEN",
+      "field": "personnel_status",
+      "reason": "No complete 30-team injury/rotation audit as of cutoff"
+    },
+    {
+      "team": "DET",
+      "field": "new_metrics_exact_game_cutoff_verified",
+      "reason": "exact cutoff unverified"
+    },
+    {
+      "team": "DET",
+      "field": "def_context_exact_cutoff_verified",
+      "reason": "exact cutoff unverified"
+    },
+    {
+      "team": "DET",
+      "field": "cutoff_verified",
+      "reason": "source-specific cutoff unverified"
+    },
+    {
+      "team": "DET",
+      "field": "shot_zone_status",
+      "reason": "Current Databallr screenshots supplied but not validated/transcribed into row-level CSV"
+    },
+    {
+      "team": "DET",
+      "field": "personnel_status",
+      "reason": "No complete 30-team injury/rotation audit as of cutoff"
+    },
+    {
+      "team": "GSW",
+      "field": "new_metrics_exact_game_cutoff_verified",
+      "reason": "exact cutoff unverified"
+    },
+    {
+      "team": "GSW",
+      "field": "def_context_exact_cutoff_verified",
+      "reason": "exact cutoff unverified"
+    },
+    {
+      "team": "GSW",
+      "field": "cutoff_verified",
+      "reason": "source-specific cutoff unverified"
+    },
+    {
+      "team": "GSW",
+      "field": "shot_zone_status",
+      "reason": "Current Databallr screenshots supplied but not validated/transcribed into row-level CSV"
+    },
+    {
+      "team": "GSW",
+      "field": "personnel_status",
+      "reason": "No complete 30-team injury/rotation audit as of cutoff"
+    },
+    {
+      "team": "HOU",
+      "field": "new_metrics_exact_game_cutoff_verified",
+      "reason": "exact cutoff unverified"
+    },
+    {
+      "team": "HOU",
+      "field": "def_context_exact_cutoff_verified",
+      "reason": "exact cutoff unverified"
+    },
+    {
+      "team": "HOU",
+      "field": "cutoff_verified",
+      "reason": "source-specific cutoff unverified"
+    },
+    {
+      "team": "HOU",
+      "field": "shot_zone_status",
+      "reason": "Current Databallr screenshots supplied but not validated/transcribed into row-level CSV"
+    },
+    {
+      "team": "HOU",
+      "field": "personnel_status",
+      "reason": "No complete 30-team injury/rotation audit as of cutoff"
+    },
+    {
+      "team": "IND",
+      "field": "new_metrics_exact_game_cutoff_verified",
+      "reason": "exact cutoff unverified"
+    },
+    {
+      "team": "IND",
+      "field": "def_context_exact_cutoff_verified",
+      "reason": "exact cutoff unverified"
+    },
+    {
+      "team": "IND",
+      "field": "cutoff_verified",
+      "reason": "source-specific cutoff unverified"
+    },
+    {
+      "team": "IND",
+      "field": "shot_zone_status",
+      "reason": "Current Databallr screenshots supplied but not validated/transcribed into row-level CSV"
+    },
+    {
+      "team": "IND",
+      "field": "personnel_status",
+      "reason": "No complete 30-team injury/rotation audit as of cutoff"
+    },
+    {
+      "team": "LAC",
+      "field": "new_metrics_exact_game_cutoff_verified",
+      "reason": "exact cutoff unverified"
+    },
+    {
+      "team": "LAC",
+      "field": "def_context_exact_cutoff_verified",
+      "reason": "exact cutoff unverified"
+    },
+    {
+      "team": "LAC",
+      "field": "cutoff_verified",
+      "reason": "source-specific cutoff unverified"
+    },
+    {
+      "team": "LAC",
+      "field": "shot_zone_status",
+      "reason": "Current Databallr screenshots supplied but not validated/transcribed into row-level CSV"
+    },
+    {
+      "team": "LAC",
+      "field": "personnel_status",
+      "reason": "No complete 30-team injury/rotation audit as of cutoff"
+    },
+    {
+      "team": "LAL",
+      "field": "new_metrics_exact_game_cutoff_verified",
+      "reason": "exact cutoff unverified"
+    },
+    {
+      "team": "LAL",
+      "field": "def_context_exact_cutoff_verified",
+      "reason": "exact cutoff unverified"
+    },
+    {
+      "team": "LAL",
+      "field": "cutoff_verified",
+      "reason": "source-specific cutoff unverified"
+    },
+    {
+      "team": "LAL",
+      "field": "shot_zone_status",
+      "reason": "Current Databallr screenshots supplied but not validated/transcribed into row-level CSV"
+    },
+    {
+      "team": "LAL",
+      "field": "personnel_status",
+      "reason": "No complete 30-team injury/rotation audit as of cutoff"
+    },
+    {
+      "team": "MEM",
+      "field": "new_metrics_exact_game_cutoff_verified",
+      "reason": "exact cutoff unverified"
+    },
+    {
+      "team": "MEM",
+      "field": "def_context_exact_cutoff_verified",
+      "reason": "exact cutoff unverified"
+    },
+    {
+      "team": "MEM",
+      "field": "cutoff_verified",
+      "reason": "source-specific cutoff unverified"
+    },
+    {
+      "team": "MEM",
+      "field": "shot_zone_status",
+      "reason": "Current Databallr screenshots supplied but not validated/transcribed into row-level CSV"
+    },
+    {
+      "team": "MEM",
+      "field": "personnel_status",
+      "reason": "No complete 30-team injury/rotation audit as of cutoff"
+    },
+    {
+      "team": "MIA",
+      "field": "new_metrics_exact_game_cutoff_verified",
+      "reason": "exact cutoff unverified"
+    },
+    {
+      "team": "MIA",
+      "field": "def_context_exact_cutoff_verified",
+      "reason": "exact cutoff unverified"
+    },
+    {
+      "team": "MIA",
+      "field": "cutoff_verified",
+      "reason": "source-specific cutoff unverified"
+    },
+    {
+      "team": "MIA",
+      "field": "shot_zone_status",
+      "reason": "Current Databallr screenshots supplied but not validated/transcribed into row-level CSV"
+    },
+    {
+      "team": "MIA",
+      "field": "personnel_status",
+      "reason": "No complete 30-team injury/rotation audit as of cutoff"
+    },
+    {
+      "team": "MIL",
+      "field": "new_metrics_exact_game_cutoff_verified",
+      "reason": "exact cutoff unverified"
+    },
+    {
+      "team": "MIL",
+      "field": "def_context_exact_cutoff_verified",
+      "reason": "exact cutoff unverified"
+    },
+    {
+      "team": "MIL",
+      "field": "cutoff_verified",
+      "reason": "source-specific cutoff unverified"
+    },
+    {
+      "team": "MIL",
+      "field": "shot_zone_status",
+      "reason": "Current Databallr screenshots supplied but not validated/transcribed into row-level CSV"
+    },
+    {
+      "team": "MIL",
+      "field": "personnel_status",
+      "reason": "No complete 30-team injury/rotation audit as of cutoff"
+    },
+    {
+      "team": "MIN",
+      "field": "new_metrics_exact_game_cutoff_verified",
+      "reason": "exact cutoff unverified"
+    },
+    {
+      "team": "MIN",
+      "field": "def_context_exact_cutoff_verified",
+      "reason": "exact cutoff unverified"
+    },
+    {
+      "team": "MIN",
+      "field": "cutoff_verified",
+      "reason": "source-specific cutoff unverified"
+    },
+    {
+      "team": "MIN",
+      "field": "shot_zone_status",
+      "reason": "Current Databallr screenshots supplied but not validated/transcribed into row-level CSV"
+    },
+    {
+      "team": "MIN",
+      "field": "personnel_status",
+      "reason": "No complete 30-team injury/rotation audit as of cutoff"
+    },
+    {
+      "team": "NOP",
+      "field": "new_metrics_exact_game_cutoff_verified",
+      "reason": "exact cutoff unverified"
+    },
+    {
+      "team": "NOP",
+      "field": "def_context_exact_cutoff_verified",
+      "reason": "exact cutoff unverified"
+    },
+    {
+      "team": "NOP",
+      "field": "cutoff_verified",
+      "reason": "source-specific cutoff unverified"
+    },
+    {
+      "team": "NOP",
+      "field": "shot_zone_status",
+      "reason": "Current Databallr screenshots supplied but not validated/transcribed into row-level CSV"
+    },
+    {
+      "team": "NOP",
+      "field": "personnel_status",
+      "reason": "No complete 30-team injury/rotation audit as of cutoff"
+    },
+    {
+      "team": "NYK",
+      "field": "new_metrics_exact_game_cutoff_verified",
+      "reason": "exact cutoff unverified"
+    },
+    {
+      "team": "NYK",
+      "field": "def_context_exact_cutoff_verified",
+      "reason": "exact cutoff unverified"
+    },
+    {
+      "team": "NYK",
+      "field": "cutoff_verified",
+      "reason": "source-specific cutoff unverified"
+    },
+    {
+      "team": "NYK",
+      "field": "shot_zone_status",
+      "reason": "Current Databallr screenshots supplied but not validated/transcribed into row-level CSV"
+    },
+    {
+      "team": "NYK",
+      "field": "personnel_status",
+      "reason": "No complete 30-team injury/rotation audit as of cutoff"
+    },
+    {
+      "team": "OKC",
+      "field": "new_metrics_exact_game_cutoff_verified",
+      "reason": "exact cutoff unverified"
+    },
+    {
+      "team": "OKC",
+      "field": "def_context_exact_cutoff_verified",
+      "reason": "exact cutoff unverified"
+    },
+    {
+      "team": "OKC",
+      "field": "cutoff_verified",
+      "reason": "source-specific cutoff unverified"
+    },
+    {
+      "team": "OKC",
+      "field": "shot_zone_status",
+      "reason": "Current Databallr screenshots supplied but not validated/transcribed into row-level CSV"
+    },
+    {
+      "team": "OKC",
+      "field": "personnel_status",
+      "reason": "No complete 30-team injury/rotation audit as of cutoff"
+    },
+    {
+      "team": "ORL",
+      "field": "new_metrics_exact_game_cutoff_verified",
+      "reason": "exact cutoff unverified"
+    },
+    {
+      "team": "ORL",
+      "field": "def_context_exact_cutoff_verified",
+      "reason": "exact cutoff unverified"
+    },
+    {
+      "team": "ORL",
+      "field": "cutoff_verified",
+      "reason": "source-specific cutoff unverified"
+    },
+    {
+      "team": "ORL",
+      "field": "shot_zone_status",
+      "reason": "Current Databallr screenshots supplied but not validated/transcribed into row-level CSV"
+    },
+    {
+      "team": "ORL",
+      "field": "personnel_status",
+      "reason": "No complete 30-team injury/rotation audit as of cutoff"
+    },
+    {
+      "team": "PHI",
+      "field": "new_metrics_exact_game_cutoff_verified",
+      "reason": "exact cutoff unverified"
+    },
+    {
+      "team": "PHI",
+      "field": "def_context_exact_cutoff_verified",
+      "reason": "exact cutoff unverified"
+    },
+    {
+      "team": "PHI",
+      "field": "cutoff_verified",
+      "reason": "source-specific cutoff unverified"
+    },
+    {
+      "team": "PHI",
+      "field": "shot_zone_status",
+      "reason": "Current Databallr screenshots supplied but not validated/transcribed into row-level CSV"
+    },
+    {
+      "team": "PHI",
+      "field": "personnel_status",
+      "reason": "No complete 30-team injury/rotation audit as of cutoff"
+    },
+    {
+      "team": "PHX",
+      "field": "new_metrics_exact_game_cutoff_verified",
+      "reason": "exact cutoff unverified"
+    },
+    {
+      "team": "PHX",
+      "field": "def_context_exact_cutoff_verified",
+      "reason": "exact cutoff unverified"
+    },
+    {
+      "team": "PHX",
+      "field": "cutoff_verified",
+      "reason": "source-specific cutoff unverified"
+    },
+    {
+      "team": "PHX",
+      "field": "shot_zone_status",
+      "reason": "Current Databallr screenshots supplied but not validated/transcribed into row-level CSV"
+    },
+    {
+      "team": "PHX",
+      "field": "personnel_status",
+      "reason": "No complete 30-team injury/rotation audit as of cutoff"
+    },
+    {
+      "team": "POR",
+      "field": "new_metrics_exact_game_cutoff_verified",
+      "reason": "exact cutoff unverified"
+    },
+    {
+      "team": "POR",
+      "field": "def_context_exact_cutoff_verified",
+      "reason": "exact cutoff unverified"
+    },
+    {
+      "team": "POR",
+      "field": "cutoff_verified",
+      "reason": "source-specific cutoff unverified"
+    },
+    {
+      "team": "POR",
+      "field": "shot_zone_status",
+      "reason": "Current Databallr screenshots supplied but not validated/transcribed into row-level CSV"
+    },
+    {
+      "team": "POR",
+      "field": "personnel_status",
+      "reason": "No complete 30-team injury/rotation audit as of cutoff"
+    },
+    {
+      "team": "SAC",
+      "field": "new_metrics_exact_game_cutoff_verified",
+      "reason": "exact cutoff unverified"
+    },
+    {
+      "team": "SAC",
+      "field": "def_context_exact_cutoff_verified",
+      "reason": "exact cutoff unverified"
+    },
+    {
+      "team": "SAC",
+      "field": "cutoff_verified",
+      "reason": "source-specific cutoff unverified"
+    },
+    {
+      "team": "SAC",
+      "field": "shot_zone_status",
+      "reason": "Current Databallr screenshots supplied but not validated/transcribed into row-level CSV"
+    },
+    {
+      "team": "SAC",
+      "field": "personnel_status",
+      "reason": "No complete 30-team injury/rotation audit as of cutoff"
+    },
+    {
+      "team": "SAS",
+      "field": "new_metrics_exact_game_cutoff_verified",
+      "reason": "exact cutoff unverified"
+    },
+    {
+      "team": "SAS",
+      "field": "def_context_exact_cutoff_verified",
+      "reason": "exact cutoff unverified"
+    },
+    {
+      "team": "SAS",
+      "field": "cutoff_verified",
+      "reason": "source-specific cutoff unverified"
+    },
+    {
+      "team": "SAS",
+      "field": "shot_zone_status",
+      "reason": "Current Databallr screenshots supplied but not validated/transcribed into row-level CSV"
+    },
+    {
+      "team": "SAS",
+      "field": "personnel_status",
+      "reason": "No complete 30-team injury/rotation audit as of cutoff"
+    },
+    {
+      "team": "TOR",
+      "field": "new_metrics_exact_game_cutoff_verified",
+      "reason": "exact cutoff unverified"
+    },
+    {
+      "team": "TOR",
+      "field": "def_context_exact_cutoff_verified",
+      "reason": "exact cutoff unverified"
+    },
+    {
+      "team": "TOR",
+      "field": "cutoff_verified",
+      "reason": "source-specific cutoff unverified"
+    },
+    {
+      "team": "TOR",
+      "field": "shot_zone_status",
+      "reason": "Current Databallr screenshots supplied but not validated/transcribed into row-level CSV"
+    },
+    {
+      "team": "TOR",
+      "field": "personnel_status",
+      "reason": "No complete 30-team injury/rotation audit as of cutoff"
+    },
+    {
+      "team": "UTA",
+      "field": "new_metrics_exact_game_cutoff_verified",
+      "reason": "exact cutoff unverified"
+    },
+    {
+      "team": "UTA",
+      "field": "def_context_exact_cutoff_verified",
+      "reason": "exact cutoff unverified"
+    },
+    {
+      "team": "UTA",
+      "field": "cutoff_verified",
+      "reason": "source-specific cutoff unverified"
+    },
+    {
+      "team": "UTA",
+      "field": "shot_zone_status",
+      "reason": "Current Databallr screenshots supplied but not validated/transcribed into row-level CSV"
+    },
+    {
+      "team": "UTA",
+      "field": "personnel_status",
+      "reason": "No complete 30-team injury/rotation audit as of cutoff"
+    },
+    {
+      "team": "WAS",
+      "field": "new_metrics_exact_game_cutoff_verified",
+      "reason": "exact cutoff unverified"
+    },
+    {
+      "team": "WAS",
+      "field": "def_context_exact_cutoff_verified",
+      "reason": "exact cutoff unverified"
+    },
+    {
+      "team": "WAS",
+      "field": "cutoff_verified",
+      "reason": "source-specific cutoff unverified"
+    },
+    {
+      "team": "WAS",
+      "field": "shot_zone_status",
+      "reason": "Current Databallr screenshots supplied but not validated/transcribed into row-level CSV"
+    },
+    {
+      "team": "WAS",
+      "field": "personnel_status",
+      "reason": "No complete 30-team injury/rotation audit as of cutoff"
+    }
+  ],
+  "blocked_for_game_day": true,
+  "checked_fields_per_team": 43,
+  "pass_numeric_reconciliation": true,
+  "warning_counts": {
+    "new_metrics_exact_game_cutoff_verified": 30,
+    "def_context_exact_cutoff_verified": 30,
+    "cutoff_verified": 30,
+    "shot_zone_status": 30,
+    "personnel_status": 30
+  }
+}
