@@ -1,3 +1,4 @@
+"""Simplicity-first regressions, including the six PR #2 review defects."""
 import copy
 import json
 import os
@@ -10,302 +11,272 @@ from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'src'))
 from ingestion.store import IngestionError, REPO, decode, digest, encode, validate
-from tracker.catalog import CATALOG, FRAMEWORK_SHA, LOCK, MARKETS, REFINEMENTS
-from tracker.journal import append, create, load
-from tracker.review import framework_check, render, review
+from tracker.calculations import exact_line, normalize
+from tracker.review import check, effective, render
+from tracker.storage import assess, freeze, read_note, report, snapshot
 
-FIXTURE = REPO / 'tests/fixtures/synthetic/tracker-inputs.json'
+FIXTURE = REPO / 'tests/fixtures/synthetic/research-note.json'
 
 
 class TrackerTests(unittest.TestCase):
     def setUp(self):
+        self.note = decode(FIXTURE.read_bytes())
         self.tmp = tempfile.TemporaryDirectory()
         self.addCleanup(self.tmp.cleanup)
         self.root = Path(self.tmp.name).resolve() / 'private'
-        self.records = decode(FIXTURE.read_bytes())['records']
-        self.events = []
-        for r in self.records:
-            self.add(r)
+        self.root.mkdir(mode=0o700)
+        self.path = self.root / 'session.json'
+        self.save()
 
-    def add(self, record):
-        record = copy.deepcopy(record)
-        if not record['basis']:
-            latest = {e['record']['entity_id']: e for e in self.events}
-            record['basis'] = [e['event_id'] for key, e in latest.items() if key != record['entity_id']]
-        event = (create if not self.events else append)('synthetic', record, root=self.root)
-        self.events.append(event)
-        return event
+    def save(self):
+        self.path.write_bytes(encode(self.note)); self.path.chmod(0o600)
 
     def codes(self):
-        return {w[0] for w in review(load('synthetic', root=self.root))[0]}
+        return {i['code'] for i in check(self.note)['issues']}
 
-    def record(self, kind):
-        return copy.deepcopy(next(r for r in self.records if r['kind'] == kind))
+    def finalized(self):
+        self.note['decision'].update(status='finalized_selection',at='2026-11-07T12:06:00Z',selected=['A-AST'],reason='Invented analyst declaration only')
 
-    def test_framework_and_complete_catalog(self):
-        self.assertTrue(framework_check())
-        self.assertEqual(len(LOCK), 17)
-        self.assertTrue({'1A','1E','2A','2F','3C','4E','5I','IV-B','V-F','VIII','IX'} <= CATALOG.keys())
-        self.assertNotIn('FRAMEWORK_CONFLICT', self.codes())
-        self.assertNotIn('NORMALIZATION_MISMATCH', self.codes())
+    def test_M1_unsupported_lock_and_blanket_na_cannot_pass(self):
+        self.finalized()
+        self.note['comparisons'] = []
+        self.note['lock_review'] = dict(at=None,sources=[],note=None)
+        self.note['candidates'][0]['validation']['opportunities']['sources'] = []
+        r=check(self.note)
+        self.assertEqual(r['lock_status'],'unsupported claim')
+        self.assertTrue({'EVIDENCE','BOUNDARY_COMPARISON','FINAL_RECHECK'}<=self.codes())
+        self.note['lock_review']['status']='not_applicable'
+        with self.assertRaises(IngestionError): check(self.note)
 
-    def test_framework_conflict_and_refinement_effective_dates(self):
-        session = self.record('session')
-        session['data'].update(research_date='2026-11-05',research_at='2026-11-05T18:24:10Z',mode='retrospective',rules_used_sha256='conflicting-historical-source')
-        events = copy.deepcopy(self.events)
-        events[0]['record'] = session
-        codes = {w[0] for w in review(events)[0]}
-        self.assertIn('FRAMEWORK_CONFLICT', codes)
-        self.assertIn('REFINEMENT_NOT_APPLICABLE', codes)
-        with patch('tracker.review.FRAMEWORK_SHA', '0' * 64):
-            self.assertFalse(framework_check())
+    def test_M1_irrelevant_evidence_and_field_population_never_certifies(self):
+        self.note['sources']['S4']['subjects']=['SYN_B']
+        self.assertIn('IRRELEVANT_EVIDENCE',self.codes())
+        self.note['sources']['S4']['subjects']=['SYN_A','SYN_B']
+        self.note['sources']['S4']['kind']='forecast'
+        self.assertIn('OWNERSHIP',self.codes())
+        clean=decode(FIXTURE.read_bytes());r=check(clean)
+        self.assertEqual(r['issues'],[])
+        self.assertEqual(r['lock_status'],'analyst review required')
+        self.assertNotIn('completion_supported',r)
+        self.assertIn('No automated analytical verification',render(clean))
 
-    def test_schema_rejects_bad_dates_unknown_fields_and_bad_scores(self):
-        for field, value in [('reviewed_at','yesterday'),('unknown',1)]:
-            record = self.record('candidate'); record['data'][field] = value
-            with self.assertRaises(IngestionError): self.add(record)
-        record = self.record('candidate'); record['data']['rubric']['role'] = 3
-        with self.assertRaises(IngestionError): self.add(record)
-        raw = b'{"a":1,"a":2}'
-        with self.assertRaises(IngestionError): decode(raw)
+    def test_M2_actual_decision_checkpoint_controls_refinements(self):
+        self.note.update(research_at='2026-11-05T17:00:00Z')
+        self.note['authority']['refinements']=[]
+        self.finalized()
+        self.note['candidates'][0]['line']['tier']='goblin'
+        self.assertTrue({'AUTHORITY','MARKET_ELIGIBILITY'}<=self.codes())
+        self.assertEqual(effective('2026-11-05T17:00:00Z'),[])
+        self.assertEqual(effective('2026-11-05T18:10:00Z'),['standard-only'])
+        self.assertEqual(len(effective('2026-11-06T14:09:00Z')),4)
 
-    def test_originals_and_decision_versions_survive_reassessment(self):
-        before = {p.name:p.read_bytes() for p in (self.root/'synthetic').iterdir()}
-        decision = dict(kind='decision',entity_id='decision-one',basis=[self.events[-1]['event_id']],data=dict(status='pass',candidate_ids=['candidate-a'],rationale='Insufficient research',confirmation_evidence_ids=[],decision_at='2026-11-07T12:03:00Z',historical_reference=None))
-        self.add(decision)
-        changed = self.record('candidate'); changed['data']['outlook'] = 'Later independent reassessment'
-        self.add(changed)
-        events = load('synthetic',root=self.root)
-        self.assertEqual(events[-2]['record']['data']['status'], 'pass')
-        self.assertEqual(events[-2]['record']['basis'], [events[7]['event_id']])
-        self.assertEqual(events[7]['record']['data']['outlook'], 'Invented example only')
-        for name, raw in before.items(): self.assertEqual((self.root/'synthetic'/name).read_bytes(),raw)
-        self.assertNotIn('DECISION_BASIS',self.codes())
+    def test_M2_postdecision_evidence_and_stale_market_recheck(self):
+        self.finalized()
+        self.note['sources']['S4']['reviewed_at']='2026-11-08T12:00:00Z'
+        self.note['sources']['S6']['observed_at']='2026-10-01T00:00:00Z'
+        self.assertTrue({'LATE_EVIDENCE','STALE_ASSESSMENT','FINAL_RECHECK'}<=self.codes())
+        self.assertEqual(check(self.note)['lock_status'],'unsupported claim')
 
-    def test_hash_chain_and_incomplete_event_rejected(self):
-        path=self.root/'synthetic'/'00000002.json'
-        path.chmod(0o600); event=decode(path.read_bytes()); event['record']['data']['sample']='changed'
-        path.write_bytes(encode(event))
-        with self.assertRaises(IngestionError):load('synthetic',root=self.root)
-        path.write_bytes(b'{')
-        with self.assertRaises(IngestionError):load('synthetic',root=self.root)
+    def test_M3_single_note_has_no_unrelated_event_binding_bypass(self):
+        self.note['candidates'][0]['validation']['opportunities']['sources']=['missing']
+        self.assertIn('SOURCE_LINK',self.codes())
+        self.note['basis']=['arbitrary-valid-event']
+        with self.assertRaises(IngestionError):check(self.note)
 
-    def test_permissions_symlinks_lock_and_existing_session(self):
-        path=self.root/'synthetic'
-        self.assertEqual((path/'00000001.json').stat().st_mode & 0o777,0o400)
-        with self.assertRaises(IngestionError):create('synthetic',self.records[0],root=self.root)
-        (path/'.lock').write_bytes(b'')
-        with self.assertRaises(IngestionError):self.add(self.record('source'))
-        (path/'.lock').unlink()
-        file=path/'00000002.json'; file.unlink(); file.symlink_to(FIXTURE)
-        with self.assertRaises(IngestionError):load('synthetic',root=self.root)
-        with self.assertRaises(IngestionError):create('../escape',self.records[0],root=self.root)
+    def test_M3_source_bytes_and_later_inputs_invalidate_current_assessment(self):
+        source=self.root/'source.bin';source.write_bytes(b'original invented inputs');source.chmod(0o600)
+        self.note['sources']['S2'].update(file='source.bin',sha256=digest(source.read_bytes()))
+        self.save();self.assertNotIn('SOURCE_FILE',{i['code'] for i in assess(self.root,'session.json')[1]['issues']})
+        source.write_bytes(b'changed')
+        self.assertIn('SOURCE_FILE',{i['code'] for i in assess(self.root,'session.json')[1]['issues']})
+        with self.assertRaises(IngestionError):freeze(self.root,'session.json','bad-originals')
+        self.note['sources']['S2']['reviewed_at']='2026-11-07T12:04:30Z'
+        self.assertIn('STALE_ASSESSMENT',self.codes())
 
-    def test_failed_append_cleanup_and_retry(self):
-        before=load('synthetic',root=self.root)
-        with patch('tracker.journal.os.fsync',side_effect=OSError('injected')):
-            with self.assertRaises(OSError):self.add(self.record('source'))
-        self.assertEqual(before,load('synthetic',root=self.root))
-        self.add(self.record('source'))
-        self.assertEqual(len(before)+1,len(load('synthetic',root=self.root)))
+    def test_M4_frozen_grade_findings_survive_later_reassessment(self):
+        self.note['projections'][1]['values']['AST']=4.5
+        self.note['candidates'][0]['grade']='A'
+        self.finalized();self.save()
+        self.assertIn('GRADE_ELIGIBILITY',self.codes())
+        freeze(self.root,'session.json','original')
+        old_manifest,old_report=snapshot(self.root,self.note['id'],'original')
+        original_bytes=self.path.read_bytes()
+        self.note['candidates'][0]['grade']='C';self.note['candidates'][0]['validation']={k:dict(score=1,note=v['note'],sources=v['sources']) for k,v in self.note['candidates'][0]['validation'].items()}
+        self.save()
+        self.assertNotIn('GRADE_ELIGIBILITY',self.codes())
+        new_manifest,new_report=snapshot(self.root,self.note['id'],'original')
+        self.assertEqual(old_manifest,new_manifest);self.assertEqual(old_report,new_report)
+        self.assertEqual((self.root/'pregame-snapshots'/self.note['id']/'original'/'note.json').read_bytes(),original_bytes)
+        self.assertIn('GRADE_ELIGIBILITY',report(self.root,'session.json').split('## Frozen history')[1])
 
-    def test_missing_checkers_fail_closed(self):
+    def test_M5_one_canonical_normalization_at_exact_line(self):
+        d=self.note['projections'][1]
+        value=normalize(d,32,'AST')
+        self.assertEqual(str(value),'8')
+        self.assertEqual(exact_line(9,value,8,'Higher')['relationship'],'Unresolved')
+        self.note['candidates'][0]['normalized']=8.0000000005
+        with self.assertRaises(IngestionError):check(self.note)
+        self.assertEqual(exact_line(8,8,7,'Higher')['wins'],'8+')
+        self.assertEqual(exact_line(8,8,10,'Lower')['wins'],'9 or fewer')
+
+    def test_M6_screening_is_independent_of_market_availability_and_postgame(self):
+        self.note['candidates']=[];self.note['comparisons']=[]
+        r=check(self.note)
+        self.assertEqual(r['stages']['2'],'recorded')
+        self.assertEqual(len(r['coverage']['SYN_A']),8)
+        self.assertEqual(len(r['stages']),5)
+        self.assertNotIn('V-A',render(self.note))
+        self.assertNotIn('requirements',self.note)
+
+    def test_normalization_components_basis_and_input_preservation(self):
+        original=copy.deepcopy(self.note)
+        d=self.note['projections'][1]
+        self.assertEqual(normalize(d,32,'PRA'),36)
+        d['basis']='per_minute';d['values']['AST']=.25;d['minutes']=None
+        self.assertEqual(normalize(d,32,'AST'),8)
+        d['basis']='per_game'
+        with self.assertRaises(ValueError):normalize(d,32,'AST')
+        with self.assertRaises(ValueError):normalize(original['projections'][1],None,'AST')
+        raw=encode(original);check(original);self.assertEqual(raw,encode(original))
+
+    def test_model_disagreement_stays_in_research_and_grade_limits_unchanged(self):
+        self.note['projections'][1]['values']['AST']=4.5
+        self.note['candidates'][0]['grade']='B'
+        self.assertIn('DISAGREEMENT',self.codes())
+        self.assertNotIn('GRADE_LIMIT',self.codes())
+        self.note['candidates'][0]['grade']='A'
+        self.assertTrue({'GRADE_LIMIT','GRADE_ELIGIBILITY'}<=self.codes())
+        self.assertEqual(self.note['candidates'][0]['grade'],'A')
+        self.assertEqual(self.note['candidates'][0]['disposition'],'research')
+
+    def test_shared_risk_applies_without_duplicate_candidate_links(self):
+        self.note['risks'][0].update(kind='rotation',status='open')
+        self.assertTrue({'SHARED_RISK','SENSITIVITY'}<=self.codes())
+        self.note['risks'][0]['status']='carried'
+        self.assertNotIn('SHARED_RISK',self.codes())
+        self.finalized();self.note['risks'][0]['status']='disqualifying'
+        self.assertIn('RISK_DECISION',self.codes())
+
+    def test_postgame_separate_and_cannot_support_pregame(self):
+        before=check(self.note)
+        self.note['postgame']={'actuals':'Invented outcome only'}
+        self.assertEqual(before,check(self.note))
+        self.note['sources']['POST']={**self.note['sources']['S4'],'phase':'postgame'}
+        self.note['candidates'][0]['validation']['opportunities']['sources']=['POST']
+        self.assertIn('POSTGAME_SUPPORT',self.codes())
+        self.save()
+        with self.assertRaises(IngestionError):freeze(self.root,'session.json','mixed')
+
+    def test_snapshots_exclusive_tamper_detection_and_raw_source_copy(self):
+        source=self.root/'source.bin';source.write_bytes(b'original synthetic data');source.chmod(0o600)
+        self.note['sources']['S2'].update(file='source.bin',sha256=digest(source.read_bytes()));self.save()
+        path=freeze(self.root,'session.json','pregame')
+        self.assertEqual((path/'source-S2.bin').read_bytes(),source.read_bytes())
+        with self.assertRaises(IngestionError):freeze(self.root,'session.json','pregame')
+        self.assertEqual(path.stat().st_mode&0o777,0o500)
+        f=path/'note.json';self.assertEqual(f.stat().st_mode&0o777,0o400)
+        f.chmod(0o600);f.write_bytes(b'{}')
+        with self.assertRaises(IngestionError):snapshot(self.root,self.note['id'],'pregame')
+
+    def test_private_roots_symlinks_and_interrupted_writes(self):
+        with self.assertRaises(IngestionError):read_note(REPO,'README.md')
+        self.path.unlink();self.path.symlink_to(FIXTURE)
+        with self.assertRaises(IngestionError):read_note(self.root,'session.json')
+        self.path.unlink();self.save()
+        with patch('tracker.storage.os.fsync',side_effect=OSError('injected')):
+            with self.assertRaises(OSError):freeze(self.root,'session.json','interrupted')
+        self.assertFalse((self.root/'pregame-snapshots'/self.note['id']/'interrupted').exists())
+        freeze(self.root,'session.json','interrupted')
+
+    def test_strict_schema_no_scoring_or_unavailable_validators(self):
         from jsonschema import FormatChecker
         with patch.object(FormatChecker,'checkers',{}):
-            with self.assertRaises(IngestionError):load('synthetic',root=self.root)
+            with self.assertRaises(IngestionError):check(self.note)
+        for field,value in [('research_at','yesterday'),('new_factor',1)]:
+            n=copy.deepcopy(self.note);n[field]=value
+            with self.assertRaises(IngestionError):check(n)
+        n=copy.deepcopy(self.note);n['projections'][1]['values']['DPM']=3
+        with self.assertRaises(IngestionError):check(n)
+        n=copy.deepcopy(self.note);n['candidates'][0]['validation']['role']['score']=3
+        with self.assertRaises(IngestionError):check(n)
 
-    def test_coverage_keeps_independent_disagreement_candidates(self):
-        for market in MARKETS:
-            self.add(dict(kind='coverage',entity_id='coverage-'+market,basis=[],data=dict(player='SYN_A',market=market,higher_reviewed=True,lower_reviewed=True,market_status='not_recovered',opportunity_evidence_ids=['evidence-a'],advance_reasons=['independent_opportunity'],disagreement_investigation='Investigate near-line disagreement; do not automatically reject',disposition='investigate',rationale='Synthetic independently supported channel')))
-        self.assertNotIn('COVERAGE',self.codes())
-        self.assertIn('MARKET_COVERAGE',self.codes())
-        self.assertEqual(len([e for e in load('synthetic',root=self.root) if e['record']['kind']=='coverage']),8)
-
-    def test_normalization_per_minute_invalid_and_incompatible(self):
-        record=self.record('calculation'); record['data']['result']=8.1
-        self.add(record);self.assertIn('NORMALIZATION_MISMATCH',self.codes())
-        self.add(self.record('calculation'))
-        darko=copy.deepcopy(self.records[4]);darko['data'].update(value=0.25,basis='per_minute',minutes=None)
-        self.add(darko);self.assertNotIn('NORMALIZATION_MISMATCH',self.codes())
-        darko['data']['unit']='different';self.add(darko)
-        self.assertIn('CALCULATION',self.codes())
-
-    def test_combined_normalizes_components_and_rejects_cycle(self):
-        for suffix,market in [('p','PTS'),('r','REB')]:
-            for base in (self.records[3],self.records[4]):
-                record=copy.deepcopy(base);record['entity_id'] += suffix;record['data']['market']=market;record['data']['unit']=market;self.add(record)
-            calc=self.record('calculation');calc['entity_id']+=suffix;calc['data'].update(dc_id='dc-a'+suffix,darko_id='darko-a'+suffix);self.add(calc)
-        dc=self.record('model');dc['entity_id']='dc-pr';dc['data'].update(market='PR',unit='PR',value=16);self.add(dc)
-        calc=self.record('calculation');calc['entity_id']='calc-pr';calc['data'].update(dc_id='dc-pr',darko_id=None,component_ids=['calc-ap','calc-ar'],result=16);self.add(calc)
-        self.assertNotIn('CALCULATION',self.codes())
-        calc['data']['component_ids']=['calc-pr','calc-ar'];self.add(calc)
-        self.assertIn('CALCULATION',self.codes())
-
-    def test_unsupported_verified_source_metadata_and_missing_links(self):
-        evidence=self.record('evidence');evidence['data'].update(source_ids=[],verification_scope=None);self.add(evidence)
-        source=self.record('source');source['data']['cutoff']=None;self.add(source)
-        self.assertTrue({'UNSUPPORTED_VERIFIED','UNSUPPORTED_EVIDENCE','SOURCE_METADATA'} <= self.codes())
-        candidate=self.record('candidate');candidate['data'].update(dc_id='missing',opportunity_evidence_ids=[]);self.add(candidate)
-        self.assertTrue({'MISSING_LINK','OPPORTUNITY_GAP'}<=self.codes())
-
-    def test_shared_risk_continuity_and_staleness(self):
-        risk=dict(kind='uncertainty',entity_id='rotation',basis=[],data=dict(issue='Invented shared rotation',candidate_ids=['candidate-a'],evidence_ids=[],status='open',rationale='Requires review'))
-        self.add(risk);self.assertIn('RISK_CONTINUITY',self.codes())
-        candidate=self.record('candidate');candidate['data']['uncertainty_ids']=['rotation'];self.add(candidate)
-        self.assertNotIn('RISK_CONTINUITY',self.codes())
-        risk['data']['status']='carried';self.add(risk)
-        self.assertTrue({'STALE_ASSESSMENT','OPEN_RISK'}<=self.codes())
-
-    def test_comparison_incomplete_and_finalization_does_not_imply_placement(self):
-        c=self.record('candidate');c['entity_id']='candidate-b';self.add(c)
-        comparison=dict(kind='comparison',entity_id='challenge',basis=[],data=dict(finalist_id='candidate-a',exclusion_id='candidate-b',fields={k:None for k in ('availability','models','rubric','opportunities','minutes_risks','market_value','user_constraints','coverage')},outcome='investigate',rationale='Not completed',reviewed_at=None))
-        self.add(comparison);self.assertIn('COMPARISON_INCOMPLETE',self.codes())
-        decision=dict(kind='decision',entity_id='selection',basis=[],data=dict(status='finalized_selection',candidate_ids=['candidate-a'],rationale='Analyst input, not system decision',confirmation_evidence_ids=[],decision_at='2026-11-07T12:03:00Z',historical_reference=None))
-        self.add(decision);self.assertIn('LOCK_INCOMPLETE',self.codes())
-        self.assertNotIn('confirmed_wager',render(load('synthetic',root=self.root)))
-        decision['entity_id']='placement';decision['data']['status']='confirmed_wager';self.add(decision)
-        self.assertIn('MISSING_EVIDENCE',self.codes())
-
-    def test_grade_is_preserved_not_assigned(self):
-        c=self.record('candidate');c['data']['grade']='A';c['data']['rubric']={k:1 for k in c['data']['rubric']};self.add(c)
-        self.assertIn('GRADE_ELIGIBILITY',self.codes())
-        self.assertEqual(load('synthetic',root=self.root)[-1]['record']['data']['grade'],'A')
-
-    def test_deterministic_report_incomplete_is_not_met(self):
-        events=load('synthetic',root=self.root)
-        self.assertEqual(render(events),render(events))
-        self.assertIn('L17: Material personnel',render(events))
-        self.assertIn('unassessed',render(events))
-        self.assertIn('RUBRIC_OPEN',render(events))
-        self.assertIn('Original grade',render(events))
-
-    def test_cli_private_report_and_safe_error(self):
+    def test_cli_example_report_and_freeze(self):
         env=dict(os.environ,PYTHONPATH=str(REPO/'src'),NBA_PRIVATE_DATA_ROOT=str(self.root))
-        result=subprocess.run([sys.executable,'-m','tracker','report','synthetic'],env=env,capture_output=True,text=True)
-        self.assertEqual(result.returncode,2,result.stderr)
-        self.assertNotIn(str(self.root),result.stdout+result.stderr)
-        reports=list((self.root/'tracker-reports').glob('*.md'));self.assertEqual(len(reports),1)
-        self.assertIn('# V2.2',reports[0].read_text())
-        bad=subprocess.run([sys.executable,'-m','tracker','check','missing'],env=env,capture_output=True,text=True)
-        self.assertEqual(bad.returncode,1);self.assertNotIn(str(self.root),bad.stderr)
+        def run(*args):return subprocess.run([sys.executable,'-m','tracker',*args],env=env,capture_output=True,text=True)
+        self.assertEqual(run('example','demo').returncode,0)
+        self.assertEqual(run('check','demo.json').returncode,0)
+        result=run('report','demo.json');self.assertEqual(result.returncode,0)
+        self.assertIn('analyst review required',result.stdout)
+        self.assertEqual(run('freeze','demo.json','before-tip').returncode,0)
+        self.assertIn('V2.2 research checklist',run('snapshot','demo','before-tip').stdout)
+        self.assertEqual(run('freeze','demo.json','before-tip').returncode,1)
+        self.assertEqual(run('new','blank').returncode,0)
+        self.assertEqual(run('check','blank.json').returncode,2)
+        self.assertNotIn(str(self.root),run('check','missing.json').stderr)
 
-    def test_compliance_separates_eligibility_evidence_and_judgment(self):
-        from tracker.review import compliance
-        c=self.record('candidate');c['data']['grade']='A';c['data']['rubric']={k:1 for k in c['data']['rubric']};self.add(c)
-        other=self.record('candidate');other['entity_id']='incomplete-candidate';self.add(other)
-        report=compliance(load('synthetic',root=self.root))
-        self.assertTrue(any(f['code']=='GRADE_ELIGIBILITY' and f['severity']=='hard_violation' for f in report['findings']))
-        self.assertTrue(any(f['code']=='RUBRIC_OPEN' and f['severity']=='incomplete_evidence' for f in report['findings']))
-        self.assertTrue(all('Analyst' in row['judgment'] for row in report['requirements']))
-        r=dict(kind='requirement',entity_id='false-completion',basis=[],data=dict(scope='slate',code='3A-opportunities',status='met',evidence_ids=[],rationale='Unsupported assertion for test',reviewed_at='2026-11-07T12:03:00Z'))
-        self.add(r)
-        row=next(r for r in compliance(load('synthetic',root=self.root))['requirements'] if r['scope']=='slate' and r['code']=='3A-opportunities')
-        self.assertFalse(row['completion_supported'])
-        self.assertIn('Completion claim has no evidence links',row['concerns'])
+    def test_duplicate_models_do_not_choose_a_forecast(self):
+        other=copy.deepcopy(self.note['projections'][0]);other['values']['AST']=100
+        self.note['projections'].append(other)
+        result=check(self.note)
+        self.assertIn('DUPLICATE_MODEL',{i['code'] for i in result['issues']})
+        self.assertNotIn('A-AST',result['calculations'])
+        self.assertEqual(self.note['projections'][0]['values']['AST'],8)
 
-    def test_exact_threshold_neutral_disagreement_and_direction(self):
-        c=self.record('candidate');c['data'].update(grade='A',rubric={k:2 for k in c['data']['rubric']});self.add(c)
-        self.assertNotIn('GRADE_ELIGIBILITY',self.codes())
-        market=self.record('market');market['data']['line']=8;self.add(market)
-        self.assertIn('GRADE_ELIGIBILITY',self.codes())
-        market['data']['line']=9;self.add(market)
-        self.assertIn('GRADE_ELIGIBILITY',self.codes())  # Agree Lower does not support an A Higher.
-        market['data']['line']=7;self.add(market)
-        darko=copy.deepcopy(self.records[4]);darko['data']['value']=4.5;self.add(darko)
-        calc=self.record('calculation');calc['data']['result']=6;self.add(calc)
-        self.assertIn('DISAGREEMENT_CEILING',self.codes())
-        c['data'].update(grade='B+',rubric={k:1 for k in c['data']['rubric']});self.add(c)
-        self.assertIn('GRADE_ELIGIBILITY',self.codes())
+    def test_placeholders_and_forecast_only_opportunities_do_not_satisfy_lock(self):
+        self.finalized()
+        self.note['comparisons'][0]['reason']='N/A'
+        self.note['lock_review']['note']='not applicable'
+        self.note['sources']['S4']['kind']='forecast'
+        self.assertTrue({'COMPARISON','FINAL_RECHECK','INDEPENDENT_OPPORTUNITIES'}<=self.codes())
+        self.assertEqual(check(self.note)['lock_status'],'unsupported claim')
 
-    def test_intake_approval_provenance_and_intraday_refinements(self):
-        from tracker.review import compliance
-        events=copy.deepcopy(self.events)
-        d=events[0]['record']['data']
-        d.update(approval_reference='unapproved-suggestion',research_date='2026-11-05',research_at='2026-11-05T17:00:00Z',refinement_ids=['standard-only'],refinement_approvals={'standard-only':'not-an-approval'})
-        codes={f['code'] for f in compliance(events)['findings']}
-        self.assertTrue({'APPROVAL_PROVENANCE','REFINEMENT_PROVENANCE','REFINEMENT_NOT_APPLICABLE'}<=codes)
-        d['research_at']=None
-        self.assertIn('APPLICABILITY_TIME',{f['code'] for f in compliance(events)['findings']})
+    def test_source_context_and_placement_remain_separate(self):
+        self.note['sources']['S4']['cutoff']='2026-11-08'
+        self.assertIn('FUTURE_CUTOFF',self.codes())
+        self.note['placement']['status']='confirmed'
+        self.assertIn('EVIDENCE',self.codes())
+        self.assertEqual(self.note['decision']['status'],'research')
+        self.note['sources']['S4']['cutoff']=None
+        self.assertIn('SOURCE_CONTEXT',self.codes())
 
-    def test_historical_checkpoint_does_not_use_later_assessment(self):
-        from tracker.journal import at_event
-        before=load('synthetic',root=self.root)
-        original_id=before[-1]['event_id']
-        c=self.record('candidate');c['data']['grade']='A';c['data']['rubric']={k:1 for k in c['data']['rubric']};self.add(c)
-        frozen=at_event(load('synthetic',root=self.root),original_id)
-        self.assertEqual(frozen,before)
-        self.assertNotIn('GRADE_ELIGIBILITY',{w[0] for w in review(frozen)[0]})
-        with self.assertRaises(IngestionError):at_event(before,'missing')
+    def test_entry_metrics_have_no_administrative_duplicates(self):
+        from tracker.review import entry_metrics
+        m=entry_metrics(self.note)
+        self.assertEqual(m['manual_judgment_slots'],45)
+        self.assertEqual(m['requirement_declarations'],0)
+        self.assertEqual(m['manual_coverage_flags'],0)
+        self.assertEqual(m['event_ids'],0)
+        self.assertEqual(m['duplicate_source_definitions'],0)
+        self.assertEqual(m['shared_matchup_definitions'],1)
 
-    def test_reference_market_only_hard_violation_if_ranked_or_selected(self):
-        market=self.record('market');market['data']['tier']='goblin';self.add(market)
-        self.assertIn('REFERENCE_MARKET',self.codes())
-        self.assertNotIn('MARKET_INELIGIBLE',self.codes())
-        c=self.record('candidate');c['data']['rank']=1;self.add(c)
-        self.assertIn('MARKET_INELIGIBLE',self.codes())
+    def test_original_zero_minutes_and_negative_values_are_not_overwritten(self):
+        self.note['projections'][1]['minutes']=0
+        self.note['projections'][0]['values']['AST']=-.1
+        raw=encode(self.note)
+        self.assertTrue({'NORMALIZATION','ORIGINAL_INPUT'}<=self.codes())
+        self.assertEqual(raw,encode(self.note))
 
-    def test_coverage_seed_is_idempotent_and_does_not_decide(self):
-        from tracker.coverage import seed_coverage
-        self.assertEqual(seed_coverage('synthetic',root=self.root),8)
-        before=load('synthetic',root=self.root)
-        self.assertEqual(seed_coverage('synthetic',root=self.root),0)
-        self.assertEqual(before,load('synthetic',root=self.root))
-        for e in before:
-            if e['record']['kind']=='coverage':
-                d=e['record']['data']
-                self.assertEqual(d['disposition'],'not_started')
-                self.assertFalse(d['higher_reviewed']);self.assertFalse(d['lower_reviewed'])
-        self.assertIn('DIRECTION_COVERAGE',self.codes())
+    def test_lowercase_rfc3339_and_cutoff_offsets(self):
+        self.note['research_at']='2026-11-07t12:00:00z'
+        self.note['sources']['S4']['cutoff']='2026-11-08T00:00:00+14:00'
+        self.assertNotIn('FUTURE_CUTOFF',self.codes())
+        self.note['sources']['S4']['cutoff']='2026-11-08t12:00:00z'
+        self.assertIn('FUTURE_CUTOFF',self.codes())
 
-    def test_documented_carried_risk_does_not_create_new_eligibility_rule(self):
-        from tracker.review import compliance
-        risk=dict(kind='uncertainty',entity_id='rotation',basis=[self.events[2]['event_id']],data=dict(issue='Invented uncertainty',candidate_ids=['candidate-a'],evidence_ids=['evidence-a'],status='carried',rationale='Analyst explicitly carries risk, not disqualifying'))
-        self.add(risk)
-        c=self.record('candidate');c['data']['uncertainty_ids']=['rotation'];self.add(c)
-        self.add(dict(kind='requirement',entity_id='continuity',basis=[],data=dict(scope='slate',code='4C',status='met',evidence_ids=['evidence-a'],rationale='All linked concerns carried explicitly',reviewed_at='2026-11-07T12:03:00Z')))
-        row=next(r for r in compliance(load('synthetic',root=self.root))['requirements'] if r['scope']=='slate' and r['code']=='4C')
-        self.assertTrue(row['completion_supported'],row['concerns'])
-        self.assertIn('OPEN_RISK',self.codes())
+    def test_authority_conflicts_and_unapproved_refinements_are_detected(self):
+        self.note['authority'].update(rules_used_sha256='historical-conflict',approval_reference='assistant-proposal',refinements=['not-approved'])
+        self.assertIn('AUTHORITY',self.codes())
+        self.assertEqual(self.note['authority']['rules_used_sha256'],'historical-conflict')
+        with patch('tracker.review.FRAMEWORK_SHA','0'*64):
+            self.assertTrue(any('Pinned authority bytes' in i['reason'] for i in check(self.note)['issues']))
 
-    def test_exact_line_report_has_win_tie_counts_without_probabilities(self):
-        from tracker.review import compare_at_line, compliance
-        self.assertEqual(compare_at_line(4.8,4.2,4,'Higher')['wins'],'5 or more')
-        self.assertEqual(compare_at_line(8.7,9.2,10,'Lower')['wins'],'9 or fewer')
-        self.assertEqual(compare_at_line(6,7,6,'Higher')['relationship'],'Unresolved')
-        row=compliance(load('synthetic',root=self.root))['exact_lines'][0]
-        self.assertEqual(row['relationship'],'Agree Higher')
-        self.assertEqual(row['ties'],'7')
-        self.assertIn('provider settlement',render(load('synthetic',root=self.root)))
-
-    def test_verified_claim_with_dangling_source_is_unsupported(self):
-        e=self.record('evidence');e['data']['source_ids']=['missing-source'];self.add(e)
-        self.assertIn('UNSUPPORTED_VERIFIED',self.codes())
-        self.assertIn('UNSUPPORTED_EVIDENCE',self.codes())
-
-    def test_public_guard_allows_only_named_skill_and_blocks_reports(self):
-        from ingestion.public_guard import allowed
-        self.assertTrue(allowed('.agents/skills/nba-v22-research/SKILL.md',b'Synthetic workflow guidance'))
-        self.assertFalse(allowed('.agents/skills/other/SKILL.md',b'x'))
-        self.assertFalse(allowed('docs/Tracker-Reports/checklist.md',b'x'))
-        self.assertFalse(allowed('docs/Research-Records/note.txt',b'x'))
-
-    def test_missing_grade_inputs_are_incomplete_not_a_new_hard_ceiling(self):
-        from tracker.review import compliance
-        c=self.record('candidate');c['data'].update(grade='A',dc_id=None,calculation_id=None)
-        self.add(c)
-        findings=[f for f in compliance(load('synthetic',root=self.root))['findings'] if f['entity']=='candidate-a']
-        self.assertTrue(any(f['code']=='GRADE_SUPPORT_INCOMPLETE' and f['severity']=='incomplete_evidence' for f in findings))
-        self.assertFalse(any(f['code']=='GRADE_ELIGIBILITY' for f in findings))
-
-    def test_all_evidence_statuses_are_visible_and_preserved(self):
-        from tracker.review import compliance
-        for status in ('incomplete','unavailable','conflicting'):
-            e=self.record('evidence');e['data']['status']=status;self.add(e)
-            result=compliance(load('synthetic',root=self.root))
-            self.assertTrue(any(f['code']=='EVIDENCE_'+status.upper() for f in result['findings']))
-            self.assertEqual(result['latest']['evidence-a']['record']['data']['status'],status)
-
-    def test_dpm_cannot_be_normalized_as_boxscore_production(self):
-        for base in (self.records[3],self.records[4]):
-            record=copy.deepcopy(base);record['data']['unit']='DPM';self.add(record)
-        self.assertIn('CALCULATION',self.codes())
+    def test_later_placement_confirmation_does_not_rewrite_analysis(self):
+        self.finalized()
+        self.note['sources']['RECEIPT']=dict(ref='urn:synthetic:receipt',observed_at='2026-11-08T12:00:00Z',reviewed_at='2026-11-08T12:01:00Z',kind='observed',subjects=[self.note['id']],supports=['placement'],status='recorded',scope='Invented explicit entry confirmation only; not pregame evidence',phase='postgame')
+        self.note['placement']=dict(status='confirmed',sources=['RECEIPT'])
+        r=check(self.note)
+        self.assertFalse(any(i['stage']=='placement' for i in r['issues']))
+        self.assertNotIn('LATE_EVIDENCE',self.codes())
+        self.assertEqual(self.note['decision']['status'],'finalized_selection')
+        self.save()
+        with self.assertRaises(IngestionError):freeze(self.root,'session.json','postgame-confirmation')

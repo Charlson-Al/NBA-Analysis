@@ -8,9 +8,9 @@ import subprocess
 def allowed(path, blob):
     """Conservative boundary for newly staged ingestion work; not a rights detector."""
     p = PurePosixPath(path.casefold())
-    if any(x in p.parts for x in ('snapshots', 'derived', 'private-data', 'acquisition-events', 'tracker-reports', 'research-records')):
+    if any(x in p.parts for x in ('snapshots', 'derived', 'private-data', 'acquisition-events', 'tracker-reports', 'research-records', 'pregame-snapshots', 'research-reports')):
         return False
-    if p.name in ('original.json', 'observations.json', 'inventory.json', 'manifest.json', 'validation.json'):
+    if p.name in ('original.json', 'observations.json', 'inventory.json', 'manifest.json', 'validation.json', 'session.json', 'note.json', 'pregame.json'):
         return False
     if p.suffix in ('.csv', '.docx', '.pdf', '.png', '.jpg', '.parquet', '.zip'):
         return False

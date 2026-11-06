@@ -1,1443 +1,773 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "Execution tracker input record (storage schema only)",
-  "oneOf": [
-    {
+  "title": "Private research note (storage schema, not framework revision)",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$"
+    },
+    "synthetic": {
+      "type": "boolean"
+    },
+    "mode": {
+      "enum": [
+        "prospective",
+        "historical_audit"
+      ]
+    },
+    "research_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "authority": {
       "type": "object",
       "properties": {
-        "kind": {
-          "const": "session"
-        },
-        "entity_id": {
+        "rules_used_sha256": {
           "type": "string",
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$"
+          "minLength": 1,
+          "pattern": "\\S"
         },
-        "basis": {
+        "approval_reference": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "refinements": {
           "type": "array",
           "items": {
             "type": "string",
-            "minLength": 1,
-            "pattern": "\\S"
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$"
           },
           "uniqueItems": true
+        }
+      },
+      "required": [
+        "rules_used_sha256",
+        "approval_reference",
+        "refinements"
+      ],
+      "additionalProperties": false
+    },
+    "players": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$"
+          },
+          "game": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$"
+          }
         },
-        "data": {
-          "type": "object",
-          "properties": {
-            "title": {
-              "type": "string",
-              "minLength": 1,
-              "pattern": "\\S"
-            },
-            "research_date": {
-              "type": "string",
-              "format": "date"
-            },
-            "mode": {
+        "required": [
+          "id",
+          "game"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "sources": {
+      "type": "object",
+      "propertyNames": {
+        "type": "string",
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$"
+      },
+      "additionalProperties": {
+        "$ref": "#/$defs/source"
+      }
+    },
+    "matchups": {
+      "type": "object",
+      "propertyNames": {
+        "type": "string",
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$"
+      },
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "environment": {
+            "$ref": "#/$defs/claim"
+          },
+          "personnel": {
+            "$ref": "#/$defs/claim"
+          },
+          "rotation": {
+            "$ref": "#/$defs/claim"
+          }
+        },
+        "required": [
+          "environment",
+          "personnel",
+          "rotation"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "projections": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "player": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$"
+          },
+          "provider": {
+            "enum": [
+              "DC",
+              "DARKO"
+            ]
+          },
+          "minutes": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "basis": {
+            "enum": [
+              "per_game",
+              "per_minute"
+            ]
+          },
+          "values": {
+            "type": "object",
+            "propertyNames": {
               "enum": [
-                "prospective",
-                "retrospective"
+                "PTS",
+                "REB",
+                "AST",
+                "3PM",
+                "PR",
+                "PA",
+                "RA",
+                "PRA"
               ]
             },
-            "rules_used_sha256": {
-              "type": "string",
-              "minLength": 1,
-              "pattern": "\\S"
-            },
-            "refinement_ids": {
-              "type": "array",
-              "items": {
-                "type": "string",
-                "minLength": 1,
-                "pattern": "\\S"
-              },
-              "uniqueItems": true
-            },
-            "players": {
-              "type": "array",
-              "items": {
+            "additionalProperties": {
+              "type": "number"
+            }
+          },
+          "source": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$"
+          }
+        },
+        "required": [
+          "player",
+          "provider",
+          "minutes",
+          "basis",
+          "values",
+          "source"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "candidates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$"
+          },
+          "player": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$"
+          },
+          "market": {
+            "enum": [
+              "PTS",
+              "REB",
+              "AST",
+              "3PM",
+              "PR",
+              "PA",
+              "RA",
+              "PRA"
+            ]
+          },
+          "direction": {
+            "enum": [
+              "Higher",
+              "Lower",
+              "Pass"
+            ]
+          },
+          "line": {
+            "anyOf": [
+              {
                 "type": "object",
                 "properties": {
-                  "id": {
+                  "value": {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  "provider": {
                     "type": "string",
                     "minLength": 1,
                     "pattern": "\\S"
                   },
-                  "game": {
+                  "tier": {
                     "type": "string",
                     "minLength": 1,
                     "pattern": "\\S"
                   },
-                  "inclusion_rationale": {
+                  "period": {
                     "type": "string",
                     "minLength": 1,
                     "pattern": "\\S"
+                  },
+                  "source": {
+                    "type": "string",
+                    "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$"
                   }
                 },
                 "required": [
-                  "id",
-                  "game",
-                  "inclusion_rationale"
+                  "value",
+                  "provider",
+                  "tier",
+                  "period",
+                  "source"
                 ],
                 "additionalProperties": false
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "validation": {
+            "type": "object",
+            "properties": {
+              "role": {
+                "$ref": "#/$defs/factor"
+              },
+              "opportunities": {
+                "$ref": "#/$defs/factor"
+              },
+              "matchup": {
+                "$ref": "#/$defs/factor"
+              },
+              "sustainability": {
+                "$ref": "#/$defs/factor"
               }
             },
-            "scope_note": {
-              "type": "string",
-              "minLength": 1,
-              "pattern": "\\S"
-            },
-            "approval_reference": {
-              "type": "string",
-              "minLength": 1
-            },
-            "refinement_approvals": {
-              "type": "object",
-              "additionalProperties": {
-                "type": "string",
-                "minLength": 1
+            "required": [
+              "role",
+              "opportunities",
+              "matchup",
+              "sustainability"
+            ],
+            "additionalProperties": false
+          },
+          "outlook": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "failure": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "grade": {
+            "anyOf": [
+              {
+                "enum": [
+                  "A+",
+                  "A",
+                  "A-",
+                  "B+",
+                  "B",
+                  "B-",
+                  "C+",
+                  "C",
+                  "C-",
+                  "D",
+                  "Pass"
+                ]
+              },
+              {
+                "type": "null"
               }
-            },
-            "research_at": {
-              "type": [
-                "string",
-                "null"
-              ],
-              "format": "date-time"
-            }
+            ]
           },
-          "required": [
-            "title",
-            "research_date",
-            "mode",
-            "rules_used_sha256",
-            "refinement_ids",
-            "players",
-            "scope_note",
-            "approval_reference",
-            "refinement_approvals",
-            "research_at"
-          ],
-          "additionalProperties": false
-        }
-      },
-      "required": [
-        "kind",
-        "entity_id",
-        "basis",
-        "data"
-      ],
-      "additionalProperties": false
+          "rank": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 1
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "disposition": {
+            "enum": [
+              "research",
+              "excluded",
+              "pass"
+            ]
+          },
+          "disagreement": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "sensitivity": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "reviewed_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "player",
+          "market",
+          "direction",
+          "line",
+          "validation",
+          "outlook",
+          "failure",
+          "grade",
+          "rank",
+          "disposition",
+          "reviewed_at"
+        ],
+        "additionalProperties": false
+      }
     },
-    {
-      "type": "object",
-      "properties": {
-        "kind": {
-          "const": "source"
-        },
-        "entity_id": {
-          "type": "string",
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$"
-        },
-        "basis": {
-          "type": "array",
-          "items": {
+    "risks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$"
+          },
+          "players": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$"
+            },
+            "uniqueItems": true
+          },
+          "note": {
             "type": "string",
             "minLength": 1,
             "pattern": "\\S"
           },
-          "uniqueItems": true
-        },
-        "data": {
-          "type": "object",
-          "properties": {
-            "reference": {
-              "type": "string",
-              "minLength": 1,
-              "pattern": "\\S"
-            },
-            "collected_at": {
-              "type": [
-                "string",
-                "null"
-              ],
-              "format": "date-time"
-            },
-            "published_at": {
-              "type": [
-                "string",
-                "null"
-              ],
-              "format": "date-time"
-            },
-            "cutoff": {
-              "type": [
-                "string",
-                "null"
-              ]
-            },
-            "sample": {
-              "type": [
-                "string",
-                "null"
-              ]
-            },
-            "unit": {
-              "type": [
-                "string",
-                "null"
-              ]
-            },
-            "denominator": {
-              "type": [
-                "string",
-                "null"
-              ]
-            },
-            "filters": {
-              "type": [
-                "string",
-                "null"
-              ]
-            },
-            "artifact_sha256": {
-              "anyOf": [
-                {
-                  "type": "string",
-                  "pattern": "^[a-f0-9]{64}$"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
-            "limitation": {
-              "type": [
-                "string",
-                "null"
-              ]
-            }
+          "status": {
+            "enum": [
+              "open",
+              "carried",
+              "resolved",
+              "disqualifying"
+            ]
           },
-          "required": [
-            "reference",
-            "collected_at",
-            "published_at",
-            "cutoff",
-            "sample",
-            "unit",
-            "denominator",
-            "filters",
-            "artifact_sha256",
-            "limitation"
-          ],
-          "additionalProperties": false
-        }
-      },
-      "required": [
-        "kind",
-        "entity_id",
-        "basis",
-        "data"
-      ],
-      "additionalProperties": false
+          "sources": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$"
+            },
+            "uniqueItems": true
+          },
+          "rationale": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "kind": {
+            "enum": [
+              "rotation",
+              "opportunity",
+              "other"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "players",
+          "note",
+          "status",
+          "sources",
+          "rationale"
+        ],
+        "additionalProperties": false
+      }
     },
-    {
+    "comparisons": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "candidate": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$"
+          },
+          "alternative": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$"
+          },
+          "reason": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "candidate",
+          "alternative",
+          "reason"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "correlation": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "lock_review": {
       "type": "object",
       "properties": {
-        "kind": {
-          "const": "evidence"
+        "at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
         },
-        "entity_id": {
-          "type": "string",
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$"
-        },
-        "basis": {
+        "sources": {
           "type": "array",
           "items": {
             "type": "string",
-            "minLength": 1,
-            "pattern": "\\S"
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$"
           },
           "uniqueItems": true
         },
-        "data": {
-          "type": "object",
-          "properties": {
-            "claim": {
-              "type": "string",
-              "minLength": 1,
-              "pattern": "\\S"
-            },
-            "kind": {
-              "enum": [
-                "observed",
-                "external_forecast",
-                "derived",
-                "inference"
-              ]
-            },
-            "status": {
-              "enum": [
-                "verified",
-                "incomplete",
-                "unavailable",
-                "conflicting"
-              ]
-            },
-            "source_ids": {
-              "type": "array",
-              "items": {
-                "type": "string",
-                "minLength": 1,
-                "pattern": "\\S"
-              },
-              "uniqueItems": true
-            },
-            "verification_scope": {
-              "type": [
-                "string",
-                "null"
-              ]
-            },
-            "reviewed_at": {
-              "type": [
-                "string",
-                "null"
-              ],
-              "format": "date-time"
-            },
-            "limitation": {
-              "type": [
-                "string",
-                "null"
-              ]
-            }
-          },
-          "required": [
-            "claim",
-            "kind",
-            "status",
-            "source_ids",
-            "verification_scope",
-            "reviewed_at",
-            "limitation"
-          ],
-          "additionalProperties": false
+        "note": {
+          "type": [
+            "string",
+            "null"
+          ]
         }
       },
       "required": [
-        "kind",
-        "entity_id",
-        "basis",
-        "data"
+        "at",
+        "sources",
+        "note"
       ],
       "additionalProperties": false
     },
-    {
+    "decision": {
       "type": "object",
       "properties": {
-        "kind": {
-          "const": "coverage"
+        "status": {
+          "enum": [
+            "research",
+            "pass",
+            "finalized_selection"
+          ]
         },
-        "entity_id": {
-          "type": "string",
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$"
+        "at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
         },
-        "basis": {
+        "selected": {
           "type": "array",
           "items": {
             "type": "string",
-            "minLength": 1,
-            "pattern": "\\S"
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$"
           },
           "uniqueItems": true
         },
-        "data": {
-          "type": "object",
-          "properties": {
-            "player": {
-              "type": "string",
-              "minLength": 1,
-              "pattern": "\\S"
-            },
-            "market": {
-              "enum": [
-                "PTS",
-                "REB",
-                "AST",
-                "3PM",
-                "PR",
-                "PA",
-                "RA",
-                "PRA"
-              ]
-            },
-            "higher_reviewed": {
-              "type": "boolean"
-            },
-            "lower_reviewed": {
-              "type": "boolean"
-            },
-            "market_status": {
-              "enum": [
-                "not_searched",
-                "not_recovered",
-                "unavailable",
-                "uncertain",
-                "verified"
-              ]
-            },
-            "opportunity_evidence_ids": {
-              "type": "array",
-              "items": {
-                "type": "string",
-                "minLength": 1,
-                "pattern": "\\S"
-              },
-              "uniqueItems": true
-            },
-            "advance_reasons": {
-              "type": "array",
-              "items": {
-                "type": "string",
-                "minLength": 1,
-                "pattern": "\\S"
-              },
-              "uniqueItems": true
-            },
-            "disagreement_investigation": {
-              "type": [
-                "string",
-                "null"
-              ]
-            },
-            "disposition": {
-              "enum": [
-                "not_started",
-                "screened",
-                "investigate",
-                "assessed",
-                "excluded",
-                "pass"
-              ]
-            },
-            "rationale": {
-              "type": "string",
-              "minLength": 1,
-              "pattern": "\\S"
-            }
-          },
-          "required": [
-            "player",
-            "market",
-            "higher_reviewed",
-            "lower_reviewed",
-            "market_status",
-            "opportunity_evidence_ids",
-            "advance_reasons",
-            "disagreement_investigation",
-            "disposition",
-            "rationale"
-          ],
-          "additionalProperties": false
+        "reason": {
+          "type": [
+            "string",
+            "null"
+          ]
         }
       },
       "required": [
-        "kind",
-        "entity_id",
-        "basis",
-        "data"
+        "status",
+        "at",
+        "selected",
+        "reason"
       ],
       "additionalProperties": false
     },
-    {
+    "placement": {
       "type": "object",
       "properties": {
-        "kind": {
-          "const": "model"
+        "status": {
+          "enum": [
+            "unconfirmed",
+            "confirmed"
+          ]
         },
-        "entity_id": {
-          "type": "string",
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$"
-        },
-        "basis": {
+        "sources": {
           "type": "array",
           "items": {
             "type": "string",
-            "minLength": 1,
-            "pattern": "\\S"
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$"
           },
           "uniqueItems": true
-        },
-        "data": {
-          "type": "object",
-          "properties": {
-            "player": {
-              "type": "string",
-              "minLength": 1,
-              "pattern": "\\S"
-            },
-            "market": {
-              "enum": [
-                "PTS",
-                "REB",
-                "AST",
-                "3PM",
-                "PR",
-                "PA",
-                "RA",
-                "PRA"
-              ]
-            },
-            "provider": {
-              "enum": [
-                "DC",
-                "DARKO"
-              ]
-            },
-            "value": {
-              "type": "number"
-            },
-            "minutes": {
-              "anyOf": [
-                {
-                  "type": "number",
-                  "exclusiveMinimum": 0
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
-            "basis": {
-              "enum": [
-                "per_game",
-                "per_minute"
-              ]
-            },
-            "unit": {
-              "type": "string",
-              "minLength": 1,
-              "pattern": "\\S"
-            },
-            "source_id": {
-              "type": "string",
-              "minLength": 1,
-              "pattern": "\\S"
-            },
-            "uncertainty": {
-              "anyOf": [
-                {
-                  "type": "object",
-                  "properties": {
-                    "lower": {
-                      "anyOf": [
-                        {
-                          "type": "number"
-                        },
-                        {
-                          "type": "null"
-                        }
-                      ]
-                    },
-                    "upper": {
-                      "anyOf": [
-                        {
-                          "type": "number"
-                        },
-                        {
-                          "type": "null"
-                        }
-                      ]
-                    },
-                    "sigma": {
-                      "anyOf": [
-                        {
-                          "type": "number"
-                        },
-                        {
-                          "type": "null"
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "lower",
-                    "upper",
-                    "sigma"
-                  ],
-                  "additionalProperties": false
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            }
-          },
-          "required": [
-            "player",
-            "market",
-            "provider",
-            "value",
-            "minutes",
-            "basis",
-            "unit",
-            "source_id",
-            "uncertainty"
-          ],
-          "additionalProperties": false
         }
       },
       "required": [
-        "kind",
-        "entity_id",
-        "basis",
-        "data"
+        "status",
+        "sources"
       ],
       "additionalProperties": false
     },
-    {
+    "postgame": {
+      "type": "object"
+    },
+    "roster_note": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "required": [
+    "id",
+    "synthetic",
+    "mode",
+    "research_at",
+    "authority",
+    "players",
+    "sources",
+    "matchups",
+    "projections",
+    "candidates",
+    "risks",
+    "comparisons",
+    "correlation",
+    "lock_review",
+    "decision",
+    "placement",
+    "roster_note"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "claim": {
       "type": "object",
       "properties": {
-        "kind": {
-          "const": "calculation"
+        "note": {
+          "type": [
+            "string",
+            "null"
+          ]
         },
-        "entity_id": {
-          "type": "string",
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$"
-        },
-        "basis": {
+        "sources": {
           "type": "array",
           "items": {
             "type": "string",
-            "minLength": 1,
-            "pattern": "\\S"
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$"
           },
           "uniqueItems": true
-        },
-        "data": {
-          "type": "object",
-          "properties": {
-            "dc_id": {
-              "type": "string",
-              "minLength": 1,
-              "pattern": "\\S"
-            },
-            "darko_id": {
-              "type": [
-                "string",
-                "null"
-              ]
-            },
-            "component_ids": {
-              "type": "array",
-              "items": {
-                "type": "string",
-                "minLength": 1,
-                "pattern": "\\S"
-              },
-              "uniqueItems": true
-            },
-            "result": {
-              "type": "number"
-            },
-            "display_value": {
-              "type": [
-                "string",
-                "null"
-              ]
-            }
-          },
-          "required": [
-            "dc_id",
-            "darko_id",
-            "component_ids",
-            "result",
-            "display_value"
-          ],
-          "additionalProperties": false
         }
       },
       "required": [
-        "kind",
-        "entity_id",
-        "basis",
-        "data"
+        "note",
+        "sources"
       ],
       "additionalProperties": false
     },
-    {
+    "factor": {
       "type": "object",
       "properties": {
-        "kind": {
-          "const": "market"
+        "score": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 2
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
-        "entity_id": {
-          "type": "string",
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$"
+        "note": {
+          "type": [
+            "string",
+            "null"
+          ]
         },
-        "basis": {
+        "sources": {
           "type": "array",
           "items": {
             "type": "string",
-            "minLength": 1,
-            "pattern": "\\S"
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$"
           },
           "uniqueItems": true
-        },
-        "data": {
-          "type": "object",
-          "properties": {
-            "player": {
-              "type": "string",
-              "minLength": 1,
-              "pattern": "\\S"
-            },
-            "market": {
-              "enum": [
-                "PTS",
-                "REB",
-                "AST",
-                "3PM",
-                "PR",
-                "PA",
-                "RA",
-                "PRA"
-              ]
-            },
-            "provider": {
-              "type": "string",
-              "minLength": 1,
-              "pattern": "\\S"
-            },
-            "period": {
-              "type": "string",
-              "minLength": 1,
-              "pattern": "\\S"
-            },
-            "tier": {
-              "type": "string",
-              "minLength": 1,
-              "pattern": "\\S"
-            },
-            "line": {
-              "type": "number"
-            },
-            "observed_at": {
-              "type": [
-                "string",
-                "null"
-              ],
-              "format": "date-time"
-            },
-            "source_id": {
-              "type": "string",
-              "minLength": 1,
-              "pattern": "\\S"
-            },
-            "availability": {
-              "enum": [
-                "verified",
-                "incomplete",
-                "unavailable",
-                "conflicting"
-              ]
-            },
-            "settlement": {
-              "type": [
-                "string",
-                "null"
-              ]
-            },
-            "payout": {
-              "type": [
-                "string",
-                "null"
-              ]
-            }
-          },
-          "required": [
-            "player",
-            "market",
-            "provider",
-            "period",
-            "tier",
-            "line",
-            "observed_at",
-            "source_id",
-            "availability",
-            "settlement",
-            "payout"
-          ],
-          "additionalProperties": false
         }
       },
       "required": [
-        "kind",
-        "entity_id",
-        "basis",
-        "data"
+        "score",
+        "note",
+        "sources"
       ],
       "additionalProperties": false
     },
-    {
+    "source": {
       "type": "object",
       "properties": {
-        "kind": {
-          "const": "uncertainty"
-        },
-        "entity_id": {
+        "ref": {
           "type": "string",
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$"
+          "minLength": 1,
+          "pattern": "\\S"
         },
-        "basis": {
+        "observed_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "reviewed_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "cutoff": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "unit": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "denominator": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "sample": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "kind": {
+          "enum": [
+            "observed",
+            "forecast",
+            "inference",
+            "historical_annotation"
+          ]
+        },
+        "subjects": {
           "type": "array",
           "items": {
             "type": "string",
-            "minLength": 1,
-            "pattern": "\\S"
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$"
           },
           "uniqueItems": true
         },
-        "data": {
-          "type": "object",
-          "properties": {
-            "issue": {
-              "type": "string",
-              "minLength": 1,
-              "pattern": "\\S"
-            },
-            "candidate_ids": {
-              "type": "array",
-              "items": {
-                "type": "string",
-                "minLength": 1,
-                "pattern": "\\S"
-              },
-              "uniqueItems": true
-            },
-            "evidence_ids": {
-              "type": "array",
-              "items": {
-                "type": "string",
-                "minLength": 1,
-                "pattern": "\\S"
-              },
-              "uniqueItems": true
-            },
-            "status": {
-              "enum": [
-                "open",
-                "resolved",
-                "carried",
-                "disqualifying"
-              ]
-            },
-            "rationale": {
-              "type": "string",
-              "minLength": 1,
-              "pattern": "\\S"
-            }
-          },
-          "required": [
-            "issue",
-            "candidate_ids",
-            "evidence_ids",
-            "status",
-            "rationale"
-          ],
-          "additionalProperties": false
-        }
-      },
-      "required": [
-        "kind",
-        "entity_id",
-        "basis",
-        "data"
-      ],
-      "additionalProperties": false
-    },
-    {
-      "type": "object",
-      "properties": {
-        "kind": {
-          "const": "candidate"
-        },
-        "entity_id": {
-          "type": "string",
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$"
-        },
-        "basis": {
+        "supports": {
           "type": "array",
           "items": {
-            "type": "string",
-            "minLength": 1,
-            "pattern": "\\S"
+            "enum": [
+              "environment",
+              "personnel",
+              "rotation",
+              "opportunities",
+              "matchup",
+              "sustainability",
+              "model",
+              "market",
+              "placement"
+            ]
           },
           "uniqueItems": true
         },
-        "data": {
-          "type": "object",
-          "properties": {
-            "player": {
-              "type": "string",
-              "minLength": 1,
-              "pattern": "\\S"
-            },
-            "market": {
-              "enum": [
-                "PTS",
-                "REB",
-                "AST",
-                "3PM",
-                "PR",
-                "PA",
-                "RA",
-                "PRA"
-              ]
-            },
-            "direction": {
-              "enum": [
-                "Higher",
-                "Lower",
-                "Pass"
-              ]
-            },
-            "dc_id": {
-              "type": [
-                "string",
-                "null"
-              ]
-            },
-            "calculation_id": {
-              "type": [
-                "string",
-                "null"
-              ]
-            },
-            "market_id": {
-              "type": [
-                "string",
-                "null"
-              ]
-            },
-            "opportunity_evidence_ids": {
-              "type": "array",
-              "items": {
-                "type": "string",
-                "minLength": 1,
-                "pattern": "\\S"
-              },
-              "uniqueItems": true
-            },
-            "uncertainty_ids": {
-              "type": "array",
-              "items": {
-                "type": "string",
-                "minLength": 1,
-                "pattern": "\\S"
-              },
-              "uniqueItems": true
-            },
-            "rubric": {
-              "type": "object",
-              "properties": {
-                "role": {
-                  "anyOf": [
-                    {
-                      "type": "integer",
-                      "minimum": 0,
-                      "maximum": 2
-                    },
-                    {
-                      "type": "null"
-                    }
-                  ]
-                },
-                "opportunities": {
-                  "anyOf": [
-                    {
-                      "type": "integer",
-                      "minimum": 0,
-                      "maximum": 2
-                    },
-                    {
-                      "type": "null"
-                    }
-                  ]
-                },
-                "matchup": {
-                  "anyOf": [
-                    {
-                      "type": "integer",
-                      "minimum": 0,
-                      "maximum": 2
-                    },
-                    {
-                      "type": "null"
-                    }
-                  ]
-                },
-                "sustainability": {
-                  "anyOf": [
-                    {
-                      "type": "integer",
-                      "minimum": 0,
-                      "maximum": 2
-                    },
-                    {
-                      "type": "null"
-                    }
-                  ]
-                }
-              },
-              "required": [
-                "role",
-                "opportunities",
-                "matchup",
-                "sustainability"
-              ],
-              "additionalProperties": false
-            },
-            "rubric_evidence": {
-              "type": "object",
-              "properties": {
-                "role": {
-                  "type": "array",
-                  "items": {
-                    "type": "string",
-                    "minLength": 1,
-                    "pattern": "\\S"
-                  },
-                  "uniqueItems": true
-                },
-                "opportunities": {
-                  "type": "array",
-                  "items": {
-                    "type": "string",
-                    "minLength": 1,
-                    "pattern": "\\S"
-                  },
-                  "uniqueItems": true
-                },
-                "matchup": {
-                  "type": "array",
-                  "items": {
-                    "type": "string",
-                    "minLength": 1,
-                    "pattern": "\\S"
-                  },
-                  "uniqueItems": true
-                },
-                "sustainability": {
-                  "type": "array",
-                  "items": {
-                    "type": "string",
-                    "minLength": 1,
-                    "pattern": "\\S"
-                  },
-                  "uniqueItems": true
-                }
-              },
-              "required": [
-                "role",
-                "opportunities",
-                "matchup",
-                "sustainability"
-              ],
-              "additionalProperties": false
-            },
-            "outlook": {
-              "type": [
-                "string",
-                "null"
-              ]
-            },
-            "grade": {
-              "anyOf": [
-                {
-                  "enum": [
-                    "A+",
-                    "A",
-                    "A-",
-                    "B+",
-                    "B",
-                    "B-",
-                    "C+",
-                    "C",
-                    "C-",
-                    "D",
-                    "Pass"
-                  ]
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
-            "rank": {
-              "anyOf": [
-                {
-                  "type": "integer",
-                  "minimum": 1
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
-            "principal_risk": {
-              "type": [
-                "string",
-                "null"
-              ]
-            },
-            "disposition": {
-              "enum": [
-                "research",
-                "excluded",
-                "pass"
-              ]
-            },
-            "reviewed_at": {
-              "type": [
-                "string",
-                "null"
-              ],
-              "format": "date-time"
-            }
-          },
-          "required": [
-            "player",
-            "market",
-            "direction",
-            "dc_id",
-            "calculation_id",
-            "market_id",
-            "opportunity_evidence_ids",
-            "uncertainty_ids",
-            "rubric",
-            "rubric_evidence",
-            "outlook",
-            "grade",
-            "rank",
-            "principal_risk",
-            "disposition",
-            "reviewed_at"
-          ],
-          "additionalProperties": false
-        }
-      },
-      "required": [
-        "kind",
-        "entity_id",
-        "basis",
-        "data"
-      ],
-      "additionalProperties": false
-    },
-    {
-      "type": "object",
-      "properties": {
-        "kind": {
-          "const": "comparison"
+        "status": {
+          "enum": [
+            "recorded",
+            "missing",
+            "conflicting",
+            "analyst_review_required"
+          ]
         },
-        "entity_id": {
+        "scope": {
           "type": "string",
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$"
+          "minLength": 1,
+          "pattern": "\\S"
         },
-        "basis": {
-          "type": "array",
-          "items": {
-            "type": "string",
-            "minLength": 1,
-            "pattern": "\\S"
-          },
-          "uniqueItems": true
+        "phase": {
+          "enum": [
+            "pregame",
+            "postgame"
+          ]
         },
-        "data": {
-          "type": "object",
-          "properties": {
-            "finalist_id": {
+        "file": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "sha256": {
+          "anyOf": [
+            {
               "type": "string",
-              "minLength": 1,
-              "pattern": "\\S"
+              "pattern": "^[a-f0-9]{64}$"
             },
-            "exclusion_id": {
-              "type": "string",
-              "minLength": 1,
-              "pattern": "\\S"
-            },
-            "fields": {
-              "type": "object",
-              "properties": {
-                "availability": {
-                  "type": [
-                    "string",
-                    "null"
-                  ]
-                },
-                "models": {
-                  "type": [
-                    "string",
-                    "null"
-                  ]
-                },
-                "rubric": {
-                  "type": [
-                    "string",
-                    "null"
-                  ]
-                },
-                "opportunities": {
-                  "type": [
-                    "string",
-                    "null"
-                  ]
-                },
-                "minutes_risks": {
-                  "type": [
-                    "string",
-                    "null"
-                  ]
-                },
-                "market_value": {
-                  "type": [
-                    "string",
-                    "null"
-                  ]
-                },
-                "user_constraints": {
-                  "type": [
-                    "string",
-                    "null"
-                  ]
-                },
-                "coverage": {
-                  "type": [
-                    "string",
-                    "null"
-                  ]
-                }
-              },
-              "required": [
-                "availability",
-                "models",
-                "rubric",
-                "opportunities",
-                "minutes_risks",
-                "market_value",
-                "user_constraints",
-                "coverage"
-              ],
-              "additionalProperties": false
-            },
-            "outcome": {
-              "enum": [
-                "retain",
-                "replace",
-                "investigate",
-                "no_finalist"
-              ]
-            },
-            "rationale": {
-              "type": "string",
-              "minLength": 1,
-              "pattern": "\\S"
-            },
-            "reviewed_at": {
-              "type": [
-                "string",
-                "null"
-              ],
-              "format": "date-time"
+            {
+              "type": "null"
             }
-          },
-          "required": [
-            "finalist_id",
-            "exclusion_id",
-            "fields",
-            "outcome",
-            "rationale",
-            "reviewed_at"
-          ],
-          "additionalProperties": false
+          ]
         }
       },
       "required": [
+        "ref",
+        "observed_at",
+        "reviewed_at",
         "kind",
-        "entity_id",
-        "basis",
-        "data"
-      ],
-      "additionalProperties": false
-    },
-    {
-      "type": "object",
-      "properties": {
-        "kind": {
-          "const": "requirement"
-        },
-        "entity_id": {
-          "type": "string",
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$"
-        },
-        "basis": {
-          "type": "array",
-          "items": {
-            "type": "string",
-            "minLength": 1,
-            "pattern": "\\S"
-          },
-          "uniqueItems": true
-        },
-        "data": {
-          "type": "object",
-          "properties": {
-            "scope": {
-              "type": "string",
-              "minLength": 1,
-              "pattern": "\\S"
-            },
-            "code": {
-              "type": "string",
-              "minLength": 1,
-              "pattern": "\\S"
-            },
-            "status": {
-              "enum": [
-                "met",
-                "partial",
-                "not_met",
-                "not_applicable"
-              ]
-            },
-            "evidence_ids": {
-              "type": "array",
-              "items": {
-                "type": "string",
-                "minLength": 1,
-                "pattern": "\\S"
-              },
-              "uniqueItems": true
-            },
-            "rationale": {
-              "type": "string",
-              "minLength": 1,
-              "pattern": "\\S"
-            },
-            "reviewed_at": {
-              "type": [
-                "string",
-                "null"
-              ],
-              "format": "date-time"
-            }
-          },
-          "required": [
-            "scope",
-            "code",
-            "status",
-            "evidence_ids",
-            "rationale",
-            "reviewed_at"
-          ],
-          "additionalProperties": false
-        }
-      },
-      "required": [
-        "kind",
-        "entity_id",
-        "basis",
-        "data"
-      ],
-      "additionalProperties": false
-    },
-    {
-      "type": "object",
-      "properties": {
-        "kind": {
-          "const": "decision"
-        },
-        "entity_id": {
-          "type": "string",
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$"
-        },
-        "basis": {
-          "type": "array",
-          "items": {
-            "type": "string",
-            "minLength": 1,
-            "pattern": "\\S"
-          },
-          "uniqueItems": true
-        },
-        "data": {
-          "type": "object",
-          "properties": {
-            "status": {
-              "enum": [
-                "research_candidate",
-                "finalized_selection",
-                "pass",
-                "confirmed_wager"
-              ]
-            },
-            "candidate_ids": {
-              "type": "array",
-              "items": {
-                "type": "string",
-                "minLength": 1,
-                "pattern": "\\S"
-              },
-              "uniqueItems": true
-            },
-            "rationale": {
-              "type": "string",
-              "minLength": 1,
-              "pattern": "\\S"
-            },
-            "confirmation_evidence_ids": {
-              "type": "array",
-              "items": {
-                "type": "string",
-                "minLength": 1,
-                "pattern": "\\S"
-              },
-              "uniqueItems": true
-            },
-            "decision_at": {
-              "type": [
-                "string",
-                "null"
-              ],
-              "format": "date-time"
-            },
-            "historical_reference": {
-              "type": [
-                "string",
-                "null"
-              ]
-            }
-          },
-          "required": [
-            "status",
-            "candidate_ids",
-            "rationale",
-            "confirmation_evidence_ids",
-            "decision_at",
-            "historical_reference"
-          ],
-          "additionalProperties": false
-        }
-      },
-      "required": [
-        "kind",
-        "entity_id",
-        "basis",
-        "data"
+        "subjects",
+        "supports",
+        "status",
+        "scope"
       ],
       "additionalProperties": false
     }
-  ]
+  }
 }

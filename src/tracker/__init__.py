@@ -1,1 +1,1 @@
-"""Private, append-only V2.2 execution records; no analytical decisions."""
+"""One editable private note, deterministic checks, and exclusive pregame snapshots."""

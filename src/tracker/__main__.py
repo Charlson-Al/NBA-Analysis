@@ -1,67 +1,62 @@
-"""Private offline execution records. Payloads and filesystem paths stay out of CLI logs."""
+"""Offline private research notes. Commands never finalize analytical selections."""
 import argparse
-import os
+from datetime import datetime, timezone
 import sys
-import uuid
 
-from ingestion.store import IngestionError, decode, private_root, read_file
-from pathlib import Path
-from .journal import append, create, load, at_event
-from .review import render, review
-from .coverage import seed_coverage
+from ingestion.store import IngestionError, REPO, decode, encode, private_root, snapshot_path
+from .catalog import APPROVAL_REFERENCE, FRAMEWORK_SHA
+from .review import effective
+from .storage import assess, freeze, report, snapshot, write_exclusive
 
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--root', help='Explicit owner-only external storage, or NBA_PRIVATE_DATA_ROOT')
+    parser.add_argument('--root', help='Owner-only external root or NBA_PRIVATE_DATA_ROOT')
     commands = parser.add_subparsers(dest='command', required=True)
-    for name in ('init', 'append'):
-        command = commands.add_parser(name)
-        command.add_argument('session')
-        command.add_argument('--record', required=True, help='JSON tracker input record')
-    seed = commands.add_parser('seed-coverage', help='Create unreviewed eight-market rows for the declared roster')
-    seed.add_argument('session')
-    for name in ('check', 'report'):
-        command = commands.add_parser(name)
-        command.add_argument('session')
-        command.add_argument('--at', help='Read-only report/check at an original event ID')
+    for name in ('new','example'):
+        p = commands.add_parser(name)
+        p.add_argument('session')
+    for name in ('check','report','freeze'):
+        p = commands.add_parser(name)
+        p.add_argument('note', help='Relative JSON note filename in private root')
+        if name == 'freeze':
+            p.add_argument('label', help='Human-readable exclusive snapshot label')
+    p = commands.add_parser('snapshot')
+    p.add_argument('session'); p.add_argument('label')
     args = parser.parse_args(argv)
     try:
-        if args.command == 'seed-coverage':
-            count = seed_coverage(args.session, root=args.root)
-            print(f'Unreviewed coverage rows appended: {count}. No analytical assessments assigned.')
+        root = private_root(args.root)
+        if args.command in ('new','example'):
+            note = decode((REPO / 'tests/fixtures/synthetic/research-note.json').read_bytes())
+            note['id'] = args.session
+            if args.command == 'new':
+                now = datetime.now(timezone.utc).isoformat()
+                note.update(synthetic=False,mode='prospective',research_at=now,
+                            authority=dict(rules_used_sha256=FRAMEWORK_SHA,approval_reference=APPROVAL_REFERENCE,refinements=effective(now)),
+                            players=[],roster_note=None,sources={},matchups={},projections=[],candidates=[],risks=[],comparisons=[],correlation=None,
+                            lock_review=dict(at=None,sources=[],note=None),
+                            decision=dict(status='research',at=None,selected=[],reason=None),placement=dict(status='unconfirmed',sources=[]))
+            path = snapshot_path(root, args.session).with_suffix('.json')
+            write_exclusive(path, encode(note), mode=0o600)
+            print('Editable private note created. No analytical decisions assigned.')
             return 0
-        if args.command in ('init', 'append'):
-            record = decode(read_file(Path(args.record)))
-            operation = create if args.command == 'init' else append
-            event = operation(args.session, record, root=args.root)
-            print(f'Tracker event appended: {event["event_id"]}.')
-            warnings, _, _ = review(load(args.session, root=args.root))
-            print(f'Mechanical warnings: {len(warnings)}. Original record retained for review.')
-            return 2 if warnings else 0
-        events = load(args.session, root=args.root)
-        if args.at:
-            events = at_event(events, args.at)
-        warnings, _, _ = review(events)
-        if args.command == 'report':
-            # Unique report outside the journal; no user payload rendered to stdout.
-            reports = private_root(private_root(args.root) / 'tracker-reports')
-            output = reports / (uuid.uuid4().hex + '.md')
-            try:
-                with output.open('xb') as stream:
-                    os.chmod(output, 0o600)
-                    stream.write(render(events).encode())
-                    stream.flush()
-                    os.fsync(stream.fileno())
-                output.chmod(0o400)
-            except Exception:
-                output.unlink(missing_ok=True)
-                raise
-            print('Checklist saved in private tracker-reports directory.')
-        print(f'Mechanical warnings: {len(warnings)}. Human review remains required.')
-        return 2 if warnings else 0
+        if args.command == 'freeze':
+            freeze(root, args.note, args.label)
+            print('Exclusive pregame snapshot saved, including original findings. No selection finalized by software.')
+            return 0
+        if args.command == 'snapshot':
+            _, output = snapshot(root, args.session, args.label)
+        elif args.command == 'report':
+            output = report(root, args.note)
+        else:
+            _, result = assess(root, args.note)
+            print(f'Structural findings: {len(result["issues"])}. Analytical review is always required.')
+            return 2 if result['issues'] else 0
+        # Explicit report command renders private research; user must keep its output private.
+        print(output)
+        return 0
     except (IngestionError, OSError, ValueError, TypeError, KeyError, RecursionError):
-        print('Rejected: invalid records, integrity, schema or private storage. Inspect privately.', file=sys.stderr)
+        print('Rejected: invalid note, unsafe private storage or snapshot integrity. Inspect privately.',file=sys.stderr)
         return 1
 
 

@@ -1,0 +1,366 @@
+{
+  "id": "synthetic-demo",
+  "synthetic": true,
+  "mode": "prospective",
+  "research_at": "2026-11-07T12:00:00Z",
+  "authority": {
+    "rules_used_sha256": "7eea2f0bd83bcba4f930ca96764e971a077f3d5aad37f70f72216be16849395a",
+    "approval_reference": "docs/governance/decisions.md#decision-2026-11-06-baseline",
+    "refinements": [
+      "standard-only",
+      "opportunity-handoff",
+      "minutes-sensitivity",
+      "whole-number-outcomes"
+    ]
+  },
+  "players": [
+    {
+      "id": "SYN_A",
+      "game": "G1"
+    },
+    {
+      "id": "SYN_B",
+      "game": "G1"
+    }
+  ],
+  "roster_note": "Both invented rotation players included; no arbitrary minutes cutoff",
+  "sources": {
+    "S1": {
+      "ref": "urn:synthetic:matchup",
+      "observed_at": "2026-11-07T12:03:00Z",
+      "reviewed_at": "2026-11-07T12:03:00Z",
+      "cutoff": "2026-11-06",
+      "unit": "count",
+      "denominator": "per_game",
+      "sample": "Three invented games, not NBA statistics",
+      "kind": "observed",
+      "subjects": [
+        "G1"
+      ],
+      "supports": [
+        "environment",
+        "personnel",
+        "rotation",
+        "matchup"
+      ],
+      "status": "recorded",
+      "scope": "Invented example for structural checks; no real evidence or analytical certification"
+    },
+    "S2": {
+      "ref": "urn:synthetic:dc",
+      "observed_at": "2026-11-07T12:01:00Z",
+      "reviewed_at": "2026-11-07T12:01:00Z",
+      "cutoff": "2026-11-06",
+      "unit": "count",
+      "denominator": "per_game",
+      "sample": "Three invented games, not NBA statistics",
+      "kind": "forecast",
+      "subjects": [
+        "SYN_A",
+        "SYN_B"
+      ],
+      "supports": [
+        "model"
+      ],
+      "status": "recorded",
+      "scope": "Invented example for structural checks; no real evidence or analytical certification"
+    },
+    "S3": {
+      "ref": "urn:synthetic:darko",
+      "observed_at": "2026-11-07T12:01:00Z",
+      "reviewed_at": "2026-11-07T12:01:00Z",
+      "cutoff": "2026-11-06",
+      "unit": "count",
+      "denominator": "per_game",
+      "sample": "Three invented games, not NBA statistics",
+      "kind": "forecast",
+      "subjects": [
+        "SYN_A",
+        "SYN_B"
+      ],
+      "supports": [
+        "model"
+      ],
+      "status": "recorded",
+      "scope": "Invented example for structural checks; no real evidence or analytical certification"
+    },
+    "S4": {
+      "ref": "urn:synthetic:chances",
+      "observed_at": "2026-11-07T12:01:00Z",
+      "reviewed_at": "2026-11-07T12:01:00Z",
+      "cutoff": "2026-11-06",
+      "unit": "count",
+      "denominator": "per_game",
+      "sample": "Three invented games, not NBA statistics",
+      "kind": "observed",
+      "subjects": [
+        "SYN_A",
+        "SYN_B"
+      ],
+      "supports": [
+        "opportunities"
+      ],
+      "status": "recorded",
+      "scope": "Invented example for structural checks; no real evidence or analytical certification"
+    },
+    "S5": {
+      "ref": "urn:synthetic:sustainability",
+      "observed_at": "2026-11-07T12:01:00Z",
+      "reviewed_at": "2026-11-07T12:01:00Z",
+      "cutoff": "2026-11-06",
+      "unit": "count",
+      "denominator": "per_game",
+      "sample": "Three invented games, not NBA statistics",
+      "kind": "observed",
+      "subjects": [
+        "SYN_A",
+        "SYN_B"
+      ],
+      "supports": [
+        "sustainability"
+      ],
+      "status": "recorded",
+      "scope": "Invented example for structural checks; no real evidence or analytical certification"
+    },
+    "S6": {
+      "ref": "urn:synthetic:market",
+      "observed_at": "2026-11-07T12:03:00Z",
+      "reviewed_at": "2026-11-07T12:03:00Z",
+      "kind": "observed",
+      "subjects": [
+        "SYN_A",
+        "SYN_B"
+      ],
+      "supports": [
+        "market"
+      ],
+      "status": "recorded",
+      "scope": "Invented example for structural checks; no real evidence or analytical certification"
+    }
+  },
+  "matchups": {
+    "G1": {
+      "environment": {
+        "note": "Both invented offenses/defenses, pace, Four Factors, shot profiles, schedule and uncertainty",
+        "sources": [
+          "S1"
+        ]
+      },
+      "personnel": {
+        "note": "Invented active players, restrictions and competition",
+        "sources": [
+          "S1"
+        ]
+      },
+      "rotation": {
+        "note": "Invented starters/closers and DC minutes credibility",
+        "sources": [
+          "S1"
+        ]
+      }
+    }
+  },
+  "projections": [
+    {
+      "player": "SYN_A",
+      "provider": "DC",
+      "minutes": 32,
+      "basis": "per_game",
+      "values": {
+        "PTS": 20,
+        "REB": 8,
+        "AST": 8,
+        "3PM": 3,
+        "PR": 28,
+        "PA": 28,
+        "RA": 16,
+        "PRA": 36
+      },
+      "source": "S2"
+    },
+    {
+      "player": "SYN_A",
+      "provider": "DARKO",
+      "minutes": 24,
+      "basis": "per_game",
+      "values": {
+        "PTS": 15,
+        "REB": 6,
+        "AST": 6,
+        "3PM": 2.25
+      },
+      "source": "S3"
+    },
+    {
+      "player": "SYN_B",
+      "provider": "DC",
+      "minutes": 32,
+      "basis": "per_game",
+      "values": {
+        "PTS": 16,
+        "REB": 10,
+        "AST": 4,
+        "3PM": 1,
+        "PR": 26,
+        "PA": 20,
+        "RA": 14,
+        "PRA": 30
+      },
+      "source": "S2"
+    },
+    {
+      "player": "SYN_B",
+      "provider": "DARKO",
+      "minutes": 24,
+      "basis": "per_game",
+      "values": {
+        "PTS": 12,
+        "REB": 7.5,
+        "AST": 3,
+        "3PM": 0.75
+      },
+      "source": "S3"
+    }
+  ],
+  "candidates": [
+    {
+      "id": "A-AST",
+      "player": "SYN_A",
+      "market": "AST",
+      "direction": "Higher",
+      "line": {
+        "value": 7,
+        "provider": "PrizePicks",
+        "tier": "standard",
+        "period": "full_game",
+        "source": "S6"
+      },
+      "validation": {
+        "role": {
+          "score": 2,
+          "note": "Invented stable role, independent of chance volume",
+          "sources": [
+            "S1"
+          ]
+        },
+        "opportunities": {
+          "score": 2,
+          "note": "Invented player-specific chances; not inferred from forecast",
+          "sources": [
+            "S4"
+          ]
+        },
+        "matchup": {
+          "score": 1,
+          "note": "Invented mixed access and defensive resistance",
+          "sources": [
+            "S1"
+          ]
+        },
+        "sustainability": {
+          "score": 1,
+          "note": "Invented conversion variability, distinct from role",
+          "sources": [
+            "S5"
+          ]
+        }
+      },
+      "outlook": "Invented supported neighborhood; not a model adjustment",
+      "failure": "Invented volume or conversion downside",
+      "grade": "B",
+      "rank": 1,
+      "disposition": "research",
+      "reviewed_at": "2026-11-07T12:04:00Z"
+    },
+    {
+      "id": "B-REB",
+      "player": "SYN_B",
+      "market": "REB",
+      "direction": "Higher",
+      "line": {
+        "value": 9,
+        "provider": "PrizePicks",
+        "tier": "standard",
+        "period": "full_game",
+        "source": "S6"
+      },
+      "validation": {
+        "role": {
+          "score": 2,
+          "note": "Invented stable role, independent of chance volume",
+          "sources": [
+            "S1"
+          ]
+        },
+        "opportunities": {
+          "score": 2,
+          "note": "Invented player-specific chances; not inferred from forecast",
+          "sources": [
+            "S4"
+          ]
+        },
+        "matchup": {
+          "score": 1,
+          "note": "Invented mixed access and defensive resistance",
+          "sources": [
+            "S1"
+          ]
+        },
+        "sustainability": {
+          "score": 1,
+          "note": "Invented conversion variability, distinct from role",
+          "sources": [
+            "S5"
+          ]
+        }
+      },
+      "outlook": "Invented supported neighborhood; not a model adjustment",
+      "failure": "Invented volume or conversion downside",
+      "grade": "B",
+      "rank": null,
+      "disposition": "excluded",
+      "reviewed_at": "2026-11-07T12:04:00Z"
+    }
+  ],
+  "risks": [
+    {
+      "id": "R1",
+      "players": [
+        "SYN_A"
+      ],
+      "note": "Invented conversion uncertainty",
+      "kind": "other",
+      "status": "carried",
+      "sources": [
+        "S5"
+      ],
+      "rationale": "Analyst explicitly carries uncertainty into outlook and B grade"
+    }
+  ],
+  "comparisons": [
+    {
+      "candidate": "A-AST",
+      "alternative": "B-REB",
+      "reason": "Invented analyst comparison: both exact thresholds, models and factor evidence reviewed; A retained for its opportunity support; downside and uncertainty remain. Strongest alternative choice requires human judgment."
+    }
+  ],
+  "correlation": "Invented shared game script and teammate competition evaluated; no automated penalty",
+  "lock_review": {
+    "at": "2026-11-07T12:05:00Z",
+    "sources": [
+      "S1",
+      "S6"
+    ],
+    "note": "Invented final review of personnel, markets and open risks; not proof of basketball validity"
+  },
+  "decision": {
+    "status": "research",
+    "at": null,
+    "selected": [],
+    "reason": "Example research only; nothing finalized"
+  },
+  "placement": {
+    "status": "unconfirmed",
+    "sources": []
+  }
+}
