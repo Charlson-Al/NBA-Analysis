@@ -1,6 +1,6 @@
 ---
 name: nba-v22-research
-description: Execute the governing November 3 V2.2 research workflow using a private note, deterministic checks and immutable pregame snapshots; no automatic basketball decisions.
+description: Research the requested NBA scope under November 3 V2.2, produce justified preliminary scores, grades and rankings, and maintain private evidence and snapshots without automatically finalizing selections or wagers.
 ---
 
 # NBA V2.2 research assistant
@@ -10,6 +10,17 @@ Read root AGENTS.md and the complete governing reference:
 `docs/framework/source/nba-player-props-v2.2-2026-11-03.txt`.
 This skill is navigation, not a replacement methodology or new framework version.
 
+## Research responsibility
+
+The user's November 6 research execution adjustment authorizes Codex to research,
+assign evidence-supported preliminary rubric scores and confidence grades, and
+rank candidates. This supersedes the earlier operator-only scoring restriction
+for future research; it does not change V2.2 or backdate any assessment.
+Codex makes the basketball assessment; the deterministic checker validates its
+arithmetic, eligibility and record consistency. Neither a populated note nor a
+clean check certifies the assessment. Preliminary conclusions remain open to
+analyst challenge and never finalize analytical selections or confirm wagers.
+
 ## Intake and private note
 
 - Verify the November 3 source/manifest and explicit approval in
@@ -18,8 +29,10 @@ This skill is navigation, not a replacement methodology or new framework version
   and decision checkpoints. Preserve conflicting historical references as facts
   about what was used; never silently replace them.
 - Follow `docs/research/execution-tracker.md`. Work in one editable private JSON
-  note outside Git. Codex can transcribe authorized supplied evidence and organize
-  notes; never invent unknown timestamps, cutoffs, source values or roles.
+  note outside Git. Codex maintains it from the research conversation and authorized
+  sources, including its explained preliminary judgments. Do not require separate
+  analyst JSON entry or repeated transcription. Never invent unknown timestamps,
+  cutoffs, source values, roles or unsupported scores.
 - Reuse short source labels and one matchup record per game. Shared risks list
   affected players once. No event IDs, manual dependency graph or requirement
   forms. Retain original DC/DARKO inputs and any authorized raw local artifacts.
@@ -28,6 +41,11 @@ This skill is navigation, not a replacement methodology or new framework version
   rights remain separate from a working URL or a valid checklist.
 
 ## Normal five-stage session
+
+Establish the requested game/date scope first; a one-game request remains one
+game. Screen the complete requested scope before deep-diving likely candidates.
+Reuse still-current evidence across players; revisit affected conclusions when
+material facts change, without restarting unrelated research.
 
 1. **Environment/personnel (§§1A–1E).** Independently evaluate both teams: pace,
    possessions, efficiency/Four Factors, shot/opportunity channels, resistance,
@@ -42,26 +60,53 @@ This skill is navigation, not a replacement methodology or new framework version
    components once to DC minutes. Compare the same exact threshold. Keep both
    model signals and independently supported opportunities in research; investigate
    disagreement without averaging or changing either official forecast.
-3. **Independent validation (§§3A–3C).** Analyst supplies four 0–2 factors and
-   distinct rationales: role, opportunities, matchup, sustainability. Independently
+3. **Independent validation (§§3A–3C).** Codex evaluates and assigns justified
+   preliminary 0–2 scores with distinct basketball-specific rationales and source
+   links for role, opportunities, matchup and sustainability. Independently
    verify player-specific chances, volume, quality and ownership, including combined
    components. Assess defensive access/resistance and conversion sustainability
-   without duplicate credit. Missing evidence is not zero or automatic neutral
-   credit. The software cannot establish the truth of a populated source claim.
-4. **Outlook (§§4A–4E).** Analyst records supported direction/neighborhood and
+   without duplicate credit. When material evidence is insufficient, leave the
+   factor null and explain what is missing; do not default to zero or neutral.
+   The checker cannot establish the truth of a populated source claim.
+4. **Outlook (§§4A–4E).** Codex records supported direction/neighborhood and
    failure scenarios, not a third projection model. Shared rotation uncertainty
    applies to all affected candidates automatically. Resolve, carry or disqualify
    material risks with rationale. Review credible minutes sensitivity when material;
-   diagnostics never replace original forecasts.
+   diagnostics never replace original forecasts. Where credible alternative
+   minutes erase the cushion or flip direction, hold from final selection until
+   the role is resolved or the case is robust, as already approved.
 5. **Market/ranking (§§5A–5I).** Verify actual eligible full-game standard
    PrizePicks thresholds after the approved restriction. Consider meaningful value,
-   variability, settlement/payout and integer winning/tie counts. Analyst chooses
-   strongest lane, rank and grade. Preserve §5D eligibility exactly: A-range needs
-   agreement and 7/8 plus all other conditions; genuine disagreement has B+ maximum.
-   No automatic scores, grades, ranks or selections. Record one substantive
-   weakest-finalist/strongest-eligible-exclusion challenge with analyst rationale;
+   variability, settlement/payout and integer winning/tie counts. Codex compares
+   lanes and makes preliminary assessments. Preserve §5D eligibility exactly:
+   A-range needs agreement and at least 7/8 plus all other conditions; genuine
+   disagreement has B+ maximum. Calculate the existing rubric total only when all
+   four factors are scored. Assign the strongest defensible preliminary grade and
+   rank using the full framework, exact threshold, variability and remaining risks.
+   A band is eligibility, not an automatic award of its highest grade. Leave a
+   grade/rank unresolved when evidence cannot justify it. Record a substantive
+   weakest-proposed-inclusion/strongest-credible-exclusion challenge with rationale;
    the report supplies the existing model/line/rubric context. Consider correlation,
    teammate competition and shared scripts without automatic penalties.
+
+## Completed research output
+
+- Produce a comprehensive ranked **preliminary research board** for every
+  defensible candidate in the requested scope, with the strongest supported lane
+  per player. Do not cap output at two or three props or force any count.
+- Show rank, player/team/opponent, eligible market/direction, observed standard
+  full-game PrizePicks threshold and observation time, original DC forecast/minutes,
+  original DARKO values/minutes/basis and compatible normalized benchmark, model
+  relationship, four factor scores/total, preliminary V2.2 grade, independent
+  basketball rationale, principal failure risk and unresolved limitations.
+- Summarize both-team environments and shared risks once. Show strongest credible
+  excluded alternatives with original evidence and reasons. Keep unresolved or
+  unavailable cases separate; disagreement alone is not a reason for exclusion.
+- Keep `decision.status=research` and `decision.selected=[]` for a preliminary
+  board, even when candidates have grades and ranks. Use existing fields, source
+  links and comparison records; no additional approval forms or tracking layer.
+  If material research remains incomplete, label the output a checkpoint and
+  identify its gaps rather than claim the completed board or final lock.
 
 ## Final review and preservation
 

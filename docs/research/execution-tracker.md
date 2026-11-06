@@ -6,6 +6,32 @@ journal, UUID dependencies, per-market review flags and per-requirement forms.
 The governing November 3 source and methodology are unchanged. Use the repository
 skill `.agents/skills/nba-v22-research/SKILL.md` and complete original framework.
 
+## Execution responsibility — approved November 6, 2026
+
+The user's **NBA Analysis Hub — V2.2 Research Execution Adjustment**, supplied in
+this project's conversation on November 6, explicitly authorizes Codex to conduct
+research, assign justified preliminary rubric scores and confidence grades, and
+rank supported candidates. It replaces the earlier operator-only scoring policy
+prospectively. This is an execution responsibility change, not a dated change to
+V2.2's basketball methodology, eligibility bands or normalization formulas.
+The pinned governing source, approval records and methodological refinements are
+unchanged; historical pregame decisions are not reassessed by this instruction.
+
+Codex's research process makes and explains those preliminary basketball
+judgments. The existing deterministic tool checks calculations, eligibility,
+source links and consistency; it does not derive scores or value from populated
+fields. No new scoring engine, schema, factor, confidence threshold or service is
+needed. The analyst can challenge or revise explained preliminary conclusions
+when evidence warrants it. Neither automation nor a clean report certifies them.
+
+The user's distinction governs: **preliminary rubric scoring is automatic;
+unsupported scoring is prohibited.** A missing material input leaves the affected
+factor unresolved, never defaulted to zero or neutral. Add the four scores only
+when all four are responsibly scored. Use the complete existing grade criteria;
+a qualifying rubric total or agreement never awards the top eligible grade by
+itself. Preserve the A-range agreement/7–8 requirement, all other A conditions,
+and the B+ maximum for genuine disagreement exactly.
+
 ## Start and run
 
 Use Python 3.12 with the existing pinned `requirements.txt`. No new dependencies:
@@ -29,8 +55,10 @@ Global `--root` before the command can replace the environment variable. `new`
 creates a blank owner-only note, expected authority references and current dated
 refinement list; it assigns no scores, grades, ranks or selections. `example`
 copies only the invented repository fixture. Names are relative to the private
-root. Edit this one note directly or ask Codex to organize/transcribe authorized
-supplied inputs. No provider fetching/integration is included.
+root. Codex maintains this note from normal research, authorized source evidence
+and its explained preliminary assessments. The analyst need not edit JSON or
+repeat findings in separate forms. No provider fetching/integration is added to
+the tool; source access and retention permissions are verified separately.
 
 `check` prints counts only: exit 0 means no detected structural omissions, 2 means
 findings, 1 means invalid schema/private storage or integrity failure. Exit 0 is
@@ -52,24 +80,66 @@ logs. They do not publish or write source data into the repository.
   times/context stay null. No status means “verified basketball truth.” Optional
   `file` is a relative private artifact path with expected SHA-256; changed bytes
   are flagged, not silently substituted.
-- **Candidate:** four existing analyst scores/rationales with source labels,
+- **Candidate:** four existing preliminary scores/rationales with source labels,
   original exact line, direction, outlook/failure, grade/rank when recorded,
   research disposition and review time. Add disagreement or sensitivity notes
   only where material. No normalized result is editable: one canonical arithmetic
   result drives both report and eligibility checks.
 - **Shared risks:** record affected players once; the checker applies them to
   their candidates. Carried risks are allowed, not a new automatic grade cap.
-- **Comparison:** name the analyst-chosen boundary candidate/alternative and one
+- **Comparison:** name the research boundary candidate/alternative and one
   substantive rationale. Their model, threshold and factor records supply the
-  context; do not repeat eight comparison forms. Human judgment still determines
-  whether the exclusion is strongest and why the boundary is defensible.
+  context; do not repeat eight comparison forms. Codex explains which exclusion
+  is strongest and why the proposed boundary is defensible, subject to analyst
+  challenge rather than certification by the checker.
 - **Final review:** one time/source/rationale record for actual personnel and
   market rechecks; one explicit decision and separate placement status. There
   are no “met” or blanket “N/A” switches to bypass missing records.
 
 The strict storage schema is `manifests/schemas/tracker.schema.json`; the working
-example is `tests/fixtures/synthetic/research-note.json`. Ordinary JSON editing
-is the whole input interface; this is intentionally not a management platform.
+example is `tests/fixtures/synthetic/research-note.json`. JSON remains the storage
+interface; the normal analyst interface is the research conversation. Codex
+extracts supported metadata and maintains the record automatically.
+
+## Normal research session and deliverable
+
+Confirm the requested games and date, then assess both teams and shared personnel
+risks. Broadly screen every credible rotation player across all eight existing
+markets and both directions before deciding where detailed research matters.
+Reuse original model inputs and still-current source/matchup evidence. Advance
+both strong model signals and independently supported opportunities, including
+near-line splits. Unavailable markets and model disagreement are distinct facts.
+Revisit affected conclusions when material facts change; do not restart unrelated
+research or repeatedly fetch the same unchanged source.
+
+Codex validates each advanced candidate's independent opportunities, role,
+resistance and sustainability; explains its preliminary factors and outlook;
+then compares actual observed standard full-game PrizePicks thresholds. Original
+forecasts remain intact. Credible minutes diagnostics stay separate from official
+inputs, and existing selection holds and shared unresolved risks remain visible.
+Choose the strongest defensible lane per player, compare candidates across the
+requested scope, challenge the weakest proposed inclusion against the strongest
+credible exclusion, and consider opportunity competition/correlation.
+
+For a completed research request, deliver every defensible candidate in a ranked
+**preliminary research board**, not a fixed two- or three-prop shortlist. A
+one-game request remains one game; a slate request covers all requested games.
+Each entry shows rank, player/team/opponent, eligible market/direction, exact
+observed standard line/time, original DC forecast/minutes, original DARKO
+values/minutes/basis and normalized benchmark, model relationship, four factors
+and total, preliminary V2.2 grade, independent rationale, principal failure risk
+and unresolved limitations. Summarize game environments/shared risks once and
+show strongest credible exclusions with original evidence/reasons separately.
+Do not force a count, score, grade or ranking; identify unresolved cases and
+material coverage gaps rather than claim comprehensive research was completed.
+
+Use the existing fields: `validation.*.score/note/sources`, `grade`, `rank`,
+`direction`, `outlook`, `failure`, shared `risks` and `comparisons`. Keep the note's
+candidate list in board order for readability. Preliminary board membership is
+represented by research disposition and justified grade/rank, while the slate
+stays `decision.status=research`, `decision.selected=[]`, and placement stays
+unconfirmed absent explicit evidence. Ranking is not finalization or placement.
+The checker/report and snapshots remain useful even when research is incomplete.
 
 ## What the report establishes
 
@@ -92,10 +162,11 @@ age/expiry rule. Unknown timestamps do not establish freshness.
 Known mismatched subject/channel evidence and forecast-only opportunity support
 are exposed. False claims with convincing fabricated labels cannot be detected
 as truth by software; the report never authenticates them. The original rubric
-and §5D eligibility limits are checked only against analyst-entered values, never
-assigned automatically. All other A-range conditions remain human judgments.
-Source definitions, sample quality, scheme, ownership, materiality, strongest
-lane/alternative, payout value and confidence always require basketball judgment.
+and §5D eligibility limits are checked against recorded research assessments;
+the checker never awards a factor or grade. Codex must still substantively assess
+source definitions, sample quality, scheme, ownership, materiality, strongest
+lane/alternative, payout value, confidence and every A-range condition. The
+analyst may challenge that reasoning; field presence is not basketball proof.
 
 The final consistency corrections preserve contradictory declarations rather than
 rewrite them: Research/Pass cannot contain finalized selections, selected
@@ -140,7 +211,7 @@ recovered notes as retrospective, not contemporaneously collected evidence.
 The prior experimental event journals are left untouched outside Git; no automatic
 conversion or silent historical migration is performed.
 
-## Manual fields and duplication
+## Research fields and duplication
 
 `entry_metrics(note)` exposes the count rather than claiming zero manual work.
 A fully assessed candidate has 14 judgment slots: four scores, four distinct
@@ -155,7 +226,7 @@ risk (description, affected players, disposition, rationale); three per boundary
 comparison (pair plus rationale); and seven session-level slots (roster scope,
 correlation, lock rationale, decision status/selection/reason, placement status).
 Conditional disagreement/sensitivity notes add one each. These count information
-that must be supplied/reviewed, not necessarily hand-typed or non-null fields.
+that must be established/reviewed, not hand-typed or necessarily non-null fields.
 Each source has eight core metadata fields; numerical statistical evidence adds
 four context fields (cutoff, sample, unit, denominator), nullable when unknown.
 Categorical personnel/market references do not require invented statistical units.
@@ -164,8 +235,11 @@ Unknown relevant metadata is exposed, not guessed. Codex may populate supported 
 The two-candidate invented example has 45 judgment slots, six unique source
 records, one shared matchup record, no duplicated source definitions and no
 manual coverage flags, event IDs, or separate requirement declarations. Repeated
-source labels are references, not copies of source evidence. This is not a timed
-usability benchmark. The redundant 247 requirement declarations from the former
+source labels are references, not copies of source evidence. The legacy metric
+name `manual_judgment_slots` counts research information; it is not a required
+manual-entry count. Codex can populate supported judgments and facts from the
+conversation and evidence without additional analyst JSON entry. This is not a
+timed usability benchmark. The redundant 247 requirement declarations from the former
 six-candidate design are gone; the actual basketball work remains necessary.
 
 ## Validation and limits
@@ -207,5 +281,5 @@ against recorded digests, not coordinated same-owner rewrites. Snapshots are
 read-only against accidents, not an independent integrity trust anchor. Rights
 for source acquisition, private retention/use and backups must be established
 separately before real-data use. The local publication guard is secondary and
-bypassable; manual publication review remains necessary. No live automation,
+bypassable; manual publication review remains necessary. No unattended workflow,
 subagents, database, dashboard, scheduling or provider integrations are added.
