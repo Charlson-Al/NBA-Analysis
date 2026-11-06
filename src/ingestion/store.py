@@ -52,7 +52,10 @@ def decode(data):
 
 def validate(name, value):
     schema = json.loads((SCHEMAS / f'{name}.schema.json').read_text())
-    errors = list(Draft202012Validator(schema, format_checker=FormatChecker()).iter_errors(value))
+    checker = FormatChecker()
+    if not {'date', 'date-time'} <= checker.checkers.keys():
+        raise IngestionError('Required date/time validators unavailable; install pinned dependencies')
+    errors = list(Draft202012Validator(schema, format_checker=checker).iter_errors(value))
     if errors:
         raise IngestionError(f'{name} schema validation failed')
 

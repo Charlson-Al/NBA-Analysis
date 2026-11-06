@@ -52,3 +52,38 @@ The guard examines staged blobs and prints no payloads. It is intentionally cons
 Read-only permissions prevent accidental writes, not modifications by the same OS owner or administrators. SHA-256 detects corruption against recorded hashes; a coordinated rewrite of originals and all metadata is not detectable without an external trusted digest/signature. This is a trusted single-user local-filesystem pilot, not hostile concurrent-writer, WORM, encrypted or crash-atomic storage. Do not use shared/untrusted parent directories for real data. CLI failures suppress payloads/paths; library exceptions and operator logs still require private handling.
 
 Cloud filesystem presence is not proof of durability. Before real data: establish persistent access-controlled storage/backups and retention rights, confirm publication policy, add source-specific parsers and coverage evidence, and separately authorize/test NBA access under applicable terms. Research-grade readiness and provenance authenticity are not inferred from a passing synthetic validation.
+
+## PR #1 validation corrections
+
+The Python 3.12 validation dependencies, including transitive dependencies and
+rfc3339-validator, are pinned in requirements.txt. Reproduce in a fresh virtual
+environment with `python -m venv .venv`, activate it, then run
+`python -m pip install -r requirements.txt` and `python -m pip check`.
+Run `python -m unittest discover -s tests -v` and `python src/audit.py`.
+Date and RFC3339 date-time checker availability is mandatory: validation rejects
+all imports/replays if either checker is missing, rather than ignoring formats.
+Missing, unavailable and not_applicable reasons must contain non-whitespace text.
+
+Publication exclusions compare extensions, artifact names and private directory
+components without regard to capitalization. JSON trust namespaces retain exact
+canonical spelling. The staged-index guard also rejects symlinks/submodules;
+it reads indexed bytes even if the working copy differs. This remains a local,
+bypassable guard, not a classifier for disguised private data or licensing rights.
+Manual publication review and repository CI enforcement remain prerequisites for
+broader reliance.
+
+Regression tests exercise partial writes, fsync/verification/chmod failures and
+successful retry after cleanup. An asynchronous interruption can retain an
+incomplete exclusive snapshot directory: verification rejects it, and retry with
+the same ID cannot overwrite it. An operator must privately inspect/quarantine it
+or select a new acquisition ID. Cleanup itself can fail under filesystem errors;
+no crash-atomicity or durability guarantee is added. Separate imports preserve
+equal originals and replay bytes despite differing acquisition IDs/import times;
+manifest/report hashes intentionally differ with provenance. Replay is also
+checked in separate processes with different hash seeds.
+
+Validation of these corrections: 44 tests passed, zero failures/skips; dependency
+consistency passed; V1.2 audit retained 1,290/1,290 matches, no errors/mismatches,
+and 150 existing warnings. Real cutoff authenticity, redistribution rights,
+same-owner coordinated rewrites and persistent storage remain unresolved pilot
+limitations. No real-source ingestion or game-day readiness is implied.
