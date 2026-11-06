@@ -1,0 +1,773 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Private research note (storage schema, not framework revision)",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$"
+    },
+    "synthetic": {
+      "type": "boolean"
+    },
+    "mode": {
+      "enum": [
+        "prospective",
+        "historical_audit"
+      ]
+    },
+    "research_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "authority": {
+      "type": "object",
+      "properties": {
+        "rules_used_sha256": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "approval_reference": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "refinements": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$"
+          },
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "rules_used_sha256",
+        "approval_reference",
+        "refinements"
+      ],
+      "additionalProperties": false
+    },
+    "players": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$"
+          },
+          "game": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$"
+          }
+        },
+        "required": [
+          "id",
+          "game"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "sources": {
+      "type": "object",
+      "propertyNames": {
+        "type": "string",
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$"
+      },
+      "additionalProperties": {
+        "$ref": "#/$defs/source"
+      }
+    },
+    "matchups": {
+      "type": "object",
+      "propertyNames": {
+        "type": "string",
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$"
+      },
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "environment": {
+            "$ref": "#/$defs/claim"
+          },
+          "personnel": {
+            "$ref": "#/$defs/claim"
+          },
+          "rotation": {
+            "$ref": "#/$defs/claim"
+          }
+        },
+        "required": [
+          "environment",
+          "personnel",
+          "rotation"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "projections": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "player": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$"
+          },
+          "provider": {
+            "enum": [
+              "DC",
+              "DARKO"
+            ]
+          },
+          "minutes": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "basis": {
+            "enum": [
+              "per_game",
+              "per_minute"
+            ]
+          },
+          "values": {
+            "type": "object",
+            "propertyNames": {
+              "enum": [
+                "PTS",
+                "REB",
+                "AST",
+                "3PM",
+                "PR",
+                "PA",
+                "RA",
+                "PRA"
+              ]
+            },
+            "additionalProperties": {
+              "type": "number"
+            }
+          },
+          "source": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$"
+          }
+        },
+        "required": [
+          "player",
+          "provider",
+          "minutes",
+          "basis",
+          "values",
+          "source"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "candidates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$"
+          },
+          "player": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$"
+          },
+          "market": {
+            "enum": [
+              "PTS",
+              "REB",
+              "AST",
+              "3PM",
+              "PR",
+              "PA",
+              "RA",
+              "PRA"
+            ]
+          },
+          "direction": {
+            "enum": [
+              "Higher",
+              "Lower",
+              "Pass"
+            ]
+          },
+          "line": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  "provider": {
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "\\S"
+                  },
+                  "tier": {
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "\\S"
+                  },
+                  "period": {
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "\\S"
+                  },
+                  "source": {
+                    "type": "string",
+                    "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$"
+                  }
+                },
+                "required": [
+                  "value",
+                  "provider",
+                  "tier",
+                  "period",
+                  "source"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "validation": {
+            "type": "object",
+            "properties": {
+              "role": {
+                "$ref": "#/$defs/factor"
+              },
+              "opportunities": {
+                "$ref": "#/$defs/factor"
+              },
+              "matchup": {
+                "$ref": "#/$defs/factor"
+              },
+              "sustainability": {
+                "$ref": "#/$defs/factor"
+              }
+            },
+            "required": [
+              "role",
+              "opportunities",
+              "matchup",
+              "sustainability"
+            ],
+            "additionalProperties": false
+          },
+          "outlook": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "failure": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "grade": {
+            "anyOf": [
+              {
+                "enum": [
+                  "A+",
+                  "A",
+                  "A-",
+                  "B+",
+                  "B",
+                  "B-",
+                  "C+",
+                  "C",
+                  "C-",
+                  "D",
+                  "Pass"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "rank": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 1
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "disposition": {
+            "enum": [
+              "research",
+              "excluded",
+              "pass"
+            ]
+          },
+          "disagreement": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "sensitivity": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "reviewed_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "player",
+          "market",
+          "direction",
+          "line",
+          "validation",
+          "outlook",
+          "failure",
+          "grade",
+          "rank",
+          "disposition",
+          "reviewed_at"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "risks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$"
+          },
+          "players": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$"
+            },
+            "uniqueItems": true
+          },
+          "note": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "status": {
+            "enum": [
+              "open",
+              "carried",
+              "resolved",
+              "disqualifying"
+            ]
+          },
+          "sources": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$"
+            },
+            "uniqueItems": true
+          },
+          "rationale": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "kind": {
+            "enum": [
+              "rotation",
+              "opportunity",
+              "other"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "players",
+          "note",
+          "status",
+          "sources",
+          "rationale"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "comparisons": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "candidate": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$"
+          },
+          "alternative": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$"
+          },
+          "reason": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "candidate",
+          "alternative",
+          "reason"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "correlation": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "lock_review": {
+      "type": "object",
+      "properties": {
+        "at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$"
+          },
+          "uniqueItems": true
+        },
+        "note": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "at",
+        "sources",
+        "note"
+      ],
+      "additionalProperties": false
+    },
+    "decision": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "enum": [
+            "research",
+            "pass",
+            "finalized_selection"
+          ]
+        },
+        "at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "selected": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$"
+          },
+          "$comment": "Retain duplicate historical declarations for explicit consistency reporting; never deduplicate automatically."
+        },
+        "reason": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "status",
+        "at",
+        "selected",
+        "reason"
+      ],
+      "additionalProperties": false
+    },
+    "placement": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "enum": [
+            "unconfirmed",
+            "confirmed"
+          ]
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$"
+          },
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "status",
+        "sources"
+      ],
+      "additionalProperties": false
+    },
+    "postgame": {
+      "type": "object"
+    },
+    "roster_note": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "required": [
+    "id",
+    "synthetic",
+    "mode",
+    "research_at",
+    "authority",
+    "players",
+    "sources",
+    "matchups",
+    "projections",
+    "candidates",
+    "risks",
+    "comparisons",
+    "correlation",
+    "lock_review",
+    "decision",
+    "placement",
+    "roster_note"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "claim": {
+      "type": "object",
+      "properties": {
+        "note": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$"
+          },
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "note",
+        "sources"
+      ],
+      "additionalProperties": false
+    },
+    "factor": {
+      "type": "object",
+      "properties": {
+        "score": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 2
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "note": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$"
+          },
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "score",
+        "note",
+        "sources"
+      ],
+      "additionalProperties": false
+    },
+    "source": {
+      "type": "object",
+      "properties": {
+        "ref": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "observed_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "reviewed_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "cutoff": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "unit": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "denominator": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "sample": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "kind": {
+          "enum": [
+            "observed",
+            "forecast",
+            "inference",
+            "historical_annotation"
+          ]
+        },
+        "subjects": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$"
+          },
+          "uniqueItems": true
+        },
+        "supports": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "environment",
+              "personnel",
+              "rotation",
+              "opportunities",
+              "matchup",
+              "sustainability",
+              "model",
+              "market",
+              "placement"
+            ]
+          },
+          "uniqueItems": true
+        },
+        "status": {
+          "enum": [
+            "recorded",
+            "missing",
+            "conflicting",
+            "analyst_review_required"
+          ]
+        },
+        "scope": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "phase": {
+          "enum": [
+            "pregame",
+            "postgame"
+          ]
+        },
+        "file": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "sha256": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "ref",
+        "observed_at",
+        "reviewed_at",
+        "kind",
+        "subjects",
+        "supports",
+        "status",
+        "scope"
+      ],
+      "additionalProperties": false
+    }
+  }
+}
