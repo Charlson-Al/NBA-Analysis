@@ -97,6 +97,27 @@ assigned automatically. All other A-range conditions remain human judgments.
 Source definitions, sample quality, scheme, ownership, materiality, strongest
 lane/alternative, payout value and confidence always require basketball judgment.
 
+The final consistency corrections preserve contradictory declarations rather than
+rewrite them: Research/Pass cannot contain finalized selections, selected
+candidates cannot be excluded/Pass or lack a grade, and duplicate selections are
+reported without deduplication. Candidate `research` disposition is the working
+assessment; membership in a slate `finalized_selection` decision supplies final
+analytical selection status. Placement remains separate.
+
+Market availability and final market rechecks require a recorded, observed,
+pregame market source for the candidate, with observation/review times before
+the relevant checkpoint. The final observation must also be within the research
+session and reviewed by final review. Forecasts and other references can retain
+exact-line diagnostic calculations but cannot establish an available market.
+No universal line-expiry threshold is introduced.
+
+Before DARKO normalization, source `unit` and `denominator` are checked against
+the input basis. Common per-game/per-minute spellings are recognized; conflicting
+basis declarations and possession/play rates prevent the calculation. Missing or
+unrecognized source bases require analyst review and leave comparison unresolved.
+There is no inferred rate conversion or change to original model values. This
+small dimensional check is not a comprehensive parser of provider definitions.
+
 ## Freeze and later reassessment
 
 `freeze` never finalizes a selection. It saves an exclusive owner-read snapshot:
@@ -152,7 +173,8 @@ six-candidate design are gone; the actual basketball work remains necessary.
 Permanent tests named M1–M6 cover the prior material defects: unsupported locks,
 irrelevant evidence, checkpoint approvals/timing, input changes, immutable original
 findings, exact-line precision and screening/market/lifecycle separation. Other
-synthetic tests cover schema, normalization/components, risk continuity, placement,
+synthetic tests cover decision contradictions/duplicates, observed market scope
+and timing, source-basis compatibility, schema, normalization/components, risk continuity, placement,
 private storage, corruption, interrupted writes, postgame separation and CLI use.
 Run the complete suite and unchanged V1.2 reconciliation:
 
@@ -162,7 +184,7 @@ python src/audit.py
 python -m pip check
 ```
 
-Validation of this redesign: 69 tests passed, with no skips. The unchanged V1.2
+Validation after the final three corrections: 79 tests passed, with no skips. The unchanged V1.2
 audit reconciled 1,290/1,290 values with zero errors/mismatches and the existing
 150 evidence warnings; it remains not game-day-ready. Pinned dependencies install
 successfully in the separate Python environment and `pip check` passes.

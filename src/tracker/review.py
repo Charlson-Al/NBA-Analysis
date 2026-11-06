@@ -1,6 +1,7 @@
 """Five stage structural checks, never basketball certification or automatic decisions."""
 from datetime import datetime
 from html import escape
+import re
 
 from ingestion.store import REPO, decode, digest, encode, validate
 from .calculations import exact_line, normalize
@@ -19,6 +20,25 @@ def when(value):
 
 def effective(at):
     return sorted(key for key, start in REFINEMENT_TIMES.items() if when(start) <= when(at))
+
+
+def normalization_units(projection, source):
+    """Recognize source dimensions, never infer a conversion from unfamiliar text."""
+    bases = set()
+    for field in ('unit', 'denominator'):
+        value = (source or {}).get(field) or ''
+        value = re.sub(r'[_-]+', ' ', value.casefold()).replace('/', ' per ')
+        if re.search(r'\b(?:100\s+(?:possessions?|plays?)|per\s+(?:possessions?|plays?))\b', value):
+            return 'conflicting', 'Possession/play rates cannot use game/minute normalization; original values retained'
+        for basis, pattern in (('per_game', r'\bper\s+games?\b'),
+                               ('per_minute', r'\bper\s+(?:minutes?|mins?)\b')):
+            if re.search(pattern, value):
+                bases.add(basis)
+    if bases and bases != {projection['basis']}:
+        return 'conflicting', 'DARKO basis conflicts with linked source units/denominator; comparison unresolved'
+    if not bases:
+        return 'analyst_review_required', 'Linked DARKO source basis is missing/unrecognized; no conversion inferred'
+    return None
 
 
 def authority_issues(note):
@@ -108,6 +128,13 @@ def check(note, additional=()):
                 issue(stage, 'conflicting', 'SOURCE_ORDER', owner, key + ': observation follows review')
         return used
 
+    def observed_market(source, subject, at):
+        return bool(source and source['kind'] == 'observed' and source['status'] == 'recorded'
+                    and source.get('phase', 'pregame') == 'pregame'
+                    and 'market' in source['supports'] and subject in source['subjects']
+                    and source['observed_at'] and source['reviewed_at']
+                    and when(source['observed_at']) <= when(source['reviewed_at']) <= at)
+
     for key, source in sources.items():
         if source.get('phase') == 'postgame':
             continue  # Kept in the working note; never counted as pregame support.
@@ -174,14 +201,18 @@ def check(note, additional=()):
         dc, darko, market = models.get((player, 'DC')), models.get((player, 'DARKO')), c['line']
         relationship = 'Unresolved'
         if dc and darko and c['market'] in dc['values']:
-            try:
-                benchmark = normalize(darko, dc['minutes'], c['market'])
-                if market:
-                    lines[owner] = exact_line(dc['values'][c['market']], benchmark, market['value'], c['direction'])
-                    lines[owner].update(DC_minutes=dc['minutes'], DARKO_minutes=darko['minutes'], DARKO_basis=darko['basis'], DARKO_original={key:darko['values'][key] for key in COMPONENTS.get(c['market'],(c['market'],))})
-                    relationship = lines[owner]['relationship']
-            except ValueError as exc:
-                issue('2', 'missing', 'NORMALIZATION', owner, str(exc))
+            unit_issue = normalization_units(darko, sources.get(darko['source']))
+            if unit_issue:
+                issue('2', unit_issue[0], 'NORMALIZATION_UNITS', owner, unit_issue[1])
+            else:
+                try:
+                    benchmark = normalize(darko, dc['minutes'], c['market'])
+                    if market:
+                        lines[owner] = exact_line(dc['values'][c['market']], benchmark, market['value'], c['direction'])
+                        lines[owner].update(DC_minutes=dc['minutes'], DARKO_minutes=darko['minutes'], DARKO_basis=darko['basis'], DARKO_original={key:darko['values'][key] for key in COMPONENTS.get(c['market'],(c['market'],))})
+                        relationship = lines[owner]['relationship']
+                except ValueError as exc:
+                    issue('2', 'missing', 'NORMALIZATION', owner, str(exc))
             for model in (dc, darko):
                 used += evidence([model['source']], 'model', player, '2', owner)
         else:
@@ -192,6 +223,9 @@ def check(note, additional=()):
             issue('5', 'missing', 'MARKET', owner, 'No selectable threshold recorded; this does not invalidate model screening')
         else:
             used += evidence([market['source']], 'market', player, '5', owner)
+            if not observed_market(sources.get(market['source']), player, cutoff):
+                issue('5', 'missing', 'MARKET_OBSERVATION', owner,
+                      'Availability requires scoped observed pregame market evidence available by checkpoint; line retained as reference only')
             if 'standard-only' in effective(checkpoint) and (market['provider'], market['tier'], market['period']) != ('PrizePicks', 'standard', 'full_game'):
                 state = 'conflicting' if owner in boundary or owner in comparison_members else 'analyst_review_required'
                 issue('5', state, 'MARKET_ELIGIBILITY', owner, 'Observed reference line is not eligible for current selection/ranking')
@@ -243,10 +277,14 @@ def check(note, additional=()):
         issue('5', 'missing', 'BOUNDARY_COMPARISON', 'slate', 'No recorded weakest-finalist/strongest-exclusion challenge; do not certify slate ranking')
     if boundary and not present(note['correlation']):
         issue('5', 'missing', 'CORRELATION', 'slate', 'Shared scripts/competition assessment missing')
+    if decision['selected'] and decision['status'] != 'finalized_selection':
+        issue('lock', 'conflicting', 'DECISION_STATUS', 'slate', 'Research/Pass decision contains finalized selections; original declaration retained')
+    if len(set(decision['selected'])) != len(decision['selected']):
+        issue('lock', 'conflicting', 'DUPLICATE_SELECTION', 'slate', 'Selected candidate repeated; original list retained, not deduplicated')
     for candidate in decision['selected']:
         if candidate not in candidates:
             issue('lock', 'conflicting', 'DECISION_LINK', candidate, 'Selected candidate not in note')
-        elif candidates[candidate]['disposition'] == 'pass' or candidates[candidate]['direction'] == 'Pass' or candidates[candidate]['grade'] in (None, 'Pass'):
+        elif candidates[candidate]['disposition'] != 'research' or candidates[candidate]['direction'] == 'Pass' or candidates[candidate]['grade'] in (None, 'Pass'):
             issue('lock', 'conflicting', 'DECISION_STATUS', candidate, 'Selection contradicts original assessment')
     if decision['status'] == 'finalized_selection' and (not decision['selected'] or not decision['at'] or not present(decision['reason'])):
         issue('lock', 'missing', 'FINALIZED_CLAIM', 'slate', 'Finalized declaration lacks candidates/time/rationale')
@@ -263,7 +301,9 @@ def check(note, additional=()):
             for support, subject in (('market', c['player']), ('personnel', players.get(c['player'], {}).get('game', c['player']))):
                 matching = [key for key in lock['sources'] if key in sources and support in sources[key]['supports'] and subject in sources[key]['subjects']]
                 checked = evidence(matching, support, subject, 'lock', selected)
-                if not any(s['observed_at'] and when(note['research_at']) <= when(s['observed_at']) <= when(lock['at'] or checkpoint) for s in checked):
+                review_at = when(lock['at'] or checkpoint)
+                if not any(s['observed_at'] and when(note['research_at']) <= when(s['observed_at']) <= review_at
+                           and (support != 'market' or observed_market(s, subject, review_at)) for s in checked):
                     issue('lock', 'missing', 'FINAL_RECHECK', selected, 'No within-session ' + support + ' observation linked to final review')
             if lock['at'] and any(s['reviewed_at'] and when(s['reviewed_at']) > when(lock['at']) for s in used_by_candidate.get(selected, [])):
                 issue('lock', 'analyst_review_required', 'STALE_LOCK', selected, 'Inputs changed after final recheck')

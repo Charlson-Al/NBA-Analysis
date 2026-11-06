@@ -280,3 +280,159 @@ class TrackerTests(unittest.TestCase):
         self.assertEqual(self.note['decision']['status'],'finalized_selection')
         self.save()
         with self.assertRaises(IngestionError):freeze(self.root,'session.json','postgame-confirmation')
+
+    def test_decision_consistency_valid_research_pass_and_finalized(self):
+        for status in ('research', 'pass', 'finalized_selection'):
+            with self.subTest(status=status):
+                self.note['decision']['status'] = status
+                if status == 'finalized_selection':
+                    self.finalized()
+                before = encode(self.note)
+                result = check(self.note)
+                self.assertFalse(any(i['code'] in ('DECISION_STATUS', 'DUPLICATE_SELECTION') for i in result['issues']))
+                self.assertEqual(before, encode(self.note))
+                self.assertEqual(result['lock_status'], 'analyst review required')
+
+    def test_decision_contradictions_preserve_original_declarations(self):
+        original = copy.deepcopy(self.note)
+        cases = [('slate', 'research'), ('slate', 'pass'), ('disposition', 'excluded'),
+                 ('disposition', 'pass'), ('direction', 'Pass'), ('grade', 'Pass'), ('grade', None)]
+        for field, value in cases:
+            with self.subTest(field=field, value=value):
+                self.note = copy.deepcopy(original)
+                self.finalized()
+                if field == 'slate':
+                    self.note['decision']['status'] = value
+                else:
+                    self.note['candidates'][0][field] = value
+                before = encode(self.note)
+                result = check(self.note)
+                self.assertIn('DECISION_STATUS', {i['code'] for i in result['issues']})
+                if field != 'slate':
+                    self.assertEqual(result['lock_status'], 'unsupported claim')
+                self.assertEqual(before, encode(self.note))
+
+    def test_duplicate_selections_are_reported_without_deduplication(self):
+        self.finalized()
+        self.note['decision']['selected'].append('A-AST')
+        before = encode(self.note)
+        self.assertIn('DUPLICATE_SELECTION', self.codes())
+        self.assertEqual(check(self.note)['lock_status'], 'unsupported claim')
+        self.assertEqual(before, encode(self.note))
+
+    def test_frozen_status_conflict_survives_working_correction(self):
+        self.finalized()
+        self.note['candidates'][0]['disposition'] = 'excluded'
+        self.save()
+        path = freeze(self.root, 'session.json', 'original-status')
+        original = {p.name: p.read_bytes() for p in path.iterdir()}
+        manifest, output = snapshot(self.root, self.note['id'], 'original-status')
+        self.assertIn('DECISION_STATUS', output)
+        self.note['candidates'][0]['disposition'] = 'research'
+        self.save()
+        self.assertNotIn('DECISION_STATUS', self.codes())
+        self.assertEqual((manifest, output), snapshot(self.root, self.note['id'], 'original-status'))
+        self.assertEqual(original, {p.name: p.read_bytes() for p in path.iterdir()})
+        self.assertIn('DECISION_STATUS', report(self.root, 'session.json').split('## Frozen history')[1])
+
+    def test_observed_market_and_current_recheck_are_accepted(self):
+        self.finalized()
+        self.assertEqual(check(self.note)['issues'], [])
+        # An older reference can be observed, but final review needs a fresh observation.
+        self.note['sources']['OLD'] = {**self.note['sources']['S6'],
+            'observed_at': '2026-11-06T12:00:00Z', 'reviewed_at': '2026-11-06T12:01:00Z'}
+        self.note['candidates'][0]['line']['source'] = 'OLD'
+        self.assertNotIn('MARKET_OBSERVATION', self.codes())
+        self.assertNotIn('FINAL_RECHECK', self.codes())
+        self.assertEqual(check(self.note)['lock_status'], 'analyst review required')
+
+    def test_forecast_inference_and_annotations_do_not_prove_market_availability(self):
+        self.finalized()
+        for kind in ('forecast', 'inference', 'historical_annotation'):
+            with self.subTest(kind=kind):
+                self.note['sources']['S6']['kind'] = kind
+                before = encode(self.note)
+                result = check(self.note)
+                self.assertTrue({'MARKET_OBSERVATION', 'FINAL_RECHECK'} <= {i['code'] for i in result['issues']})
+                self.assertEqual(result['lock_status'], 'unsupported claim')
+                self.assertEqual(len(result['coverage']['SYN_A']), 8)
+                self.assertIn('A-AST', result['calculations'])  # Reference-line arithmetic is retained.
+                self.assertEqual(before, encode(self.note))
+
+    def test_market_scope_status_and_observation_timing_are_required(self):
+        self.finalized()
+        original = copy.deepcopy(self.note)
+        cases = [('supports', ['model']), ('subjects', ['unrelated-player']),
+                 ('phase', 'postgame'), ('status', 'missing'), ('observed_at', None),
+                 ('reviewed_at', None), ('observed_at', '2026-11-07T12:07:00Z'),
+                 ('reviewed_at', '2026-11-07T12:07:00Z')]
+        for field, value in cases:
+            with self.subTest(field=field, value=value):
+                self.note = copy.deepcopy(original)
+                self.note['sources']['S6'][field] = value
+                result = check(self.note)
+                self.assertIn('MARKET_OBSERVATION', {i['code'] for i in result['issues']})
+                self.assertEqual(result['lock_status'], 'unsupported claim')
+        # Correctly observed line does not let a different invalid recheck source pass.
+        for changes in ({'kind': 'forecast'}, {'supports': ['model']}, {'subjects': ['other']},
+                        {'observed_at': '2026-10-01T12:00:00Z'},
+                        {'observed_at': '2026-11-07T12:05:30Z', 'reviewed_at': '2026-11-07T12:05:30Z'}):
+            with self.subTest(recheck=changes):
+                self.note = copy.deepcopy(original)
+                self.note['sources']['FINAL'] = {**self.note['sources']['S6'], **changes}
+                self.note['lock_review']['sources'] = ['S1', 'FINAL']
+                result = check(self.note)
+                self.assertNotIn('MARKET_OBSERVATION', {i['code'] for i in result['issues']})
+                self.assertIn('FINAL_RECHECK', {i['code'] for i in result['issues']})
+                self.assertEqual(result['lock_status'], 'unsupported claim')
+
+    def test_normalization_compatible_source_basis_preserves_canonical_results(self):
+        original = copy.deepcopy(self.note)
+        for basis, denominator, unit in (('per_game', 'per_game', 'count'),
+                ('per_game', 'PER-GAME', 'counts per game'),
+                ('per_minute', 'per_minute', 'count'), ('per_minute', 'per minute', 'count/minute')):
+            with self.subTest(basis=basis, denominator=denominator, unit=unit):
+                self.note = copy.deepcopy(original)
+                for d in self.note['projections']:
+                    if d['provider'] == 'DARKO':
+                        d['basis'] = basis
+                        if basis == 'per_minute':
+                            d['values'] = {k: v / 24 for k, v in d['values'].items()}
+                            d['minutes'] = None
+                self.note['sources']['S3'].update(denominator=denominator, unit=unit)
+                before = encode(self.note)
+                result = check(self.note)
+                self.assertNotIn('NORMALIZATION_UNITS', {i['code'] for i in result['issues']})
+                self.assertEqual(result['calculations']['A-AST']['DARKO_normalized'], '8' if basis == 'per_game' else '8.00')
+                self.assertEqual(result['calculations']['A-AST']['relationship'], 'Agree Higher')
+                self.assertEqual(before, encode(self.note))
+
+    def test_normalization_source_unit_conflicts_block_comparison(self):
+        self.finalized()
+        original = copy.deepcopy(self.note)
+        cases = [('per_game', 'per_minute', 'count'), ('per_minute', 'per_game', 'count'),
+                 ('per_game', 'per_100_possessions', 'count'), ('per_minute', 'per_100_possessions', 'count'),
+                 ('per_minute', 'per minute', 'counts / 100 possessions'),
+                 ('per_game', 'per game', 'points per minute')]
+        for basis, denominator, unit in cases:
+            with self.subTest(basis=basis, denominator=denominator, unit=unit):
+                self.note = copy.deepcopy(original)
+                self.note['projections'][1]['basis'] = basis
+                self.note['sources']['S3'].update(denominator=denominator, unit=unit)
+                before = encode(self.note)
+                result = check(self.note)
+                self.assertTrue(any(i['code'] == 'NORMALIZATION_UNITS' and i['state'] == 'conflicting' for i in result['issues']))
+                self.assertNotIn('A-AST', result['calculations'])
+                self.assertEqual(result['lock_status'], 'unsupported claim')
+                self.assertEqual(before, encode(self.note))
+
+    def test_unknown_source_basis_does_not_infer_a_conversion(self):
+        original = copy.deepcopy(self.note)
+        for denominator in (None, 'provider-specific rate', 'per 36 minutes'):
+            with self.subTest(denominator=denominator):
+                self.note = copy.deepcopy(original)
+                self.note['sources']['S3']['denominator'] = denominator
+                result = check(self.note)
+                self.assertTrue(any(i['code'] == 'NORMALIZATION_UNITS' and i['state'] == 'analyst_review_required' for i in result['issues']))
+                self.assertNotIn('A-AST', result['calculations'])
+                self.assertEqual(self.note['projections'][1]['values']['AST'], 6)

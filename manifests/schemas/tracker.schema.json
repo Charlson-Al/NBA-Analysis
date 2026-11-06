@@ -508,7 +508,7 @@
             "type": "string",
             "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$"
           },
-          "uniqueItems": true
+          "$comment": "Retain duplicate historical declarations for explicit consistency reporting; never deduplicate automatically."
         },
         "reason": {
           "type": [
