@@ -47,6 +47,30 @@ game. Screen the complete requested scope before deep-diving likely candidates.
 Reuse still-current evidence across players; revisit affected conclusions when
 material facts change, without restarting unrelated research.
 
+### Execution order and efficiency
+
+- Load and verify the governing rules once at session intake. Reuse that context;
+  reassess applicable approvals when checkpoints or instructions change.
+- Collect shared game/personnel data, original models, opportunity tracking and
+  market observations before repeated candidate reasoning. Batch supported reads
+  and fetch independent providers concurrently. Reuse already available authorized
+  observations with their original times, cutoffs and scope; never relabel them fresh.
+- Mark a failed/inaccessible source unavailable with its reason. Do not repeatedly
+  search or retry it without a material access change or explicit update request.
+  Expose a critical gap; do not silently substitute weaker evidence.
+- Assess each team's environment once. Screen broadly, then focus validation where
+  it could change inclusion, grade or rank. Reuse a player's opportunity evidence
+  across component/combined markets without awarding duplicate credit.
+- Batch deterministic calculations. Keep working research together, then generate
+  the private note and concise board once, with one compliance pass at the
+  preliminary-board boundary. Recheck only affected findings after material changes.
+  Do not repeatedly rewrite notes, render transcripts, or freeze working drafts.
+- When measuring performance, record source/tool calls, failures, duplicate reads,
+  stage elapsed times and input/scope identity in a private one-off experiment.
+  Separate tool/provider time from agent orchestration/reasoning and user waits;
+  label unmeasured time unknown. Cached replay is not completed research. Claim
+  end-to-end improvement only for comparable completed runs with equivalent scope.
+
 1. **Environment/personnel (§§1A–1E).** Independently evaluate both teams: pace,
    possessions, efficiency/Four Factors, shot/opportunity channels, resistance,
    personnel, recent rotations, closing roles and material scheduling/scripts.
@@ -119,7 +143,9 @@ material facts change, without restarting unrelated research.
   invented universal market-age threshold.
 - Keep research, finalized analytical selections, and explicit placement evidence
   separate. Enter only the analyst/user's actual decision; the tool never chooses.
-- Freeze a pregame-only note under a new readable label. Snapshots preserve exact
+- Freeze final decisions only after the user explicitly triggers final lock and
+  the actual decision is recorded; a preliminary board never triggers it. Use a
+  pregame-only note under a new readable label. Snapshots preserve exact
   note bytes, original findings, governing references and attached original source
   bytes. Never overwrite a snapshot or historical grade. Later working-note edits
   do not erase the frozen findings shown by ordinary reports.

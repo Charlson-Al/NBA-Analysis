@@ -112,6 +112,15 @@ near-line splits. Unavailable markets and model disagreement are distinct facts.
 Revisit affected conclusions when material facts change; do not restart unrelated
 research or repeatedly fetch the same unchanged source.
 
+Use the skill's collection-first execution order: load rules once, batch authorized
+source reads/concurrent independent providers, assess shared environments once,
+screen broadly, then validate promising cases. Preserve observation times and
+cutoffs when reusing evidence. Record inaccessible sources instead of retry loops.
+Batch calculations and generate the private note/board once; run compliance at
+that boundary and revisit affected checks only after material changes. Final
+decision freezing requires an explicit user final-lock trigger. No additional
+performance service, scheduler or permanent measurement system is introduced.
+
 Codex validates each advanced candidate's independent opportunities, role,
 resistance and sustainability; explains its preliminary factors and outlook;
 then compares actual observed standard full-game PrizePicks thresholds. Original
