@@ -1,0 +1,101 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:nba-analysis:validation:1.0",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "snapshot_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$"
+    },
+    "parser_version": {
+      "const": "synthetic-json-1"
+    },
+    "manifest_sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "status": {
+      "const": "passed"
+    },
+    "row_count": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "team_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$"
+      }
+    },
+    "included_games": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "game_id": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$"
+          },
+          "game_date": {
+            "type": "string",
+            "format": "date"
+          },
+          "team_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$"
+            },
+            "minItems": 2,
+            "maxItems": 2,
+            "uniqueItems": true
+          }
+        },
+        "required": [
+          "game_id",
+          "game_date",
+          "team_ids"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "latest_game_by_team": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string",
+        "format": "date"
+      }
+    },
+    "cutoff_verification_status": {
+      "enum": [
+        "unverified",
+        "verified"
+      ]
+    },
+    "checks": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  },
+  "required": [
+    "schema_version",
+    "snapshot_id",
+    "parser_version",
+    "manifest_sha256",
+    "status",
+    "row_count",
+    "team_ids",
+    "included_games",
+    "latest_game_by_team",
+    "cutoff_verification_status",
+    "checks"
+  ],
+  "additionalProperties": false
+}

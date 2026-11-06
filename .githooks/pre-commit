@@ -1,0 +1,3 @@
+#!/bin/sh
+# No payload output; can also be run directly in CI or before publishing.
+PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src python3 -m ingestion.public_guard

@@ -1,0 +1,33 @@
+{
+  "synthetic": true,
+  "observations": [
+    {
+      "schema_version": "1.0",
+      "team_id": "SYN_A",
+      "game_id": "SYN_GAME_1",
+      "game_date": "2026-01-01",
+      "metric_id": "synthetic_points",
+      "unit": "points",
+      "denominator": "team_game",
+      "value": 10,
+      "value_status": "present",
+      "verification_status": "unverified",
+      "reason": null,
+      "source_row": 1
+    },
+    {
+      "schema_version": "1.0",
+      "team_id": "SYN_B",
+      "game_id": "SYN_GAME_1",
+      "game_date": "2026-01-01",
+      "metric_id": "synthetic_points",
+      "unit": "points",
+      "denominator": "team_game",
+      "value": null,
+      "value_status": "missing",
+      "verification_status": "unverified",
+      "reason": "Synthetic measurement absent",
+      "source_row": 2
+    }
+  ]
+}

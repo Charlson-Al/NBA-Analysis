@@ -1,0 +1,290 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:nba-analysis:snapshot:1.0",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "snapshot_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$"
+    },
+    "provider": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$"
+    },
+    "data_category": {
+      "const": "observed_statistics"
+    },
+    "synthetic": {
+      "const": true
+    },
+    "rights": {
+      "const": "synthetic-public"
+    },
+    "acquisition": {
+      "type": "object",
+      "properties": {
+        "method": {
+          "enum": [
+            "manual_upload",
+            "api_response_file"
+          ]
+        },
+        "source_reference": {
+          "type": "string",
+          "minLength": 1
+        },
+        "parameters": {
+          "type": "object",
+          "additionalProperties": {
+            "type": [
+              "string",
+              "number",
+              "boolean",
+              "null"
+            ]
+          }
+        },
+        "collected_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "imported_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "provider_updated_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "method",
+        "source_reference",
+        "parameters",
+        "collected_at",
+        "imported_at",
+        "provider_updated_at"
+      ],
+      "additionalProperties": false
+    },
+    "scope": {
+      "type": "object",
+      "properties": {
+        "season": {
+          "type": "string",
+          "minLength": 1
+        },
+        "season_type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "filters": {
+          "type": "object",
+          "additionalProperties": {
+            "type": [
+              "string",
+              "number",
+              "boolean",
+              "null"
+            ]
+          }
+        },
+        "expected_team_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "season",
+        "season_type",
+        "filters",
+        "expected_team_ids"
+      ],
+      "additionalProperties": false
+    },
+    "cutoff": {
+      "type": "object",
+      "properties": {
+        "requested_through": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date"
+        },
+        "verification_status": {
+          "enum": [
+            "unverified",
+            "verified"
+          ]
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        },
+        "inventory_sha256": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "requested_through",
+        "verification_status",
+        "reason",
+        "inventory_sha256"
+      ],
+      "additionalProperties": false
+    },
+    "metrics": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$"
+          },
+          "definition": {
+            "type": "string",
+            "minLength": 1
+          },
+          "unit": {
+            "type": "string",
+            "minLength": 1
+          },
+          "denominator": {
+            "type": "string",
+            "minLength": 1
+          },
+          "aggregation": {
+            "type": "string",
+            "minLength": 1
+          },
+          "definition_reference": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "id",
+          "definition",
+          "unit",
+          "denominator",
+          "aggregation",
+          "definition_reference"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    },
+    "artifacts": {
+      "type": "object",
+      "properties": {
+        "original.json": {
+          "type": "object",
+          "properties": {
+            "sha256": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "size_bytes": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          "required": [
+            "sha256",
+            "size_bytes"
+          ],
+          "additionalProperties": false
+        },
+        "observations.json": {
+          "type": "object",
+          "properties": {
+            "sha256": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "size_bytes": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          "required": [
+            "sha256",
+            "size_bytes"
+          ],
+          "additionalProperties": false
+        },
+        "inventory.json": {
+          "type": "object",
+          "properties": {
+            "sha256": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "size_bytes": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          "required": [
+            "sha256",
+            "size_bytes"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "original.json",
+        "observations.json",
+        "inventory.json"
+      ],
+      "additionalProperties": false
+    },
+    "parser_version": {
+      "const": "synthetic-json-1"
+    },
+    "original_filename": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "required": [
+    "schema_version",
+    "snapshot_id",
+    "provider",
+    "data_category",
+    "synthetic",
+    "rights",
+    "acquisition",
+    "scope",
+    "cutoff",
+    "metrics",
+    "artifacts",
+    "parser_version",
+    "original_filename"
+  ],
+  "additionalProperties": false
+}
